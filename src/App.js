@@ -1,15 +1,18 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
-import Intro from "./pages/Intro";import Bookmark from './pages/Bookmark';
+import Intro from "./pages/Intro";
+import Bookmark from "./pages/Bookmark";
+import Signup from "./pages/Signup";
 
 function App() {
   return (
-    <div >
+    <div>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path ="/Intro" element ={<Intro/>}/>
+          <Route path="/Intro" element={<Intro />} />
           <Route path="/write" element={<Bookmark />} />
+          <Route path="/Signup" element={<Signup />} />
         </Routes>
       </BrowserRouter>
     </div>
@@ -17,4 +20,3 @@ function App() {
 }
 
 export default App;
-
