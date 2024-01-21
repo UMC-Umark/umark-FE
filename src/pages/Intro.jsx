@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../components/Header'; // Header 컴포넌트 경로가 맞는지 확인해주세요.
 import '../components/Header.css'; // Header 컴포넌트에 필요한 스타일시트
-import icon1 from '../img/intro-icon.png';
+import icon1 from '../img/intro.png';
 
 function Intro() {
   return (
