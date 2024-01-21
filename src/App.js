@@ -2,7 +2,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Intro from "./pages/Intro";
 import Bookmark from "./pages/Bookmark";
-import Report from "./pages/Reporting";
 import Findpassword from "./pages/Findpassword";
 
 function App() {
@@ -13,7 +12,6 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/Intro" element={<Intro />} />
           <Route path="/write" element={<Bookmark />} />
-          <Route path="/Reporting" element={<Report />} />
           <Route path="/Findpassword" element={<Findpassword />} />
         </Routes>
       </BrowserRouter>
