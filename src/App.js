@@ -1,7 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
-import Recommend from "./pages/Recommend";
-
+import Intro from "./pages/Intro";
+import Bookmark from './pages/Bookmark';
+import Report from "./pages/Reporting";
 
 function App() {
   return (
@@ -9,7 +10,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path ="/Recommend" element ={<Recommend/>}/>
+          <Route path ="/Intro" element ={<Intro/>}/>
+          <Route path="/write" element={<Bookmark />} />
+          <Route path="/Reporting" element={<Report/>}/>
         </Routes>
       </BrowserRouter>
     </div>
