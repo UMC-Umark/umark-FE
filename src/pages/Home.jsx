@@ -20,7 +20,7 @@ import Header from '../components/Header';
         <div className="custom-link-container">
           <div>          
             <Link className="bg-transparent text-white text-lg border-b border-white p-2 mr-8 cursor-pointer" to="/intro">사용방법 보러가기</Link>
-            <Link className="bg-transparent text-green-500 text-lg border-b border-green-500 p-2 cursor-pointer" to="/Reporting">로그인 하러가기</Link></div>
+            <Link className="bg-transparent text-green-500 text-lg border-b border-green-500 p-2 cursor-pointer" to="/Login">로그인 하러가기</Link></div>
           </div>
         </div>
       </main>
