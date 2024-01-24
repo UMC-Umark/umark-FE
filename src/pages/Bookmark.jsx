@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Menubar from '../components/Menubar';
 
 function Bookmark() {
   const [title, setTitle] = useState('');
@@ -24,7 +25,8 @@ function Bookmark() {
   };
 
   return (
-    <div> 
+    <div>
+      <Menubar />
       <div className="flex items-center justify-center h-screen flex-col">
         <form onSubmit={handleSubmit} className="w-1/4 bg-gray-100 p-6 rounded-lg shadow-lg">
           <div className="mb-4 flex items-center">
