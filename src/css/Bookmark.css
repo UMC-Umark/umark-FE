@@ -155,7 +155,7 @@ h6,
     position: relative;
     display: flex;
     height: 42rem;
-    width: 90%;
+    /* width: 90%; */
     flex-direction: column;
     background-color: #F4F4F4;
     background-clip: border-box;

@@ -21,7 +21,7 @@ export default function Recommend() {
   return (
     <section className="w3l-courses">
       <div className="blog pb-5" id="courses">
-        <div className="container py-5">
+        <div className="container py-4">
           <h3 className="title-big text-start d-sm-none">추천 북마크</h3>
           <div className="row">
             {cardsData.map((card, index) => (
