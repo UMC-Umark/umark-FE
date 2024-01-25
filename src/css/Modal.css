@@ -1,0 +1,43 @@
+.modal-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+
+.custom-agree {
+    font-size:3rem;
+    padding-bottom: 9rem;
+}
+
+.custom-checkbutton {
+    font-size: 1.875rem;
+}
+
+/* 모바일 화면에서의 스타일 */
+@media (max-width:768px){
+    .custom-agree {
+        font-size:2.5rem;
+    }
+    .modal-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 113vh;
+      }
+      .custom-agree {
+        font-size:2.3rem;
+        padding-top:5rem;
+        padding-bottom: 4rem;
+    }
+    .custom-checkbutton {
+        font-size: 1.875rem;
+        height:5rem;
+        width:5rem;
+        white-space: nowrap;
+        width:45%;
+        padding: 14px 0;
+    }
+}

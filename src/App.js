@@ -7,6 +7,8 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Report from "./pages/Reporting";
 import Recommend from "./pages/Recommend";
+import MyBookmark from "./pages/MyBookmark";
+import ResetPassword from "./pages/ResetPassword";
 
 function App() {
   return (
@@ -21,8 +23,10 @@ function App() {
           <Route path="/Login" element={<Login />} />
           <Route path="/Intro" element={<Intro />} />
           <Route path="/write" element={<Bookmark />} />
+          <Route path="/mybookmark" element={<MyBookmark />} />
           <Route path="/Reporting" element={<Report />} />
           <Route path="/Recommend" element={<Recommend />} />
+          <Route path="/ResetPassword" element={<ResetPassword />} />
         </Routes>
       </BrowserRouter>
     </div>
