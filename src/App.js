@@ -8,6 +8,7 @@ import Signup from "./pages/Signup";
 import Report from "./pages/Reporting";
 import Recommend from "./pages/Recommend";
 import MyBookmark from "./pages/MyBookmark";
+import Findpassword from "./pages/Findpassword";
 import ResetPassword from "./pages/ResetPassword";
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <Route path="/mybookmark" element={<MyBookmark />} />
           <Route path="/Reporting" element={<Report />} />
           <Route path="/Recommend" element={<Recommend />} />
+          <Route path="/Findpassword" element={<Findpassword />} />
           <Route path="/ResetPassword" element={<ResetPassword />} />
         </Routes>
       </BrowserRouter>
