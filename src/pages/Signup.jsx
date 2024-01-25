@@ -119,7 +119,7 @@ export default function Signup() {
           <br />
           <button
             type="button"
-            className="custom-sendbutton bg-white text-black w-1/6 px-8 py-5 rounded-full mr-4 font-bold"
+            className="custom-sendbutton bg-white text-black w-1/6 px-20 py-5 rounded-full mr-4 font-bold"
           >
             인증번호 전송
           </button>
@@ -128,7 +128,7 @@ export default function Signup() {
             maxLength="6"
             value={inputValue}
             onChange={handleInputChange}
-            className="custom-input2 bg-black text-white w-1/5 mr-4 px-20 py-6 rounded-full text-left focus:outline-none border-2 border-white placeholder-gray-300"
+            className="custom-input2 bg-black text-white w-1/5 mr-4 px-20 py-5 rounded-full text-left focus:outline-none border-2 border-white placeholder-gray-300"
           />
           <button className="custom-endbutton1 bg-black text-white px-20 py-5 rounded-full focus:outline-none border-2 border-white">
             완료
