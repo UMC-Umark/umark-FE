@@ -79,7 +79,7 @@ export default function Signup() {
     );
   };
   return (
-    <div>
+    <div className="h-screen bg-black text-white">
       <div className="w-full flex justify-between items-center">
         <Link className="custom-arrow" to="/Agreement">
           <img src={arrow} alt="arrow" />
@@ -92,7 +92,7 @@ export default function Signup() {
       <br />
       <hr />
       <div className="mb-20" />
-      <div className="custom-signupform1 border border-1 border-white rounded-3xl w-2/3 m-auto h-1/2">
+      <div className="custom-signupform1 border border-1 border-white rounded-3xl w-2/3 m-auto">
         <br />
         <div className="flex items-center justify-center">
           <img src={logo} alt="umark" />
@@ -101,7 +101,7 @@ export default function Signup() {
         <p className="custom-info">회원가입 정보를 입력해 주세요</p>
         <div className="mb-10" />
         <div className="custom-signupform2 text-center inline-block relative">
-          <span className="custom-label absolute ml-4 left-50 top-50 text-white mt-5">
+          <span className="custom-label absolute ml-4 left-50 top-50 text-white mt-4">
             이메일
           </span>
           <input
@@ -119,7 +119,7 @@ export default function Signup() {
           <br />
           <button
             type="button"
-            className="custom-sendbutton bg-white text-black w-1/6 px-8 py-5 rounded-full mr-4 font-bold"
+            className="custom-sendbutton bg-white text-black w-1/6 px-20 py-5 rounded-full mr-4 font-bold"
           >
             인증번호 전송
           </button>
@@ -128,7 +128,7 @@ export default function Signup() {
             maxLength="6"
             value={inputValue}
             onChange={handleInputChange}
-            className="custom-input2 bg-black text-white w-1/5 mr-4 px-20 py-6 rounded-full text-left focus:outline-none border-2 border-white placeholder-gray-300"
+            className="custom-input2 bg-black text-white w-1/5 mr-4 px-20 py-5 rounded-full text-left focus:outline-none border-2 border-white placeholder-gray-300"
           />
           <button className="custom-endbutton1 bg-black text-white px-20 py-5 rounded-full focus:outline-none border-2 border-white">
             완료
@@ -136,7 +136,7 @@ export default function Signup() {
           <div className="text-red-600">{verifyError}</div>
           {/* {isValid && <div className="text-green-600">인증이 완료되었습니다</div>}<br /> */}
           <br />
-          <span className="custom-label absolute ml-4 left-50 top-50 text-white mt-5">
+          <span className="custom-label absolute ml-4 left-50 top-50 text-white mt-4">
             비밀번호
           </span>
           <input
@@ -153,7 +153,7 @@ export default function Signup() {
             <div className="text-green-600">올바른 비밀번호 형식입니다.</div>
           )}
           <br />
-          <span className="custom-label absolute ml-4 left-50 top-70 text-white mt-5">
+          <span className="custom-label absolute ml-4 left-50 top-70 text-white mt-4">
             비밀번호 확인
           </span>
           <input
@@ -170,7 +170,7 @@ export default function Signup() {
           )}
           <br />
           <div className="mb-7" />
-          <span className="custom-label absolute ml-4 left-50 top-70 text-white mt-5">
+          <span className="custom-label absolute ml-4 left-50 top-70 text-white mt-4">
             이름
           </span>
           <input
@@ -189,7 +189,7 @@ export default function Signup() {
               완료
             </button>
           </Link>
-          <div className="mb-40" />
+          <div className="mb-20" />
         </div>
       </div>
     </div>
