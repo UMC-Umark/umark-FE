@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Card from '../components/Card';
 import Modal from '../components/Modal'; // Modal 컴포넌트 추가
-import '../css/bookmark.css';
+import '../css/Bookmark.css';
 import { cardsData } from '../components/Data';
 
 export default function Recommend() {

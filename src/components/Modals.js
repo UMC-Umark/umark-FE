@@ -1,7 +1,7 @@
 import React from 'react';
-import '../css/bookmark.css'; // 추가된 부분
+import '../css/Bookmark.css'; // 추가된 부분
 
-export default function Modal({ isOpen, onClose, itemIndex }) {
+export default function Modals({ isOpen, onClose, itemIndex }) {
     if (!isOpen) return null;
 
     return (
