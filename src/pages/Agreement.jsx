@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import logo from "../img/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import Modal from "../components/Modal.jsx";
+import arrow from "../img/arrow.png";
+import "../css/Agree.css";
 
 export default function Agreement() {
   const [allAgreed, setAllAgreed] = useState(false);
@@ -50,20 +52,20 @@ export default function Agreement() {
 
   return (
     <div>
-      <div className="inline-block w-full">
-        <Link to="/">
-          <p className="px-5 py-2 rounded-3xl inline-block text-5xl mr-80">←</p>
+      <br />
+      <div className="w-full flex justify-between items-center">
+        <Link className="custom-arrow" to="/Login">
+          <img src={arrow} alt="arrow" />
         </Link>
-        <h1 className="text-6xl font-bold text-center inline-block ml-80 w-1/2">
+        <h1 className="custom-signuptitle text-center inline-block w-1/2">
           sign up
         </h1>
-        <br />
-        <br />
+        <div className="mb-12" />
       </div>
       <br />
       <hr />
       <div className="mb-20" />
-      <div className="border border-1 border-white rounded-3xl w-2/3 m-auto h-1/2">
+      <div className="custom-agreeform border border-1 border-white rounded-3xl w-2/3 m-auto h-1/2">
         <br />
         <div className="flex items-center justify-center">
           <img src={logo} alt="umark" />
@@ -77,53 +79,68 @@ export default function Agreement() {
           </label>
           <div className="mb-20" />
           <div className="text-center relative">
-            <input
-              type="checkbox"
-              id="agree_check_used"
-              name="termsAgreed"
-              required
-              checked={agreements.termsAgreed}
-              onChange={handleAgreementChange}
-              className="w-7 h-7"
-            />
+            <div className="custom-check">
+              <input
+                type="checkbox"
+                id="agree_check_used"
+                name="termsAgreed"
+                required
+                checked={agreements.termsAgreed}
+                onChange={handleAgreementChange}
+                className="w-7 h-7"
+              />
 
-            <label htmlFor="agree_check_used" className="text-3xl ml-2">
-              [필수]umark 계정 약관
-            </label>
-            <div className="mb-10" />
-            <input
-              type="checkbox"
-              id="agree_check_info"
-              name="personalInfoAgreed"
-              required
-              checked={agreements.personalInfoAgreed}
-              onChange={handleAgreementChange}
-              className="w-7 h-7"
-            />
-            <label htmlFor="agree_check_info" className="text-3xl ml-2">
-              [필수]개인정보 수집 및 이용 동의
-            </label>
-            <div className="mb-10" />
-            <div className="flex items-center justify-center">
-              <hr className="w-2/3" />
+              <label
+                htmlFor="agree_check_used"
+                className="custom-text text-3xl ml-2"
+              >
+                [필수] umark 계정 약관
+              </label>
             </div>
             <div className="mb-10" />
-            <input
-              type="checkbox"
-              id="agree_check_all"
-              name="agree_check_all"
-              checked={allAgreed}
-              onChange={handleAllAgreementChange}
-              className="w-7 h-7"
-            />
-            <label htmlFor="agree_check_all" className="text-3xl ml-2">
-              모두 동의하기
-            </label>
+            <div className="custom-check">
+              <input
+                type="checkbox"
+                id="agree_check_info"
+                name="personalInfoAgreed"
+                required
+                checked={agreements.personalInfoAgreed}
+                onChange={handleAgreementChange}
+                className="w-7 h-7"
+              />
+              <label
+                htmlFor="agree_check_info"
+                className="custom-text text-3xl ml-2"
+              >
+                [필수] 개인정보 수집 및 이용 동의
+              </label>
+            </div>
+            <div className="mb-10" />
+            <div className="flex items-center justify-center">
+              <hr className="custom-ho w-2/3" />
+            </div>
+            <div className="mb-10" />
+            <div className="custom-check">
+              <input
+                type="checkbox"
+                id="agree_check_all"
+                name="agree_check_all"
+                checked={allAgreed}
+                onChange={handleAllAgreementChange}
+                className="w-7 h-7"
+              />
+              <label
+                htmlFor="agree_check_all"
+                className="custom-text text-3xl ml-2"
+              >
+                모두 동의하기
+              </label>
+            </div>
             <div className="mb-40" />
             <button
               type="button"
               id="open"
-              className={`bg-white text-black px-60 py-4 rounded-full font-bold text-4xl
+              className={`custom-nextbutton1 bg-white text-black px-60 py-4 rounded-full font-bold
               }`}
               onClick={handleNextButtonClick}
             >
