@@ -6,7 +6,7 @@ import arrow from "../img/arrow.png";
 
 export default function Login() {
   return (
-    <div>
+    <div className="h-screen bg-black text-white">
       <br />
       <div className="w-full flex justify-between items-center">
         <Link className="custom-arrow" to="/">
@@ -32,7 +32,7 @@ export default function Login() {
         <div className="custom-form1 text-center inline-block rounded-lg border-white w-full">
           <div className="mb-10" />
           <div className="relative">
-            <span className="custom-loginlabel absolute left-50 top-50 text-white mt-5 ml-5">
+            <span className="custom-loginlabel absolute left-50 top-50 text-white mt-4 ml-5">
               이메일
             </span>
             <input
@@ -42,7 +42,7 @@ export default function Login() {
             />
             <br />
             <br />
-            <span className="custom-loginlabel absolute left-50 top-50 text-white mt-5 ml-5">
+            <span className="custom-loginlabel absolute left-50 top-50 text-white mt-4 ml-5">
               비밀번호
             </span>
             <input
