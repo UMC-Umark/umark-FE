@@ -51,7 +51,7 @@ export default function Agreement() {
   };
 
   return (
-    <div>
+    <div className="h-screen bg-black text-white">
       <br />
       <div className="w-full flex justify-between items-center">
         <Link className="custom-arrow" to="/Login">
@@ -65,7 +65,7 @@ export default function Agreement() {
       <br />
       <hr />
       <div className="mb-20" />
-      <div className="custom-agreeform border border-1 border-white rounded-3xl w-2/3 m-auto h-1/2">
+      <div className="custom-agreeform border border-1 border-white rounded-3xl w-2/3 m-auto">
         <br />
         <div className="flex items-center justify-center">
           <img src={logo} alt="umark" />
