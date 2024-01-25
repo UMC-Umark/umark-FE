@@ -1,0 +1,77 @@
+.custom-logintitle {
+    font-size:3.75rem;
+}
+
+.custom-info {
+    text-align: center;
+    font-size: 2.25rem;
+}
+
+.custom-loginbutton1 {
+    display:inline-block;
+    font-size:2rem;
+    text-align: center;
+}
+
+.custom-logininput::placeholder {
+    text-align:right;
+}
+
+.custom-loginlabel {
+    font-size: 1.5rem;
+}
+
+/* 모바일 화면에서의 스타일 */
+@media (max-width:768px){
+
+    .custom-logintitle{
+        font-size:4rem;
+        text-align:right;
+        display:block;
+        
+    }
+
+    .custom-arrow {
+        padding-left:50px;
+        padding-right:50px;
+    }
+
+    .custom-info {
+        font-size:2rem;
+        text-align: left;
+        margin-left:0.8rem;
+    }
+
+    .custom-form1 {
+        text-align: center;
+        justify-items: center;
+        width: 100%;
+        margin: 0 auto; /* 가운데 정렬을 위해 추가 */
+    }
+
+    .custom-logininput {
+        width: 90%;
+        color:white;
+            max-width: 100%; /* 최대 너비를 100%로 설정하여 가로폭에 꽉 차게 함 */
+            height:4.5rem;
+            padding-left: 5rem;  
+    }
+    .custom-loginbutton1 {
+        height:5rem;
+        width:4rem;
+        white-space: nowrap;
+        width:90%;
+        padding: 14px 0; /* 내부 패딩을 추가하여 버튼의 세로 중앙으로 텍스트를 위치시킴 */
+    }
+    .custom-logininput::placeholder {
+        margin-left:-13rem;
+        padding-left:3rem;
+    }
+    .custom-loginform {
+        width:85%;
+    }
+    .custom-loginlabel {
+        font-size:1.2rem;
+        margin-top:20px;
+    }
+}
