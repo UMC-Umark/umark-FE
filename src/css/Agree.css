@@ -1,20 +1,39 @@
 .custom-signuptitle {
-    font-size:3.75rem;
+    font-size:2.8rem;
+    margin-left:-5rem;
 }
 
 .custom-nextbutton1 {
     display:inline-block;
-    font-size:2rem;
+    font-size:1.4rem;
     text-align: center;
+
 }
+
+.custom-ho {
+    width:53%;
+}
+.custom-agreee {
+    font-size: 1.4rem;
+}
+
+.custom-text {
+    font-size: 1.2rem;
+}
+
 /* 모바일 화면에서의 스타일 */
+
+
+@media (min-width: 576px) { 
+ } 
+
+
 @media (max-width:768px){
 
     .custom-signuptitle{
-        font-size:4rem;
+        font-size:3rem;
         text-align:right;
         display:block;
-        
     }
 
     .custom-arrow {
@@ -29,30 +48,39 @@
     }
 
     .custom-ho {
-        width:35rem;
+        width:80%;
     }
     .custom-text {
-        font-size:1.6rem;
+        font-size:1.2rem;
         padding-left:0.2rem;
     }
     .custom-check {
-        margin-left:-3rem;
+        margin-left:-4rem;
         display: flex;
         flex-direction: row; /* 수평 방향으로 정렬 */
         align-items: flex-start; /* 왼쪽 정렬 */
+        margin-bottom:0.7rem;
     }
     button {
         width:1.5rem;
         height:4rem;
     }
     .custom-nextbutton1 {
-        height:4rem;
+        height:3rem;
         width:4rem;
+        font-size:1.5rem;
         white-space: nowrap;
         width:90%;
-        padding: 14px 0; /* 내부 패딩을 추가하여 버튼의 세로 중앙으로 텍스트를 위치시킴 */
+        padding: 2px 0; /* 내부 패딩을 추가하여 버튼의 세로 중앙으로 텍스트를 위치시킴 */
     }
     .custom-agreeform {
         width:85%;
     }
+    .custom-agreee {
+        font-size: 1.5rem;
+    }
 }
+	
+@media (min-width: 992px) {  } 
+
+@media (min-width: 1200px) {  }
