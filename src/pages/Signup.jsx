@@ -79,7 +79,7 @@ export default function Signup() {
     );
   };
   return (
-    <div className="h-full bg-black text-white">
+    <div className="fixed top-0 left-0 w-full h-full bg-black text-white">
       <div className="w-full flex justify-between items-center">
         <Link className="custom-arrow" to="/Agreement">
           <img src={arrow} alt="arrow" />
