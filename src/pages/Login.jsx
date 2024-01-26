@@ -6,7 +6,12 @@ import arrow from "../img/arrow.png";
 
 export default function Login() {
   return (
+<<<<<<< HEAD
+    <div className="h-full bg-black text-white">
+      <br />
+=======
     <div className="h-screen bg-black text-white">
+>>>>>>> 19ad76da99d26ff4b8c079ee63f16c9e1dde4fc4
       <div className="w-full flex justify-between items-center">
         <Link className="custom-arrow" to="/">
           <img src={arrow} alt="arrow" />
