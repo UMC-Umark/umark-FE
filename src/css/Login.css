@@ -1,16 +1,16 @@
 .custom-logintitle {
-    font-size:3rem;
+    font-size:2.8rem;
     margin-left:-5rem;
 }
 
 .custom-info1 {
     text-align: center;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
 }
 
 .custom-loginbutton1 {
     display:inline-block;
-    font-size:2rem;
+    font-size:1.6rem;
     text-align: center;
 }
 
@@ -23,8 +23,12 @@
 }
 
 .custom-links {
-    font-size: 1.25rem;
+    font-size: 1rem;
     margin-right: 2rem;
+}
+
+.custom-form1 {
+    width:62%;
 }
 
 /* 모바일 화면에서의 스타일 */
