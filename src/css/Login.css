@@ -55,11 +55,12 @@
     }
 
     .custom-logininput {
-        width: 90%;
+        text-align:left;
+        width: 95%;
         color:white;
         max-width: 100%; /* 최대 너비를 100%로 설정하여 가로폭에 꽉 차게 함 */
         height:3.5rem;
-        padding-left: 5rem;  
+        padding-left: 6rem;  
     }
     .custom-loginbutton1 {
         height:3.5rem;
@@ -73,7 +74,7 @@
         padding-left:3rem;
     }
     .custom-loginform {
-        width:85%;
+        width:90%;
     }
     .custom-loginlabel {
         font-size:1rem;
