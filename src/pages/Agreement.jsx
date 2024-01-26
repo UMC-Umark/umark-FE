@@ -75,7 +75,7 @@ export default function Agreement() {
             <div className="mb-2" />
             <p className="custom-agreee">서비스 약관에 동의해 주세요</p>
           </label>
-          <div className="mb-12" />
+          <div className="mb-8" />
           <div className="text-center relative">
             <div className="custom-check">
               <input
@@ -88,10 +88,7 @@ export default function Agreement() {
                 className="w-5 h-5"
               />
 
-              <label
-                htmlFor="agree_check_used"
-                className="custom-text text-2xl ml-2"
-              >
+              <label htmlFor="agree_check_used" className="custom-text ml-2">
                 [필수] umark 계정 약관
               </label>
             </div>
@@ -105,10 +102,7 @@ export default function Agreement() {
                 onChange={handleAgreementChange}
                 className="w-5 h-5"
               />
-              <label
-                htmlFor="agree_check_info"
-                className="custom-text text-2xl ml-2"
-              >
+              <label htmlFor="agree_check_info" className="custom-text ml-2">
                 [필수] 개인정보 수집 및 이용 동의
               </label>
             </div>
@@ -116,7 +110,7 @@ export default function Agreement() {
             <div className="flex items-center justify-center">
               <hr className="custom-ho" />
             </div>
-            <div className="mb-5" />
+            <div className="mb-2" />
             <div className="custom-check">
               <input
                 type="checkbox"
@@ -137,13 +131,13 @@ export default function Agreement() {
             <button
               type="button"
               id="open"
-              className={`custom-nextbutton1 bg-white text-black px-80 py-4 rounded-full font-bold
+              className={`custom-nextbutton1 bg-white text-black px-60 py-3 rounded-full font-bold
               }`}
               onClick={handleNextButtonClick}
             >
               다음
             </button>
-            <div className="mb-20" />
+            <div className="mb-8" />
             <div>{modalVisible && <Modal closeModal={closeModal} />}</div>
           </div>
         </div>
