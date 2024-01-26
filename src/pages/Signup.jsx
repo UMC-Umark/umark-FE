@@ -89,14 +89,16 @@ export default function Signup() {
         </h1>
         <div className="mb-12" />
       </div>
-      <br />
       <hr />
-      <div className="mb-20" />
+      <div className="mb-12" />
       <div className="custom-signupform1 border border-1 border-white rounded-3xl w-2/3 m-auto">
         <br />
         <div className="flex items-center justify-center">
           <img src={logo} alt="umark" />
         </div>
+        <div className="mb-8" />
+        <p className="custom-info2">회원가입 정보를 입력해 주세요</p>
+        <div className="mb-6" />
         <div className="mb-12" />
         <p className="custom-info2">회원가입 정보를 입력해 주세요</p>
         <div className="mb-10" />
@@ -109,17 +111,17 @@ export default function Signup() {
             placeholder="@duksung.ac.kr"
             value={email}
             onChange={handleEmailChange}
-            className="custom-input1 bg-black text-white w-1/2 px-80 py-6 rounded-full focus:outline-none border-2 border-white placeholder-white"
+            className="custom-input1 bg-black text-white w-1/2 px-40 py-4 rounded-full focus:outline-none border border-1 border-white placeholder-white"
           />
           <br />
-          <div className="text-red-600">{emailError}</div>
+          {/* <div className="text-red-600">{emailError}</div> */}
           {isValid && (
             <div className="text-green-600">올바른 이메일 형식입니다.</div>
           )}
           <br />
           <button
             type="button"
-            className="custom-sendbutton bg-white text-black w-1/6 px-20 py-5 rounded-full mr-4 font-bold"
+            className="custom-sendbutton bg-white text-black w-1/6 px-8 py-4 rounded-full mr-4 font-bold"
           >
             인증번호 전송
           </button>
@@ -128,14 +130,14 @@ export default function Signup() {
             maxLength="6"
             value={inputValue}
             onChange={handleInputChange}
-            className="custom-input2 bg-black text-white w-1/5 mr-4 px-20 py-5 rounded-full text-left focus:outline-none border-2 border-white placeholder-gray-300"
+            className="custom-input2 bg-black text-white w-1/5 mr-4 px-20 py-4 rounded-full text-left focus:outline-none border border-1 border-white placeholder-gray-300"
           />
-          <button className="custom-endbutton1 bg-black text-white px-20 py-5 rounded-full focus:outline-none border-2 border-white">
+          <button className="custom-endbutton1 bg-black text-white px-10 py-4 rounded-full focus:outline-none border border-1 border-white">
             완료
           </button>
           <div className="text-red-600">{verifyError}</div>
           {/* {isValid && <div className="text-green-600">인증이 완료되었습니다</div>}<br /> */}
-          <br />
+          <div className="mb-8" />
           <span className="custom-label absolute ml-4 left-50 top-50 text-white mt-4">
             비밀번호
           </span>
@@ -145,10 +147,10 @@ export default function Signup() {
             value={password}
             placeholder="8자리 이상, 특수문자 포함"
             onChange={handlePasswordChange}
-            className="custom-input3 bg-black text-white w-1/2 px-80 py-6 rounded-full focus:outline-none border-2 border-white placeholder-gray-300 placeholder-shown:font-bold"
+            className="custom-input3 bg-black text-white w-1/2 px-40 py-4 rounded-full focus:outline-none border border-1 border-white placeholder-gray-300 placeholder-shown:font-bold"
           />
           <br /> {/* placeholder:8자리 이상, 특수문자 포함 */}
-          <div className="text-red-600">{passwordError}</div>
+          {/* <div className="text-red-600">{passwordError}</div> */}
           {password !== "" && isValid && (
             <div className="text-green-600">올바른 비밀번호 형식입니다.</div>
           )}
@@ -161,14 +163,13 @@ export default function Signup() {
             type="password"
             value={passwordConfirm}
             onChange={handlePasswordConfirmChange}
-            className="custom-input1 bg-black text-white w-1/2 px-80 py-6 rounded-full focus:outline-none border-2 border-white"
+            className="custom-input1 bg-black text-white w-1/2 px-40 py-4 rounded-full focus:outline-none border border-1 border-white"
           />
           <br />
-          <div className="text-red-600">{passwordConfirmError}</div>
+          {/* <div className="text-red-600">{passwordConfirmError}</div> */}
           {passwordConfirm !== "" && isValid && (
             <div className="text-green-600">비밀번호가 일치합니다.</div>
           )}
-          <br />
           <div className="mb-7" />
           <span className="custom-label absolute ml-4 left-50 top-70 text-white mt-4">
             이름
@@ -176,15 +177,15 @@ export default function Signup() {
           <input
             name="name"
             type="text"
-            className="custom-input1 bg-black text-white px-80 py-6 w-1/2 rounded-full focus:outline-none border-2 border-white"
+            className="custom-input1 bg-black text-white px-40 py-4 w-1/2 rounded-full focus:outline-none border border-1 border-white"
           />
           <div className="text-red-600">{nameError}</div>
-          <div className="mb-20" />
+          <div className="mb-12" />
           <Link to="/Login">
             <button
               type="button"
               disabled={!isValid}
-              className="custom-endbutton2 bg-white text-black px-80 py-6 rounded-full font-bold"
+              className="custom-endbutton2 bg-white text-black px-80 py-4 rounded-full font-bold"
             >
               완료
             </button>
