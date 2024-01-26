@@ -99,6 +99,9 @@ export default function Signup() {
         <div className="mb-8" />
         <p className="custom-info2">회원가입 정보를 입력해 주세요</p>
         <div className="mb-6" />
+        <div className="mb-12" />
+        <p className="custom-info2">회원가입 정보를 입력해 주세요</p>
+        <div className="mb-10" />
         <div className="custom-signupform2 text-center inline-block relative">
           <span className="custom-label absolute ml-4 left-50 top-50 text-white mt-4">
             이메일
