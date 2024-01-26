@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import logo from "../img/logo.png";
 import { Link, useNavigate } from "react-router-dom";
-import Modal from "./Modal";
+import Modal from "../components/Modal";
 import arrow from "../img/arrow.png";
 import "../css/Agree.css";
 
