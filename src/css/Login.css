@@ -1,15 +1,16 @@
 .custom-logintitle {
-    font-size:3.75rem;
+    font-size:2.8rem;
+    margin-left:-5rem;
 }
 
-.custom-info {
+.custom-info1 {
     text-align: center;
-    font-size: 2.25rem;
+    font-size: 1.4rem;
 }
 
 .custom-loginbutton1 {
     display:inline-block;
-    font-size:2rem;
+    font-size:1.6rem;
     text-align: center;
 }
 
@@ -18,28 +19,36 @@
 }
 
 .custom-loginlabel {
-    font-size: 1.5rem;
+    font-size: 1rem;
+}
+
+.custom-links {
+    font-size: 1.2rem;
+    margin-right: 2rem;
+}
+
+.custom-form1 {
+    width:62%;
 }
 
 /* 모바일 화면에서의 스타일 */
 @media (max-width:768px){
 
     .custom-logintitle{
-        font-size:4rem;
+        font-size:3rem;
         text-align:right;
         display:block;
         
     }
 
     .custom-arrow {
-        padding-left:50px;
-        padding-right:50px;
+        margin-right:5rem;
     }
 
-    .custom-info {
-        font-size:2rem;
+    .custom-info1 {
+        font-size:1.5rem;
         text-align: left;
-        margin-left:0.8rem;
+        margin-left:-0.5rem;
     }
 
     .custom-form1 {
@@ -50,28 +59,36 @@
     }
 
     .custom-logininput {
-        width: 90%;
+        text-align:left;
+        width: 95%;
         color:white;
-            max-width: 100%; /* 최대 너비를 100%로 설정하여 가로폭에 꽉 차게 함 */
-            height:4.5rem;
-            padding-left: 5rem;  
+        max-width: 100%; /* 최대 너비를 100%로 설정하여 가로폭에 꽉 차게 함 */
+        height:3.5rem;
+        padding-left: 6rem;  
     }
     .custom-loginbutton1 {
-        height:5rem;
+        height:3.5rem;
         width:4rem;
         white-space: nowrap;
         width:90%;
-        padding: 14px 0; /* 내부 패딩을 추가하여 버튼의 세로 중앙으로 텍스트를 위치시킴 */
+        padding: 5px 0; /* 내부 패딩을 추가하여 버튼의 세로 중앙으로 텍스트를 위치시킴 */
     }
     .custom-logininput::placeholder {
-        margin-left:-13rem;
+        margin-left:-7rem;
         padding-left:3rem;
     }
     .custom-loginform {
-        width:85%;
+        width:90%;
     }
     .custom-loginlabel {
-        font-size:1.2rem;
-        margin-top:20px;
+        font-size:1rem;
+        margin-top:15px;
+    }
+    hr {
+        margin-top:1rem;
+    }
+    .custom-links {
+        font-size:1rem;
+        margin-right: 0rem;
     }
 }

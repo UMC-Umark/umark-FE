@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import logo from "../img/logo.png";
 import { Link, useNavigate } from "react-router-dom";
-import Modal from "../components/Modal";
+import Modal from "./Modal";
 import arrow from "../img/arrow.png";
 import "../css/Agree.css";
 
@@ -51,8 +51,7 @@ export default function Agreement() {
   };
 
   return (
-    <div>
-      <br />
+    <div className="h-screen bg-black text-white">
       <div className="w-full flex justify-between items-center">
         <Link className="custom-arrow" to="/Login">
           <img src={arrow} alt="arrow" />
@@ -62,22 +61,21 @@ export default function Agreement() {
         </h1>
         <div className="mb-12" />
       </div>
-      <br />
       <hr />
-      <div className="mb-20" />
-      <div className="custom-agreeform border border-1 border-white rounded-3xl w-2/3 m-auto h-1/2">
+      <div className="mb-12" />
+      <div className="custom-agreeform border border-1 border-white rounded-3xl w-2/3 m-auto">
         <br />
         <div className="flex items-center justify-center">
           <img src={logo} alt="umark" />
         </div>
         <div className="inline rounded-lg border-white">
           <br />
-          <label className="text-center text-4xl">
-            <p className="font-bold">umark</p>
+          <label className="text-center">
+            <p className="custom-agreee font-bold">umark</p>
             <div className="mb-2" />
-            <p>서비스 약관에 동의해 주세요</p>
+            <p className="custom-agreee">서비스 약관에 동의해 주세요</p>
           </label>
-          <div className="mb-20" />
+          <div className="mb-8" />
           <div className="text-center relative">
             <div className="custom-check">
               <input
@@ -87,17 +85,13 @@ export default function Agreement() {
                 required
                 checked={agreements.termsAgreed}
                 onChange={handleAgreementChange}
-                className="w-7 h-7"
+                className="w-5 h-5"
               />
 
-              <label
-                htmlFor="agree_check_used"
-                className="custom-text text-3xl ml-2"
-              >
+              <label htmlFor="agree_check_used" className="custom-text ml-2">
                 [필수] umark 계정 약관
               </label>
             </div>
-            <div className="mb-10" />
             <div className="custom-check">
               <input
                 type="checkbox"
@@ -106,20 +100,17 @@ export default function Agreement() {
                 required
                 checked={agreements.personalInfoAgreed}
                 onChange={handleAgreementChange}
-                className="w-7 h-7"
+                className="w-5 h-5"
               />
-              <label
-                htmlFor="agree_check_info"
-                className="custom-text text-3xl ml-2"
-              >
+              <label htmlFor="agree_check_info" className="custom-text ml-2">
                 [필수] 개인정보 수집 및 이용 동의
               </label>
             </div>
-            <div className="mb-10" />
+            <div className="mb-5" />
             <div className="flex items-center justify-center">
-              <hr className="custom-ho w-2/3" />
+              <hr className="custom-ho" />
             </div>
-            <div className="mb-10" />
+            <div className="mb-2" />
             <div className="custom-check">
               <input
                 type="checkbox"
@@ -127,26 +118,26 @@ export default function Agreement() {
                 name="agree_check_all"
                 checked={allAgreed}
                 onChange={handleAllAgreementChange}
-                className="w-7 h-7"
+                className="w-5 h-5"
               />
               <label
                 htmlFor="agree_check_all"
-                className="custom-text text-3xl ml-2"
+                className="custom-text text-2xl ml-2"
               >
                 모두 동의하기
               </label>
             </div>
-            <div className="mb-40" />
+            <div className="mb-20" />
             <button
               type="button"
               id="open"
-              className={`custom-nextbutton1 bg-white text-black px-60 py-4 rounded-full font-bold
+              className={`custom-nextbutton1 bg-white text-black px-60 py-3 rounded-full font-bold
               }`}
               onClick={handleNextButtonClick}
             >
               다음
             </button>
-            <div className="mb-40" />
+            <div className="mb-8" />
             <div>{modalVisible && <Modal closeModal={closeModal} />}</div>
           </div>
         </div>
