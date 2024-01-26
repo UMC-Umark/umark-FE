@@ -19,40 +19,40 @@ export default function Login() {
       </div>
       <hr />
       <div className="mb-10" />
-      <div className="custom-loginform border-white rounded-3xl w-2/3 m-auto">
+      <main className="flex-1 flex flex-col items-center justify-center border-white">
         <div className="flex items-center justify-center">
           <div className="mb-40" />
           <img src={logo} alt="umark" />
         </div>
         <br />
         <p className="custom-info1"> 로그인 정보를 입력해 주세요</p>
-        <div className="custom-form1 text-center inline-block rounded-lg border-white w-full">
+        <div className="custom-form1 text-center inline-block rounded-lg border-white">
           <div className="mb-8" />
           <div className="relative">
-            <span className="custom-loginlabel absolute left-50 top-50 text-white mt-4 ml-5">
+            <span className="custom-loginlabel absolute left-50 top-50 text-white mt-3 ml-5">
               이메일
             </span>
             <input
               name="email"
               placeholder="@university.ac.kr"
-              className="custom-logininput bg-black text-white w-1/2 px-40 py-4 rounded-full text-left focus:outline-none border border-1 border-white placeholder-white"
+              className="custom-logininput bg-black text-white px-40 py-3 rounded-full text-left focus:outline-none border border-1 border-white placeholder-white"
             />
             <br />
             <br />
-            <span className="custom-loginlabel absolute left-50 top-50 text-white mt-4 ml-5">
+            <span className="custom-loginlabel absolute left-50 top-50 text-white mt-3 ml-5">
               비밀번호
             </span>
             <input
               name="password"
               type="password"
-              className="custom-logininput bg-black text-white w-1/2 px-40 py-4 rounded-full focus:outline-none border border-1 border-white"
+              className="custom-logininput bg-black text-white px-40 py-3 rounded-full focus:outline-none border border-1 border-white"
             />
           </div>
           <div className="mb-12" />
           <Link to="/Umark">
             <button
               type="button"
-              className="custom-loginbutton1 bg-green-400 text-black px-60 py-2 rounded-full font-bold"
+              className="custom-loginbutton1 bg-green-400 text-black px-40 py-3 rounded-full font-bold"
             >
               로그인
             </button>
@@ -72,7 +72,7 @@ export default function Login() {
             <div className="mb-20" />
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }
