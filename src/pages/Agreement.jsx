@@ -62,7 +62,7 @@ export default function Agreement() {
         <div className="mb-12" />
       </div>
       <hr />
-      <div className="mb-9" />
+      <div className="mb-12" />
       <div className="custom-agreeform border border-1 border-white rounded-3xl w-2/3 m-auto">
         <br />
         <div className="flex items-center justify-center">
@@ -127,7 +127,7 @@ export default function Agreement() {
                 모두 동의하기
               </label>
             </div>
-            <div className="mb-10" />
+            <div className="mb-20" />
             <button
               type="button"
               id="open"

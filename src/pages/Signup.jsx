@@ -90,7 +90,7 @@ export default function Signup() {
         <div className="mb-12" />
       </div>
       <hr />
-      <div className="mb-9" />
+      <div className="mb-12" />
       <div className="custom-signupform1 border border-1 border-white rounded-3xl w-2/3 m-auto">
         <br />
         <div className="flex items-center justify-center">
