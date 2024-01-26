@@ -187,9 +187,10 @@ export default function Signup() {
               완료
             </button>
           </Link>
-          <div className="mb-20" />
+          <div className="mb-10" />
         </div>
       </div>
+      <br />
     </div>
   );
 }
