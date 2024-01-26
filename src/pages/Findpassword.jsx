@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import logo from "../img/logo.png";
 import { Link, useNavigate } from "react-router-dom";
-import Check from "./Check.jsx";
+import Check from "../components/Check.jsx";
 import arrow from "../img/arrow.png";
 import "../css/Password.css";
 
