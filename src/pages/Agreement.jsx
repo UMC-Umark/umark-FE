@@ -51,7 +51,7 @@ export default function Agreement() {
   };
 
   return (
-    <div className="h-screen bg-black text-white">
+    <div className="h-full bg-black text-white">
       <div className="w-full flex justify-between items-center">
         <Link className="custom-arrow" to="/Login">
           <img src={arrow} alt="arrow" />

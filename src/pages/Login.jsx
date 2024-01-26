@@ -6,7 +6,7 @@ import arrow from "../img/arrow.png";
 
 export default function Login() {
   return (
-    <div className="h-screen bg-black text-white">
+    <div className="h-full bg-black text-white">
       <div className="w-full flex justify-between items-center">
         <Link className="custom-arrow" to="/">
           <img src={arrow} alt="arrow" />
@@ -68,6 +68,7 @@ export default function Login() {
                 회원가입 하기
               </p>
             </Link>
+            <div className="mb-20" />
           </div>
         </div>
       </main>
