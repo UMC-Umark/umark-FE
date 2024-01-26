@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import logo from "../img/logo.png";
 import { Link, useNavigate } from "react-router-dom";
-import Check from "../css/Check.css";
+import Check from "../components/Check.jsx";
 import arrow from "../img/arrow.png";
 import "../css/Password.css";
 
@@ -86,7 +86,7 @@ export default function Findpassword() {
         <div className="mb-5" />
       </div>
       <hr />
-      <div className="mb-12" />
+      <div className="mb-9" />
       <div className="custom-findform1 border border-1 border-white rounded-3xl w-2/3 m-auto">
         <div className="flex items-center justify-center">
           <div className="mb-40" />
@@ -106,7 +106,7 @@ export default function Findpassword() {
             placeholder="@university.ac.kr"
             value={email}
             onChange={handleEmailChange}
-            className="custom-findinput1 bg-black text-white w-1/2 px-40 py-4 rounded-full text-left focus:outline-none border border-1 border-white placeholder-white"
+            className="custom-findinput1 bg-black text-white px-60 py-4 rounded-full text-left focus:outline-none border border-1 border-white placeholder-white"
           />
           <div className="text-red-600">{emailError}</div>
           <br />
@@ -116,19 +116,19 @@ export default function Findpassword() {
           <input
             name="name"
             type="text"
-            className="custom-findinput1 bg-black text-white w-1/2 px-40 py-4 rounded-full focus:outline-none border border-1 border-white placeholder-gray-300"
+            className="custom-findinput1 bg-black text-white px-60 py-4 rounded-full focus:outline-none border border-1 border-white placeholder-gray-300"
           />
           <div className="text-red-600">{nameError}</div>
           <div className="mb-12" />
           <button
             type="button"
             disabled={!isValid}
-            className="custom-nextbutton bg-white text-black px-60 py-2 rounded-full font-bold"
+            className="custom-nextbutton bg-white text-black px-60 py-3 rounded-full font-bold"
             onClick={handleNextButtonClick}
           >
             다음
           </button>
-          <div className="mb-60" />
+          <div className="mb-12" />
           <div>{modalVisible && <Check closeModal={closeModal} />}</div>
         </div>
       </div>
