@@ -18,7 +18,7 @@ export default function ResetPassword() {
         <div className="mb-5" />
       </div>
       <hr />
-      <div className="mb-9" />
+      <div className="mb-12" />
       <div className="custom-findform1 border border-1 border-white rounded-3xl w-2/3 m-auto">
         <div className="flex items-center justify-center ">
           <div className="mb-40" />
