@@ -33,11 +33,14 @@
 
 .custom-input1::placeholder {
     text-align:right;
+    margin-left:-5rem;
+    padding-left:3rem;
 }
 
 .custom-input3::placeholder {
     text-align:center;
     opacity:0.6;
+    margin-left:-2rem;
 }
 
 /* 모바일 화면에서의 스타일 */
