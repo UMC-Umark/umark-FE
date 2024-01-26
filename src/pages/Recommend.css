@@ -1,13 +1,5 @@
 @charset "UTF-8";
 
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-}
-
-footer,
-header,
 section {
     display: block;
 }
@@ -19,12 +11,7 @@ h4,
 h5,
 h6 {
     margin-top: 0;
-    margin-bottom: 0.5rem;
-}
-
-img {
-    vertical-align: middle;
-    border-style: none;
+    margin-bottom: 0;
 }
 
 h1,
@@ -39,7 +26,6 @@ h6,
 .h4,
 .h5,
 .h6 {
-    margin-bottom: 0.5rem;
     font-weight: 500;
     line-height: 1.2;
 }
@@ -89,7 +75,6 @@ h4,
 }
 
 @media (max-width: 1200px) {
-
     h4,
     .h4 {
         font-size: calc(1.275rem + 0.3vw);
@@ -106,13 +91,29 @@ h6,
     font-size: 1rem;
 }
 
+.pt-5,
+.py-5 {
+    padding-top: 3rem !important;
+}
+
+.mt-5,
+.my-5 {
+    margin-top: 3rem !important;
+}
+
+.top-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
 .row {
     display: flex;
     flex-wrap: wrap;
     margin-right: -15px;
     margin-left: -15px;
 }
-
 
 .col-sm-auto,
 .col-md-6,
@@ -151,6 +152,7 @@ h6,
     }
 }
 
+<<<<<<< HEAD:src/css/Bookmark.css
 .card {
     position: relative;
     display: flex;
@@ -276,6 +278,8 @@ li {
     align-self: center;
 }
 
+=======
+>>>>>>> 19ad76da99d26ff4b8c079ee63f16c9e1dde4fc4:src/pages/Recommend.css
 /*-- container --*/
 .container {
     width: 100%;
@@ -373,90 +377,4 @@ li {
         font-size: 26px !important;
         line-height: 32px;
     }
-}
-
-.w3l-courses .course-details {
-    position: relative;
-    padding: 35px;
-}
-
-.blog-meta {
-    display: flex;
-    padding: 0;
-    list-style: none;
-}
-
-.blog-meta li a {
-    font-size: 18px;
-    color: var(--heading-color);
-    line-height: 36px;
-}
-
-.blog-meta li a:hover {
-    color: #ED6C43;
-}
-
-ul.blog-meta li {
-    display: flex;
-    flex: 1;
-    /* 나머지 영역을 동일하게 차지하도록 설정 */
-    justify-content: center;
-    /* 가운데 정렬을 위한 설정 */
-    align-items: center;
-    /* 세로 가운데 정렬을 위한 설정 */
-}
-
-.blog-meta li:first-child {
-    flex: 0 0 60%;
-    /* 첫 번째 li에 60%의 고정된 가로 넓이를 설정 */
-    border-right: 1px solid black;
-}
-
-.card-header h4 {
-    font-weight: 700;
-    width: 70%;
-    word-break: keep-all;
-    margin-bottom: 0.5rem;
-    margin-top: 1rem;
-}
-
-.card-header h5 {
-    margin-top: 1rem;
-    font-weight: 700;
-    color: #545655;
-}
-
-.modal {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-}
-
-.modal-content {
-    color: black;
-    font-weight: 700;
-    padding: 20px;
-    text-align: center;
-}
-
-.modal-text {
-    font-size: 2rem;
-    color: white;
-    margin-bottom: 1rem;
-}
-
-.modal button {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    cursor: pointer;
-    font-size: 2rem;
-    background-color: #f0f0f0;
-    border-radius: 8px;
 }
