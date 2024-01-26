@@ -137,7 +137,7 @@ export default function Agreement() {
             >
               다음
             </button>
-            <div className="mb-4" />
+            <div className="mb-8" />
             <div>{modalVisible && <Modal closeModal={closeModal} />}</div>
           </div>
         </div>
