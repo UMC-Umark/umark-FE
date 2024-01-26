@@ -7,7 +7,7 @@ import "../css/Password.css";
 
 export default function ResetPassword() {
   return (
-    <div className="h-screen bg-black text-white">
+    <div className="h-full bg-black text-white">
       <div className="w-full flex justify-between items-center">
         <Link className="custom-arrow" to="/Findpassword">
           <img src={arrow} alt="arrow" />
@@ -55,9 +55,10 @@ export default function ResetPassword() {
               로그인 하러가기
             </button>
           </Link>
-          <div className="mb-11" />
+          <div className="mb-10" />
         </div>
       </div>
+      <br />
     </div>
   );
 }
