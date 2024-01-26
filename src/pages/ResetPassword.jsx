@@ -55,9 +55,10 @@ export default function ResetPassword() {
               로그인 하러가기
             </button>
           </Link>
-          <div className="mb-11" />
+          <div className="mb-10" />
         </div>
       </div>
+      <br />
     </div>
   );
 }

@@ -128,10 +128,11 @@ export default function Findpassword() {
           >
             다음
           </button>
-          <div className="mb-12" />
+          <div className="mb-10" />
           <div>{modalVisible && <Check closeModal={closeModal} />}</div>
         </div>
       </div>
+      <br />
     </div>
   );
 }
