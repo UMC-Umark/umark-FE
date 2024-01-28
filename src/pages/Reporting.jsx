@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 
+// 신고 옵션을 선택하는 라디오 버튼 컴포넌트
 const RadioOptions = ({ options, selectedOption, setSelectedOption, onOtherSelected }) => {
   return (
     <>
@@ -24,15 +25,30 @@ const RadioOptions = ({ options, selectedOption, setSelectedOption, onOtherSelec
   );
 };
 
+// 신고 페이지 컴포넌트
 const ReportingPage = () => {
   let navigate = useNavigate();
   const [selectedOption, setSelectedOption] = useState('');
   const [isOtherSelected, setIsOtherSelected] = useState(false);
+  const [otherText, setOtherText] = useState('');
+  const [showModal, setShowModal] = useState(false); // 모달 표시 상태
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(selectedOption); // 제출     로직에 따라 처리
-    // navigate('/some-path'); // 제출 후 리디렉션할 경로
+
+    const reportData = {
+      reason: selectedOption,
+      additionalInfo: isOtherSelected ? otherText : ''
+    };
+
+    // API 호출 및 처리
+    // 여기서는 모달 표시를 위해 바로 상태를 변경합니다
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    navigate('/recommend'); // 성공 후 처리
   };
 
   const reportOptions = [
@@ -46,14 +62,13 @@ const ReportingPage = () => {
     <div className="flex flex-col h-screen bg-white text-black">
       <nav className="flex items-center justify-between p-6 border-b border-gray-200 h-20">
         <button onClick={() => navigate(-1)} className="text-black">
-          {/* 아이콘 */}
           <span className="material-icons">back</span>
         </button>
         <h1 className="text-center font-bold text-lg">신고하기</h1>
         <div style={{ width: '24px' }}></div> 
       </nav>
 
-      <div className="flex-grow flex flex-col items-center  px-4 py-2">
+      <div className="flex-grow flex flex-col items-center px-4 py-2">
         <form onSubmit={handleSubmit} className="w-full max-w-md text-center">
           <fieldset className="mb-4">
             <legend className="text-lg mt-4 mb-8 font-bold">해당 게시물을 신고하는 이유를 알려주세요</legend>
@@ -68,6 +83,8 @@ const ReportingPage = () => {
                 rows="4"
                 placeholder="내용을 입력해주세요"
                 className="mt-2 p-2 border rounded w-full"
+                value={otherText}
+                onChange={(e) => setOtherText(e.target.value)}
               />
             )}
           </fieldset>
@@ -76,6 +93,17 @@ const ReportingPage = () => {
           </button>
         </form>
       </div>
+
+      {showModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center">
+          <div className="text-white bg-transparent p-4 rounded-lg text-center">
+            <p>신고가 정상적으로 제출되었어요.</p>
+            <button onClick={handleCloseModal} className="mt-4 bg-white text-black font-bold py-2 px-4 rounded">
+              확인
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
