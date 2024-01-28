@@ -20,9 +20,10 @@ export default function Signup() {
   const [inputValue, setInputValue] = useState("");
 
   const handleInputChange = (e) => {
-    const newValue = e.target.value.toUpperCase();
+    const newValue = e.target.value.replace(/[^0-9]/g, ""); // 숫자 이외의 문자 제거
     setInputValue(newValue);
   };
+
   const handleEmailChange = (e) => {
     const newEmail = e.target.value;
     setEmail(newEmail);
@@ -79,7 +80,7 @@ export default function Signup() {
     );
   };
   return (
-    <div className="h-screen bg-black text-white">
+    <div className="fixed top-0 left-0 w-full h-full bg-black text-white">
       <div className="w-full flex justify-between items-center">
         <Link className="custom-arrow" to="/Agreement">
           <img src={arrow} alt="arrow" />
@@ -104,7 +105,7 @@ export default function Signup() {
             학교명
           </span>
           <input
-            name="name"
+            name="univName"
             placeholder="정확한 학교명을 적어주세요"
             className="custom-input3 bg-black text-white px-60 py-3 rounded-full focus:outline-none border border-1 border-white placeholder-white"
           />
@@ -134,7 +135,7 @@ export default function Signup() {
           </button>
           <input
             type="text"
-            maxLength="6"
+            maxLength="4"
             value={inputValue}
             onChange={handleInputChange}
             className="custom-input2 bg-black text-white w-1/4 mr-4 px-20 py-4 rounded-full text-left focus:outline-none border border-1 border-white placeholder-gray-300"
@@ -187,9 +188,10 @@ export default function Signup() {
               완료
             </button>
           </Link>
-          <div className="mb-20" />
+          <div className="mb-10" />
         </div>
       </div>
+      <br />
     </div>
   );
 }

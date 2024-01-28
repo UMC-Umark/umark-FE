@@ -7,7 +7,7 @@ import "../css/Password.css";
 
 export default function ResetPassword() {
   return (
-    <div className="h-screen bg-black text-white">
+    <div className="h-full bg-black text-white">
       <div className="w-full flex justify-between items-center">
         <Link className="custom-arrow" to="/Findpassword">
           <img src={arrow} alt="arrow" />
@@ -24,8 +24,7 @@ export default function ResetPassword() {
           <div className="mb-40" />
           <img src={logo} alt="umark" />
         </div>
-        <br />
-        <br />
+        <div className="mb-8" />
         <p className="custom-findinfo text-center">비밀번호를 재설정해주세요</p>
         <br />
         <div className="custom-findform2 text-center inline-block relative">
@@ -55,9 +54,11 @@ export default function ResetPassword() {
               로그인 하러가기
             </button>
           </Link>
-          <div className="mb-11" />
+          <div className="mb-12" />
         </div>
       </div>
+      <br />
+      <br />
     </div>
   );
 }
