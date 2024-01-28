@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import logo from "../img/logo.png";
 import { Link, useNavigate } from "react-router-dom";
-import Modal from "../components/Modal.jsx";
+import Modal from "../components/Modal";
 import arrow from "../img/arrow.png";
 import "../css/Agree.css";
 
@@ -51,7 +51,7 @@ export default function Agreement() {
   };
 
   return (
-    <div className="h-screen bg-black text-white">
+    <div className="fixed top-0 left-0 w-full h-full bg-black text-white">
       <div className="w-full flex justify-between items-center">
         <Link className="custom-arrow" to="/Login">
           <img src={arrow} alt="arrow" />
@@ -62,7 +62,7 @@ export default function Agreement() {
         <div className="mb-12" />
       </div>
       <hr />
-      <div className="mb-9" />
+      <div className="mb-12" />
       <div className="custom-agreeform border border-1 border-white rounded-3xl w-2/3 m-auto">
         <br />
         <div className="flex items-center justify-center">
@@ -127,7 +127,7 @@ export default function Agreement() {
                 모두 동의하기
               </label>
             </div>
-            <div className="mb-10" />
+            <div className="mb-20" />
             <button
               type="button"
               id="open"
