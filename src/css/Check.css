@@ -1,11 +1,11 @@
 .custom-noexist {
-    font-size: 3rem;
+    font-size: 1.7rem;
 }
 .custom-check {
-    font-size: 2.25rem;
+    font-size: 1.2rem;
 }
 .custom-checkb {
-    font-size: 1.875rem;
+    font-size: 1.4rem;
 }
 /* 모바일 화면에서의 스타일 */
 @media (max-width:768px){
