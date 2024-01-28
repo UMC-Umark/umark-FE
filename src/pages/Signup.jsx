@@ -20,9 +20,10 @@ export default function Signup() {
   const [inputValue, setInputValue] = useState("");
 
   const handleInputChange = (e) => {
-    const newValue = e.target.value.toUpperCase();
+    const newValue = e.target.value.replace(/[^0-9]/g, ""); // 숫자 이외의 문자 제거
     setInputValue(newValue);
   };
+
   const handleEmailChange = (e) => {
     const newEmail = e.target.value;
     setEmail(newEmail);
@@ -134,7 +135,7 @@ export default function Signup() {
           </button>
           <input
             type="text"
-            maxLength="6"
+            maxLength="4"
             value={inputValue}
             onChange={handleInputChange}
             className="custom-input2 bg-black text-white w-1/4 mr-4 px-20 py-4 rounded-full text-left focus:outline-none border border-1 border-white placeholder-gray-300"
