@@ -1,12 +1,14 @@
 import React from 'react'
 import { FaTrashAlt } from "react-icons/fa";
 import Menubar from '../components/Menubar';
+import Header from "../components/Header";
 
 export default function MyBookmark() {
   return (
-    <div>
+    <div className="flex flex-col"> {/* flex와 flex-col을 추가하여 컴포넌트들을 수직으로 정렬합니다. */}
+      <Header/>
       <Menubar />
-      <div className='mx-24 my-8'>
+      <div className='mx-24 my-10'>
         <h1 className="text-3xl font-bold mb-12">내가 쓴 북마크들</h1>
 
         <div className="flex items-center mb-12">
