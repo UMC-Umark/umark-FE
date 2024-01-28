@@ -47,7 +47,7 @@ export default function Card({ title, date, tags, description, link, onClick, is
                         <a href="#link">링크 바로가기</a>
                     </li>
                     <li>
-                        <a href="#report">신고하기</a>
+                        <a href="/reporting">신고하기</a>
                     </li>
                 </ul>
             </div>
