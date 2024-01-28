@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-// import adimg from '../img/umark_logo_white-13.webp';
+import adimg from '../img/logo.webp';
 import { Link, useNavigate } from 'react-router-dom';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { AiOutlineClose } from 'react-icons/ai';
@@ -39,11 +39,11 @@ const Header = () => {
   return (
     <header className="bg-black text-white flex justify-between items-center h-18 p-4 border-b border-gray-200 fixed top-0 left-0 right-0 z-10">
       <Link to="/" className="flex items-center">
-        {/* <img src={adimg} alt="로고" className="header-logo h-16" /> 로고 이미지 높이를 h-16으로 조절 */}
+        <img src={adimg} alt="로고" className="header-logo h-16" />
       </Link>
-      <nav className="hidden md:flex">
-        <Link className="header-text" to="/">your bookmark space</Link>
-      </nav>
+      <nav className="hidden md:flex flex-grow justify-center">
+    <Link className="header-text" to="/">your bookmark space</Link>
+  </nav>
       <div className="relative ml-auto" ref={menuRef}>
               <GiHamburgerMenu
                 onClick={toggleMenu}
