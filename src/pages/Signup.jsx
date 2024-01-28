@@ -104,7 +104,7 @@ export default function Signup() {
             학교명
           </span>
           <input
-            name="name"
+            name="univName"
             placeholder="정확한 학교명을 적어주세요"
             className="custom-input3 bg-black text-white px-60 py-3 rounded-full focus:outline-none border border-1 border-white placeholder-white"
           />

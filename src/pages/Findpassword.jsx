@@ -38,35 +38,11 @@ export default function Findpassword() {
   const [modalVisible, setModalVisible] = useState(false);
   const navigate = useNavigate();
 
-  const handleAgreementChange = (event) => {
-    const { name, checked } = event.target;
-
-    setAgreements((prevAgreements) => ({ ...prevAgreements, [name]: checked }));
-    const allChecked = Object.values({ ...agreements, [name]: checked }).every(
-      (value) => value === true
-    );
-    setAllAgreed(allChecked);
-  };
-
-  const handleAllAgreementChange = (event) => {
-    const { checked } = event.target;
-    setAgreements((prevAgreements) =>
-      Object.keys(prevAgreements).reduce(
-        (newAgreements, agreementKey) => ({
-          ...newAgreements,
-          [agreementKey]: checked,
-        }),
-        {}
-      )
-    );
-    setAllAgreed(checked);
-  };
-
   const handleNextButtonClick = () => {
     if (!allAgreed) {
       setModalVisible(true);
     } else {
-      navigate("/Found");
+      navigate("/ResetPassword");
     }
   };
 
@@ -94,7 +70,7 @@ export default function Findpassword() {
         </div>
         <div className="mb-8" />
         <p className="custom-findinfo text-center">
-          이메일과 이름 정보를 입력해 주세요
+          이메일과 학교명 정보를 입력해 주세요
         </p>
         <div className="mb-8" />
         <div className="custom-findform2 text-center inline-block relative">
@@ -111,14 +87,13 @@ export default function Findpassword() {
           <div className="text-red-600">{emailError}</div>
           <br />
           <span className="custom-findlabel1 absolute ml-4 left-50 top-70 text-white mt-4">
-            이름
+            학교명
           </span>
           <input
-            name="name"
+            name="univName"
             type="text"
             className="custom-findinput1 bg-black text-white px-60 py-4 rounded-full focus:outline-none border border-1 border-white placeholder-gray-300"
           />
-          <div className="text-red-600">{nameError}</div>
           <div className="mb-12" />
           <button
             type="button"
@@ -128,7 +103,7 @@ export default function Findpassword() {
           >
             다음
           </button>
-          <div className="mb-10" />
+          <div className="mb-12" />
           <div>{modalVisible && <Check closeModal={closeModal} />}</div>
         </div>
       </div>
