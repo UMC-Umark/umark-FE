@@ -2,8 +2,16 @@ import React from 'react';
 import Header from '../components/Header'; // Header 컴포넌트 경로가 맞는지 확인해주세요.
 import '../components/Header.css'; // Header 컴포넌트에 필요한 스타일시트
 import icon1 from '../img/intro.png';
+import { useNavigate } from 'react-router-dom';
+
 
 function Intro() {
+
+  const navigate = useNavigate(); 
+  const handleStartClick = () => {
+    navigate('/recommend'); 
+  };
+
   return (
     <div className="flex flex-col h-screen bg-white text-black">
       <Header />
@@ -21,7 +29,7 @@ function Intro() {
             <p className="text-base mb-4">250자 내외 북마크들이 모인 유마크가</p>
             <p className="text-base mb-4">여러분의 기록보관함이 되어줄 거에요.</p>
             <p className="text-base mb-4"></p>
-    
+          <p className="text-xl mb-4 mt-10 underline cursor-pointer" onClick={handleStartClick}>지금 시작하기</p>
         </div>
       </div>
     </div>
