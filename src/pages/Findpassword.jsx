@@ -14,6 +14,12 @@ export default function Findpassword() {
   const [verifyError, setVerifyError] = useState("");
   const [nameError, setNameError] = useState("");
 
+  const [inputValue, setInputValue] = useState("");
+
+  const handleInputChange = (e) => {
+    const newValue = e.target.value.replace(/[^0-9]/g, ""); // 숫자 이외의 문자 제거
+    setInputValue(newValue);
+  };
   const handleEmailChange = (e) => {
     const newEmail = e.target.value;
     setEmail(newEmail);
@@ -68,12 +74,19 @@ export default function Findpassword() {
           <div className="mb-40" />
           <img src={logo} alt="umark" />
         </div>
-        <div className="mb-8" />
-        <p className="custom-findinfo text-center">
-          이메일과 학교명 정보를 입력해 주세요
-        </p>
-        <div className="mb-8" />
+        <div className="mb-5" />
+        <p className="custom-findinfo text-center">이메일을 인증해 주세요</p>
+        <div className="mb-5" />
         <div className="custom-findform2 text-center inline-block relative">
+          <span className="custom-findlabel1 absolute ml-4 left-50 top-70 text-white mt-4">
+            학교명
+          </span>
+          <input
+            name="univName"
+            className="custom-findinput1 bg-black text-white px-60 py-4 rounded-full text-left focus:outline-none border border-1 border-white placeholder-white"
+          />
+          <br />
+          <br />
           <span className="custom-findlabel1 absolute ml-4 left-50 top-70 text-white mt-4">
             이메일
           </span>
@@ -86,14 +99,24 @@ export default function Findpassword() {
           />
           <div className="text-red-600">{emailError}</div>
           <br />
-          <span className="custom-findlabel1 absolute ml-4 left-50 top-70 text-white mt-4">
-            학교명
-          </span>
+          <button
+            type="button"
+            className="custom-sendbutton bg-white text-black w-1/6 px-8 py-4 rounded-full mr-4 font-bold"
+          >
+            인증번호 전송
+          </button>
           <input
-            name="univName"
             type="text"
-            className="custom-findinput1 bg-black text-white px-60 py-4 rounded-full focus:outline-none border border-1 border-white placeholder-gray-300"
+            maxLength="4"
+            value={inputValue}
+            onChange={handleInputChange}
+            className="custom-input2 bg-black text-white w-1/5 mr-4 px-20 py-4 rounded-full text-left focus:outline-none border border-1 border-white placeholder-gray-300"
           />
+          <button className="custom-endbutton1 bg-black text-white w-1/7 px-10 py-4 rounded-full focus:outline-none border border-1 border-white">
+            완료
+          </button>
+          <div className="text-red-600">{verifyError}</div>
+          {/* {isValid && <div className="text-green-600">인증이 완료되었습니다</div>}<br /> */}
           <div className="mb-12" />
           <button
             type="button"
@@ -103,7 +126,7 @@ export default function Findpassword() {
           >
             다음
           </button>
-          <div className="mb-12" />
+          <div className="mb-20" />
           <div>{modalVisible && <Check closeModal={closeModal} />}</div>
         </div>
       </div>

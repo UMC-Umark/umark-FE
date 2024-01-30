@@ -15,7 +15,6 @@ export default function Signup() {
   const [isValid, setIsValid] = useState(false);
   const [validEmailMessage, setValidEmailMessage] = useState("");
   const [verifyError, setVerifyError] = useState("");
-  const [nameError, setNameError] = useState("");
 
   const [inputValue, setInputValue] = useState("");
 
