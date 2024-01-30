@@ -4,9 +4,11 @@ import logo from "../img/logo.png";
 import { Link } from "react-router-dom";
 import arrow from "../img/arrow.png";
 import "../css/Signup.css";
+import { sendEmailVerification } from "../api/Sendemail";
 
 export default function Signup() {
   const [email, setEmail] = useState("");
+  const [univName, setUnivName] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -15,8 +17,6 @@ export default function Signup() {
   const [isValid, setIsValid] = useState(false);
   const [validEmailMessage, setValidEmailMessage] = useState("");
   const [verifyError, setVerifyError] = useState("");
-  const [nameError, setNameError] = useState("");
-
   const [inputValue, setInputValue] = useState("");
 
   const handleInputChange = (e) => {
