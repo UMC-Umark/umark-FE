@@ -3,8 +3,53 @@ import logo from "../img/logo.png";
 import { Link } from "react-router-dom";
 import "../css/Login.css";
 import arrow from "../img/arrow.png";
+//import axios from "axios";
+//import { useDispatch, useSelector } from "react-redux";
+//import { setUserEmail, setUserPassword } from "../api/loginActions";
 
 export default function Login() {
+  /*
+  const dispatch = useDispatch();
+  const email = useSelector((state) => state.login.email);
+  const pw = useSelector((state) => state.login.pw);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleEmail = (e) => {
+    dispatch(setUserEmail(e.target.value));
+  };
+
+  const handlePw = (e) => {
+    dispatch(setUserPassword(e.target.value));
+  };
+
+  const onClickConfirmButton = async (e) => {
+    if (email === "" || pw === "") {
+      alert("이메일과 비밀번호를 모두 입력해주세요.");
+      return; // submit 이벤트 종료
+    }
+    try {
+      setIsLoading(true);
+      const res = await axios.post("http://localhost:3000/user/login", {
+        email: email,
+        pw: pw,
+      });
+      console.log(res.data);
+      console.log(res.data.isSuccess);
+      if (res.data.isSuccess) {
+        alert("로그인에 성공했습니다.");
+        localStorage.setItem("token", res.data.result.AccessToken); // 토큰 저장
+        localStorage.setItem("email", res.data.result.userEmail); // 이메일 저장
+      }
+
+      // 통신 완료 후 로딩 해제
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1500);
+    } catch (err) {
+      alert(err);
+    }
+  };
+  */
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-black text-white">
       <div className="w-full flex justify-between items-center">
@@ -35,7 +80,8 @@ export default function Login() {
             <input
               name="email"
               className="custom-logininput bg-black text-white px-60 py-4 rounded-full text-left focus:outline-none border border-1 border-white"
-            />
+            />{" "}
+            {/* value={email} onChange={handleEmail} */}
             <br />
             <br />
             <span className="custom-loginlabel absolute left-50 top-50 text-white mt-4 ml-5">
@@ -45,7 +91,8 @@ export default function Login() {
               name="password"
               type="password"
               className="custom-logininput bg-black text-white px-60 py-4 rounded-full focus:outline-none border border-1 border-white"
-            />
+            />{" "}
+            {/* value={pw} onChange={handlePw} */}
           </div>
           <div className="mb-12" />
           <Link to="/Umark">
@@ -53,7 +100,10 @@ export default function Login() {
               type="button"
               className="custom-loginbutton1 bg-green-400 text-black px-60 py-3 rounded-full font-bold"
             >
+              {" "}
+              {/* onClick={onClickConfirmButton} disabled={isLoading} */}
               로그인
+              {/* {isLoading ? "Loading..." : "확인"} */}
             </button>
           </Link>
           <div className="mb-12" />
