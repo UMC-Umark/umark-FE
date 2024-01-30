@@ -4,9 +4,11 @@ import logo from "../img/logo.png";
 import { Link } from "react-router-dom";
 import arrow from "../img/arrow.png";
 import "../css/Signup.css";
+import { sendEmailVerification } from "../api/Sendemail";
 
 export default function Signup() {
   const [email, setEmail] = useState("");
+  const [univName, setUnivName] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -15,8 +17,6 @@ export default function Signup() {
   const [isValid, setIsValid] = useState(false);
   const [validEmailMessage, setValidEmailMessage] = useState("");
   const [verifyError, setVerifyError] = useState("");
-  const [nameError, setNameError] = useState("");
-
   const [inputValue, setInputValue] = useState("");
 
   const handleInputChange = (e) => {
@@ -80,7 +80,7 @@ export default function Signup() {
     );
   };
   return (
-    <div className="h-full bg-black text-white">
+    <div className="fixed top-0 left-0 w-full h-full bg-black text-white">
       <div className="w-full flex justify-between items-center">
         <Link className="custom-arrow" to="/Agreement">
           <img src={arrow} alt="arrow" />
@@ -105,7 +105,7 @@ export default function Signup() {
             학교명
           </span>
           <input
-            name="name"
+            name="univName"
             placeholder="정확한 학교명을 적어주세요"
             className="custom-input3 bg-black text-white px-60 py-3 rounded-full focus:outline-none border border-1 border-white placeholder-white"
           />
