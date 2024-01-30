@@ -95,15 +95,19 @@ const ReportingPage = () => {
       </div>
 
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center">
-          <div className="text-white bg-transparent p-4 rounded-lg text-center">
-            <p>신고가 정상적으로 제출되었어요.</p>
-            <button onClick={handleCloseModal} className="mt-4 bg-white text-black font-bold py-2 px-4 rounded">
-              확인
-            </button>
-          </div>
-        </div>
-      )}
+  <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center">
+    <div className="text-white bg-transparent p-4 rounded-lg text-center">
+      <p className="text-lg pb-4">신고가 정상적으로 제출되었어요.</p>
+      <button 
+          onClick={handleCloseModal} 
+          className="bg-white text-black font-bold py-2 px-4 rounded focus:outline-none transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg"
+        >
+        확인
+      </button>
+    </div>
+  </div>
+)}
+
     </div>
   );
 };

@@ -37,24 +37,24 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-black text-white flex justify-between items-center h-18 p-4 border-b border-gray-200 fixed top-0 left-0 right-0 z-10">
-      <Link to="/" className="flex items-center">
-        <img src={adimg} alt="로고" className="header-logo h-16" />
+    <header className="bg-black text-white flex justify-between items-center h-24 border-b border-gray-200 fixed top-0 left-0 right-0 z-10">
+      <Link to="/" className="flex items-center  ">
+        <img src={adimg} alt="로고" className="header-logo h-22 pl-4" />
       </Link>
       <nav className="hidden md:flex flex-grow justify-center">
     <Link className="header-text" to="/">your bookmark space</Link>
   </nav>
-      <div className="relative ml-auto" ref={menuRef}>
+      <div className="relative ml-auto pr-5" ref={menuRef}>
               <GiHamburgerMenu
                 onClick={toggleMenu}
                 className="cursor-pointer"
-                size={64}
+                size={55}
               />
               <ul
                 className={
                   isOpen
-                    ? "w-96 h-screen absolute top-0 right-0 duration-500 transform translate-x-0 transition-transform ease-out bg-orange-500 text-black"
-                    : "w-96 h-screen absolute top-0 right-full duration-500 ease-out transform translate-x-full transition-transform bg-green-500 text-black hidden"
+                    ? "no-margin-padding w-96 h-screen absolute top-0 right-0 duration-500 transform translate-x-0 transition-transform ease-out bg-orange-500 text-black"
+      : "no-margin-padding w-96 h-screen absolute top-0 right-full duration-500 ease-out transform translate-x-full transition-transform bg-green-500 text-black hidden"
                 }
               >
                 <div className='mt-32 font-bold'>
@@ -71,7 +71,10 @@ const Header = () => {
                 <div className='mt-16 font-bold'>
                   <li className="text-black cursor-pointer hover:text-white text-2xl my-6 mx-6">피드 광고 제안</li>
                   <li className="text-black cursor-pointer hover:text-white text-2xl my-6 mx-6">QnA</li>
-                  <li className="text-black cursor-pointer hover:text-white text-2xl my-6 mx-6">사용방법</li>
+                  <li className="text-black cursor-pointer hover:text-white text-2xl my-6 mx-6">
+                  <Link to="/intro" onClick={handleLinkClick}>사용 방법</Link>
+                  </li>
+                  
                 </div>
                 <AiOutlineClose
                   onClick={closeMenu}
