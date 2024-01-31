@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./SearchBox.css";
-//import '@fortawesome/fontawesome-free/css/all.min.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const SearchBox = () => {
   const [searchInput, setSearchInput] = useState("");

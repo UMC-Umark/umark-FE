@@ -28,13 +28,13 @@ export default function Card({ title, date, tags, description, link, onClick, is
                         <time className="text-gray-400">
                             {date}
                         </time>
-                        <h5 className="flex items-center gap-x-4">
-                            {tags.map((tag, index) => (
-                                <a key={index} href="#" className="tag relative rounded-lg px-2.5 py-1">
-                                    <div>#{tag}</div>
-                                </a>
+                        <h6 className="flex items-center gap-x-4">
+                            {tags.map((tag) => (
+                                <div className="tags relative rounded-lg px-2.5 py-1">
+                                    #{tag}
+                                </div>
                             ))}
-                        </h5>
+                        </h6>
                     </div>
                 </div>
             </div>
