@@ -84,7 +84,9 @@ export default function Findpassword() {
         <br />
         <div className="text-center inline-flex">
           <h1 className="text-4xl font-bold my-3 px-10">내 정보 수정</h1>
-          <p className="text-xl underline my-4 text-gray-500">탈퇴하기</p>
+          <Link to="/LeavePage">
+            <p className="text-xl underline my-4 text-gray-500">탈퇴하기</p>
+          </Link>
         </div>
         <div className="mb-12" />
         <div className="custom-signupform2 text-center inline-block relative">
