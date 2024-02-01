@@ -3,8 +3,13 @@ import { FaTrashAlt } from "react-icons/fa";
 import Menubar from '../components/Menubar';
 import Header from "../components/Header";
 import "../pages/MyBookmark.css"
+import axios from 'axios';
 
 export default function MyBookmark() {
+  axios.get("http://backendurl")
+    .then((Response)=>{console.log(Response.data)})
+    .catch((Error)=>{console.log(Error)})
+
   return (
     <div className="flex flex-col"> 
       <Header/>
