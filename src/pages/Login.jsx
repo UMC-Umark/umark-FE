@@ -74,23 +74,23 @@ export default function Login() {
         <div className="custom-form1 text-center inline-block rounded-lg border-white">
           <div className="mb-8" />
           <div className="relative">
-            <span className="custom-loginlabel absolute left-50 top-50 text-white mt-4 ml-5">
+            <span className="custom-loginlabel font-bold absolute left-50 top-50 text-black mt-4 ml-5">
               이메일
             </span>
             <input
               name="email"
-              className="custom-logininput bg-black text-white px-60 py-4 rounded-full text-left focus:outline-none border border-1 border-white"
+              className="custom-logininput bg-white text-black px-60 py-4 rounded-full text-left focus:outline-none border border-1"
             />{" "}
             {/* value={email} onChange={handleEmail} */}
             <br />
             <br />
-            <span className="custom-loginlabel absolute left-50 top-50 text-white mt-4 ml-5">
+            <span className="custom-loginlabel font-bold absolute left-50 top-50 text-black mt-4 ml-5">
               비밀번호
             </span>
             <input
               name="password"
               type="password"
-              className="custom-logininput bg-black text-white px-60 py-4 rounded-full focus:outline-none border border-1 border-white"
+              className="custom-logininput bg-white text-black px-60 py-4 rounded-full focus:outline-none border border-1"
             />{" "}
             {/* value={pw} onChange={handlePw} */}
           </div>
