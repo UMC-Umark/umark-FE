@@ -27,7 +27,7 @@ function Bookmark() {
       };
 
       // 서버에 POST 요청 보내기
-      await axios.post('http://localhost:3000/bookmarks', data);
+      await axios.post('http://localhost:3000/api/bookmarks', data);
 
       // 업로드 성공 후 필요한 동작 수행 (예: 리다이렉트 또는 메시지 표시)
       console.log('북마크 업로드 성공');
