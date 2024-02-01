@@ -3,7 +3,7 @@ import './Card.css';
 import BookmarkOff from '../img/BookmarkOff.png';
 import BookmarkOn from '../img/BookmarkOn.png';
 
-export default function Card({ title, date, tags, description, link, onClick, isAd }) {
+export default function Card({ title, date, tags, description, onClick }) {
     const [currentImage, setCurrentImage] = useState(BookmarkOff);
 
     const handleImageClick = () => {
@@ -21,9 +21,9 @@ export default function Card({ title, date, tags, description, link, onClick, is
             <div className="card-header">
                 <div className="header-wrap">
                     <h4>{title}</h4>
-                    <a href={link} onClick={handleImageClick}>
+                    <div onClick={handleImageClick}>
                         <img className="card-img-top" src={currentImage} alt={title} />
-                    </a>
+                    </div>
                     <div className="flex flex-col">
                         <time className="text-gray-400">
                             {date}

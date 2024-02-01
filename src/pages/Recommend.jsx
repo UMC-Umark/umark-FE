@@ -10,7 +10,7 @@ import Menubar from '../components/Menubar';
 export default function Recommend() {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const openModal = (index) => {
+    const openModal = () => {
         setIsModalOpen(true);
     };
 
@@ -29,11 +29,11 @@ export default function Recommend() {
                         <SearchBox />
                     </div>
                     <div className='row'>
-                        {cardsData.map((card, index) => (
-                            <div key={index} className="col-lg-4 col-md-6 col-sm-auto mt-5">
+                        {cardsData.map((card, bookMarkId) => (
+                            <div key={bookMarkId} className="col-lg-4 col-md-6 col-sm-auto mt-5">
                                 <Card
                                     {...card}
-                                    onClick={(isOpen) => (isOpen ? openModal(index) : closeModal())}
+                                    onClick={(isOpen) => (isOpen ? openModal(card.bookMarkId) : closeModal())}
                                 />
                             </div>
                         ))}
