@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import logo from "../img/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import Modal from "../components/Modal.jsx";
 import arrow from "../img/arrow.png";
 import "../css/Agree.css";
+import axios from "axios";
 
 export default function Agreement() {
   const [allAgreed, setAllAgreed] = useState(false);
@@ -13,6 +14,7 @@ export default function Agreement() {
   });
   const [modalVisible, setModalVisible] = useState(false);
   const navigate = useNavigate();
+  const [agreementsData, setAgreementsData] = useState(null);
 
   const handleAgreementChange = (event) => {
     const { name, checked } = event.target;
@@ -49,6 +51,24 @@ export default function Agreement() {
   const closeModal = () => {
     setModalVisible(false);
   };
+
+  useEffect(() => {
+    const fetchAgreements = async () => {
+      try {
+        const response = await axios.get("/terms");
+
+        if (response.data.isSuccess) {
+          setAgreementsData(response.data.data); // 약관 정보를 가져와 state 업데이트
+        } else {
+          console.error("약관 정보를 불러오는데 실패했습니다.");
+        }
+      } catch (error) {
+        console.error("약관 정보를 불러오는 중 오류 발생:", error);
+      }
+    };
+
+    fetchAgreements(); // 약관 정보를 가져오는 함수 호출
+  }, []); // 컴포넌트가 마운트될 때 한 번만 호출하도록 빈 배열을 전달
 
   return (
     <div className="h-full bg-black text-white">

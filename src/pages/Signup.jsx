@@ -4,7 +4,7 @@ import logo from "../img/logo.png";
 import { Link } from "react-router-dom";
 import arrow from "../img/arrow.png";
 import "../css/Signup.css";
-import { sendEmailVerification } from "../api/Sendemail";
+import axios from "axios";
 
 export default function Signup() {
   const [email, setEmail] = useState("");
@@ -18,6 +18,69 @@ export default function Signup() {
   const [validEmailMessage, setValidEmailMessage] = useState("");
   const [verifyError, setVerifyError] = useState("");
   const [inputValue, setInputValue] = useState("");
+
+  // 인증 메일 전송
+  const handleSendVerification = async () => {
+    try {
+      const requestBody = {
+        email: email,
+        univName: univName,
+      };
+      const response = await axios.post("/member/sendemail", requestBody);
+      if (response.data.isSuccess) {
+        setVerifyError("성공하였습니다.");
+      } else {
+        setVerifyError("실패하였습니다. 다시 시도해주세요.");
+      }
+    } catch (error) {
+      console.error("메일 인증 전송 중 오류:", error);
+      setVerifyError("인증번호 전송 중 오류가 발생했습니다.");
+    }
+  };
+
+  // 인증 코드 체크
+  const handleVerifyCode = async () => {
+    try {
+      const requestBody = {
+        email: email,
+        univName: univName,
+        code: parseInt(inputValue), // inputValue를 정수로 변환하여 전달
+      };
+      const response = await axios.post("/member/checkcode", requestBody);
+
+      if (response.data.isSuccess) {
+        setVerifyError("성공하였습니다.");
+      } else {
+        setVerifyError("인증이 실패했습니다. 다시 시도해주세요.");
+      }
+    } catch (error) {
+      console.error("인증 코드 확인 중 오류:", error);
+      setVerifyError("인증 코드 확인 중 오류가 발생했습니다.");
+    }
+  };
+
+  // 회원가입
+  const handleSignUp = async () => {
+    try {
+      const requestBody = {
+        email: email,
+        password: password,
+        terms: [1, 2],
+      };
+
+      const response = await axios.post("/member/signup", requestBody);
+
+      if (response.data.isSuccess) {
+        alert("회원가입이 완료되었습니다.");
+        // 회원가입 성공 시, 로그인 페이지로 이동 또는 다른 처리
+      } else {
+        alert("회원가입에 실패했습니다. 다시 시도해주세요.");
+      }
+    } catch (error) {
+      console.error("회원가입 중 오류:", error);
+      alert("회원가입 중 오류가 발생했습니다.");
+    }
+  };
 
   const handleInputChange = (e) => {
     const newValue = e.target.value.replace(/[^0-9]/g, ""); // 숫자 이외의 문자 제거
@@ -129,6 +192,7 @@ export default function Signup() {
           <br />
           <button
             type="button"
+            onClick={handleSendVerification}
             className="custom-sendbutton bg-white text-black w-1/6 px-8 py-4 rounded-full mr-4 font-bold"
           >
             인증번호 전송
@@ -140,7 +204,10 @@ export default function Signup() {
             onChange={handleInputChange}
             className="custom-input2 bg-black text-white w-1/5 mr-4 px-20 py-4 rounded-full text-left focus:outline-none border border-1 border-white placeholder-gray-300"
           />
-          <button className="custom-endbutton1 bg-black text-white w-1/7 px-10 py-4 rounded-full focus:outline-none border border-1 border-white">
+          <button
+            onClick={handleVerifyCode}
+            className="custom-endbutton1 bg-black text-white w-1/7 px-10 py-4 rounded-full focus:outline-none border border-1 border-white"
+          >
             완료
           </button>
           <div className="text-red-600">{verifyError}</div>
@@ -183,6 +250,7 @@ export default function Signup() {
             <button
               type="button"
               disabled={!isValid}
+              onClick={handleSignUp}
               className="custom-endbutton2 bg-white text-black px-80 py-4 rounded-full font-bold"
             >
               완료
