@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 // 신고 옵션을 선택하는 라디오 버튼 컴포넌트
 const RadioOptions = ({ options, selectedOption, setSelectedOption, onOtherSelected }) => {
@@ -33,7 +34,7 @@ const ReportingPage = () => {
   const [otherText, setOtherText] = useState('');
   const [showModal, setShowModal] = useState(false); // 모달 표시 상태
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     const reportData = {
@@ -42,8 +43,17 @@ const ReportingPage = () => {
     };
 
     // API 호출 및 처리
-    // 여기서는 모달 표시를 위해 바로 상태를 변경합니다
-    setShowModal(true);
+    try {
+      // 백엔드로 데이터 전송
+      const response = await axios.post('http://localhost:3000/report', reportData);
+      
+      console.log('신고가 정상적으로 처리되었습니다.', response.data);
+      setShowModal(true);
+
+    } catch (error) {
+      console.error('신고 제출 중 오류가 발생했습니다:', error);
+      // 에러 처리 로직 추가 (예: 상태 업데이트, 사용자에게 메시지 표시 등)
+    }
   };
 
   const handleCloseModal = () => {
