@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import "../components/Header.css";
+import axios from "axios";
 
 export default function Findpassword() {
   const [email, setEmail] = useState("");
@@ -14,6 +15,8 @@ export default function Findpassword() {
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [passwordConfirmError, setPasswordConfirmError] = useState("");
+  const [withdrawReason, setWithdrawReason] = useState("");
+  const [withdrawError, setWithdrawError] = useState("");
 
   const [inputValue, setInputValue] = useState("");
 
@@ -36,16 +39,6 @@ export default function Findpassword() {
       //setValidEmailMessage('올바른 이메일 형식입니다.');
     }
     setIsValid(isValid);
-  };
-  const handlePasswordChange = (e) => {
-    const newPassword = e.target.value;
-    setPassword(newPassword);
-    validatePassword(newPassword);
-  };
-  const handlePasswordConfirmChange = (e) => {
-    const newPasswordConfirm = e.target.value;
-    setPasswordConfirm(newPasswordConfirm);
-    validatePasswordConfirm(newPasswordConfirm);
   };
   const validatePassword = (input) => {
     const passwordRegex =
@@ -75,6 +68,41 @@ export default function Findpassword() {
     setIsValid(
       isValid && emailError === "" && passwordError === "" && password === input
     );
+  };
+
+  const handleWithdrawReasonChange = (e) => {
+    setWithdrawReason(e.target.value);
+  };
+  const handleWithdraw = async () => {
+    try {
+      // 유효성 검사 로직 추가
+      if (passwordConfirmError !== "") {
+        setWithdrawError("비밀번호 확인이 올바르지 않습니다.");
+        return;
+      }
+
+      const memberId = 123; // 탈퇴할 회원의 ID, 실제로는 해당 회원의 ID로 설정
+
+      const requestBody = {
+        passwordConfirm,
+        withdrawReason,
+      };
+
+      const response = await axios.patch(
+        `http://15.165.194.140/member/${memberId}`,
+        requestBody
+      );
+
+      if (response.data.isSuccess) {
+        // 탈퇴 성공 처리
+        alert("탈퇴가 완료되었습니다.");
+      } else {
+        setWithdrawError("탈퇴에 실패하였습니다. 다시 시도해주세요.");
+      }
+    } catch (error) {
+      console.error("탈퇴 중 오류:", error);
+      setWithdrawError("탈퇴 중 오류가 발생했습니다.");
+    }
   };
 
   return (
@@ -107,7 +135,6 @@ export default function Findpassword() {
             name="passwordConfirm"
             type="password"
             value={passwordConfirm}
-            onChange={handlePasswordConfirmChange}
             className="bg-white text-gray-500 px-60 py-3 focus:outline-none border-2 border-black"
           />
           <div className="mb-10" />
