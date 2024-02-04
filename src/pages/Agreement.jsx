@@ -55,7 +55,7 @@ export default function Agreement() {
   useEffect(() => {
     const fetchAgreements = async () => {
       try {
-        const response = await axios.get("/terms");
+        const response = await axios.get("http://15.165.194.140/terms");
 
         if (response.data.isSuccess) {
           setAgreementsData(response.data.data); // 약관 정보를 가져와 state 업데이트

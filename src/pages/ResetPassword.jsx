@@ -19,7 +19,7 @@ export default function ResetPassword() {
       };
 
       const response = await axios.patch(
-        "/member/pwdquery/change-pwd",
+        "http://15.165.194.140/member/pwdquery/change-pwd",
         requestBody
       );
       if (response.data.isSuccess) {

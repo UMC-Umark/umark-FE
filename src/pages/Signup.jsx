@@ -27,7 +27,12 @@ export default function Signup() {
         email: email,
         univName: univName,
       };
-      const response = await axios.post("/member/sendemail", requestBody);
+
+      const response = await axios.post(
+        "http://15.165.194.140/member/sendemail",
+        requestBody
+      );
+
       if (response.data.isSuccess) {
         setVerifyError("성공하였습니다.");
       } else {
@@ -47,7 +52,10 @@ export default function Signup() {
         univName: univName,
         code: parseInt(inputValue), // inputValue를 정수로 변환하여 전달
       };
-      const response = await axios.post("/member/checkcode", requestBody);
+      const response = await axios.post(
+        "http://15.165.194.140/member/checkcode",
+        requestBody
+      );
 
       if (response.data.isSuccess) {
         setVerifyError("성공하였습니다.");
@@ -63,13 +71,26 @@ export default function Signup() {
   // 회원가입
   const handleSignUp = async () => {
     try {
+      // 필수 정보 입력 여부 확인
+      if (!email || !univName || !inputValue || !password || !passwordConfirm) {
+        alert("모든 필수 정보를 입력하세요.");
+        return;
+      }
+      // 회원가입 유효성 검사
+      if (!isValid) {
+        alert("올바른 회원가입 정보를 입력하세요.");
+        return;
+      }
       const requestBody = {
         email: email,
         password: password,
         terms: [1, 2],
       };
 
-      const response = await axios.post("/member/signup", requestBody);
+      const response = await axios.post(
+        "http://15.165.194.140/member/signup",
+        requestBody
+      );
 
       if (response.data.isSuccess) {
         alert("회원가입이 완료되었습니다.");
