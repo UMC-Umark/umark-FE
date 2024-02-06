@@ -55,10 +55,15 @@ export default function Agreement() {
   useEffect(() => {
     const fetchAgreements = async () => {
       try {
-        const response = await axios.get("http://15.165.194.140/terms");
+        const response = await axios.get("/terms");
 
         if (response.data.isSuccess) {
-          setAgreementsData(response.data.data); // 약관 정보를 가져와 state 업데이트
+          setAgreementsData(response.data.data.terms); // 약관 정보를 가져와 state 업데이트
+          const initialAgreements = response.data.data.terms.map((term) => ({
+            ...term,
+            agreed: false,
+          }));
+          setAgreements(initialAgreements);
         } else {
           console.error("약관 정보를 불러오는데 실패했습니다.");
         }
@@ -111,6 +116,27 @@ export default function Agreement() {
               <label htmlFor="agree_check_used" className="custom-text ml-2">
                 [필수] umark 계정 약관
               </label>
+              {agreementsData && (
+                <>
+                  {agreementsData.map((term) => (
+                    <div key={term.id} className="text-left mb-4">
+                      <input
+                        type="checkbox"
+                        id={term.id}
+                        name={term.id.toString()}
+                        checked={
+                          agreements.find(
+                            (agreement) => agreement.id === term.id
+                          )?.agreed || false
+                        }
+                        onChange={handleAgreementChange}
+                        className="mr-2"
+                      />
+                      <label htmlFor={term.id}>{term.title}</label>
+                    </div>
+                  ))}
+                </>
+              )}
             </div>
             <div className="custom-check">
               <input
