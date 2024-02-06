@@ -38,26 +38,37 @@ const ReportingPage = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
   
+    // 신고 사유가 선택되었는지 확인
+    if (!selectedOption) {
+      alert('신고 사유를 선택해주세요.');
+      return;
+    }
+  
     // report 값 설정
-    const reportValue = reportOptions.indexOf(selectedOption) + 1; // 옵션에 따라 1부터 시작하는 인덱스 값을 사용
+    const reportIndex = reportOptions.indexOf(selectedOption); // 인덱스 값
+    const reportValue = reportIndex + 1; // 옵션에 따라 1부터 시작하는 인덱스 값을 사용
   
     const reportData = {
-      memberId: 1, // 예시로 1을 사용, 실제 memberId 값으로 변경해야 함
-      bookMarkId: 1, // 예시로 1을 사용, 실제 bookMarkId 값으로 변경해야 함
-      report: reportValue, // 선택된 옵션의 인덱스 + 1
-      reason: isOtherSelected ? otherText : selectedOption // 기타를 선택한 경우 otherText, 아니면 선택된 옵션 사용
+      reportIndex, // 선택된 옵션의 인덱스
+      reportValue, // 인덱스 + 1
+      reason: isOtherSelected ? otherText : selectedOption // 기타 선택 시 otherText, 아니면 선택된 옵션 사용
     };
+    console.log('Sending report data:', reportData);
   
     // API 호출 및 처리
     try {
-      const response = await axios.post('http://15.165.194.140/report', reportData);
+      const response = await axios.post('/reports', reportData);
       console.log('신고가 정상적으로 처리되었습니다.', response.data);
       setShowModal(true);
     } catch (error) {
       console.error('신고 제출 중 오류가 발생했습니다:', error);
-      // 에러 처리 로직 추가 (예: 상태 업데이트, 사용자에게 메시지 표시 등)
+      alert('신고 제출 중 오류가 발생했습니다. 다시 시도해주세요.');
+      // 추가적인 에러 처리 로직
     }
   };
+  
+  
+  
   
 
   const handleCloseModal = () => {
