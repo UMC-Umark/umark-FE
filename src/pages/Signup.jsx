@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import logo from "../img/logo.png";
 import { Link } from "react-router-dom";
 import arrow from "../img/arrow.png";
@@ -16,7 +16,6 @@ export default function Signup() {
   const [passwordConfirmError, setPasswordConfirmError] = useState("");
   const [isValid, setIsValid] = useState(false);
   const [validEmailMessage, setValidEmailMessage] = useState("");
-  const [verifyError, setVerifyError] = useState("");
 
   const [inputValue, setInputValue] = useState("");
 
@@ -24,23 +23,17 @@ export default function Signup() {
   const handleSendVerification = async () => {
     try {
       const requestBody = {
-        email: email,
-        univName: univName,
+        email: "email@example.com",
+        univName: "OOO대학교",
       };
 
-      const response = await axios.post(
-        "http://15.165.194.140/member/sendemail",
-        requestBody
-      );
+      const response = await axios.post("/member/sendemail", requestBody);
 
       if (response.data.isSuccess) {
-        setVerifyError("성공하였습니다.");
-      } else {
-        setVerifyError("실패하였습니다. 다시 시도해주세요.");
+        console.log(response.data);
       }
     } catch (error) {
       console.error("메일 인증 전송 중 오류:", error);
-      setVerifyError("인증번호 전송 중 오류가 발생했습니다.");
     }
   };
 
@@ -48,23 +41,17 @@ export default function Signup() {
   const handleVerifyCode = async () => {
     try {
       const requestBody = {
-        email: email,
-        univName: univName,
-        code: parseInt(inputValue), // inputValue를 정수로 변환하여 전달
+        email: "email@example.com",
+        univName: "OOO 대학교",
+        code: 0,
       };
-      const response = await axios.post(
-        "http://15.165.194.140/member/checkcode",
-        requestBody
-      );
+      const response = await axios.post("/member/checkemail", requestBody);
 
       if (response.data.isSuccess) {
-        setVerifyError("성공하였습니다.");
-      } else {
-        setVerifyError("인증이 실패했습니다. 다시 시도해주세요.");
+        console.log(response.data);
       }
     } catch (error) {
       console.error("인증 코드 확인 중 오류:", error);
-      setVerifyError("인증 코드 확인 중 오류가 발생했습니다.");
     }
   };
 
@@ -82,25 +69,19 @@ export default function Signup() {
         return;
       }
       const requestBody = {
-        email: email,
-        password: password,
+        email: "email@exmaple.com",
+        password: "password",
         terms: [1, 2],
       };
 
-      const response = await axios.post(
-        "http://15.165.194.140/member/signup",
-        requestBody
-      );
+      const response = await axios.post("/member/signup", requestBody);
 
       if (response.data.isSuccess) {
-        alert("회원가입이 완료되었습니다.");
+        console.log(response.data);
         // 회원가입 성공 시, 로그인 페이지로 이동 또는 다른 처리
-      } else {
-        alert("회원가입에 실패했습니다. 다시 시도해주세요.");
       }
     } catch (error) {
       console.error("회원가입 중 오류:", error);
-      alert("회원가입 중 오류가 발생했습니다.");
     }
   };
 
@@ -164,6 +145,7 @@ export default function Signup() {
       isValid && emailError === "" && passwordError === "" && password === input
     );
   };
+
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-black text-white">
       <div className="w-full flex justify-between items-center">
@@ -232,7 +214,7 @@ export default function Signup() {
           >
             완료
           </button>
-          <div className="text-red-600">{verifyError}</div>
+          {/* <div className="text-red-600">{verifyError}</div> */}
           {/* {isValid && <div className="text-green-600">인증이 완료되었습니다</div>}<br /> */}
           <div className="mb-10" />
           <span className="custom-label absolute ml-4 left-50 top-50 text-white mt-3">

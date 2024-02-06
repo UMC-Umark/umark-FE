@@ -46,7 +46,7 @@ export default function MyBookmark() {
               <p className="pt-2 text-xl text-gray-500 text-bold">2024-01-01 14:20</p>
               <div className="flex mt-2">
                 {[1, 2, 3].map((tagIndex) => (
-                  <div key={tagIndex} className={`flex-shrink-0 p-2 w-auto h-8 bg-gray-300 rounded-lg flex items-center justify-center font-bold text-gray-500 text-lg mx-1 ml-4 mb-4 ${tagIndex === 1 ? 'w-16' : tagIndex === 2 ? 'w-24' : 'w-32'}`}>
+                  <div key={tagIndex} className={`flex-shrink-0 p-2 w-auto h-8 bg-gray-300 rounded-lg flex items-center justify-center font-bold text-gray-500 text-lg ml-1 mb-4 ${tagIndex === 1 ? 'w-16' : tagIndex === 2 ? 'w-24' : 'w-32'}`}>
                     #{tagIndex === 1 ? '대관' : tagIndex === 2 ? '행사' : '블로그글'}
                   </div>
                 ))}
@@ -65,9 +65,9 @@ export default function MyBookmark() {
               />
               <p className="pt-4 item-center text-2xl font-bold">오프라인 행사 <br /> 준비는 이렇게 하자</p>
               <p className="pt-2 text-xl text-gray-500 text-bold">2024-01-01 14:20</p>
-              <div className="flex mt-2">
+              <div className="flex mt-2 ">
                 {[1, 2, 3].map((tagIndex) => (
-                  <div key={tagIndex} className={`flex-shrink-0 p-2 w-auto h-8 bg-gray-300 rounded-lg flex items-center justify-center font-bold text-gray-500 text-lg mx-1 ml-4 mb-4 ${tagIndex === 1 ? 'w-16' : tagIndex === 2 ? 'w-24' : 'w-32'}`}>
+                  <div key={tagIndex} className={`flex-shrink-0 w-auto h-8 bg-gray-300 rounded-lg ml-1 flex items-center justify-center font-bold text-gray-500 text-lg mb-4 ${tagIndex === 1 ? 'w-16' : tagIndex === 2 ? 'w-24' : 'w-32'}`}>
                     #{tagIndex === 1 ? '대관' : tagIndex === 2 ? '행사' : '블로그글'}
                   </div>
                 ))}
