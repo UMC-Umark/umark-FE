@@ -1,28 +1,56 @@
+//Card.jsx
+
 import React, { useState } from "react";
 import './Card.css';
 import BookmarkOff from '../img/BookmarkOff.png';
 import BookmarkOn from '../img/BookmarkOn.png';
+import axios from 'axios';
 
-export default function Card({ title, date, tags, description, onClick }) {
-    const [currentImage, setCurrentImage] = useState(BookmarkOff);
+export default function Card({ bookMarkId, title, date, tags, description, link, onClick }) {
+    const [liked, setLiked] = useState(false)
 
-    const handleImageClick = () => {
-        if (currentImage === BookmarkOff) {
-            setCurrentImage(BookmarkOn);
-            onClick(true);  // 모달 열기 함수 호출
-        } else {
-            setCurrentImage(BookmarkOff);
-            onClick(false);  // 모달 닫기 함수 호출
+    const addBookmark = async (e) => {
+        try {
+            const response = await axios.post(`/bookmarks/${bookMarkId}/likes?memberId=1`)
+            console.log(response);
+            setLiked(!liked);
+            onClick(true);
+        } catch(error) {
+            console.error('Error sending POST request:', error);
         }
-    };
+    }
+
+    const deleteBookmark = async (e) => {
+        try {
+            const response = await axios.post(`/bookmarks/${bookMarkId}/likes?memberId=1`)
+            console.log(response);
+            setLiked(!liked);
+            onClick(false);
+        } catch(error) {
+            console.error('Error sending POST request:', error);
+        }
+    }
+
     
     return (
         <div className="card">
             <div className="card-header">
                 <div className="header-wrap">
                     <h4>{title}</h4>
-                    <div onClick={handleImageClick}>
-                        <img className="card-img-top" src={currentImage} alt={title} />
+                    <div>
+                        <img className="card-img-top" 
+                            src={liked? BookmarkOn : BookmarkOff}
+                            onClick={() => {
+                                if(liked === true) {
+                                    deleteBookmark({bookMarkId: 1});
+                                }
+                                
+                                if(liked === false) {
+                                    addBookmark({bookMarkId: 1});
+                                }
+                            }}
+                            alt="bookMarkIcon"
+                        />
                     </div>
                     <div className="flex flex-col">
                         <time className="text-gray-400">
@@ -44,7 +72,7 @@ export default function Card({ title, date, tags, description, onClick }) {
             <div className="card-footer">
                 <ul className="footer-element">
                     <li>
-                        <a href="#link">링크 바로가기</a>
+                        <a href={link}>링크 바로가기</a>
                     </li>
                     <li>
                         <a href="/reporting">신고하기</a>
