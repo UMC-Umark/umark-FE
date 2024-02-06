@@ -3,8 +3,9 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import "../components/Header.css";
+import axios from "axios";
 
-export default function Findpassword() {
+export default function ModifyinfoA() {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
   const [isValid, setIsValid] = useState(false);
@@ -16,6 +17,27 @@ export default function Findpassword() {
   const [passwordConfirmError, setPasswordConfirmError] = useState("");
 
   const [inputValue, setInputValue] = useState("");
+
+  const handleModifyInfo = async () => {
+    try {
+      //const memberId = 123; // 실제 사용자 ID로 교체
+      const requestBody = {
+        newPassword: password,
+      };
+
+      const response = await axios.patch(`/member/changepassword/{memberId}`);
+
+      if (response.data.isSuccess) {
+        alert("비밀번호가 성공적으로 변경되었습니다.");
+        // 성공 시 처리, 예를 들어 다른 페이지로 이동
+      } else {
+        alert("비밀번호 변경에 실패했습니다. 다시 시도해주세요.");
+      }
+    } catch (error) {
+      console.error("비밀번호 변경 중 오류:", error);
+      alert("비밀번호 변경 중 오류가 발생했습니다.");
+    }
+  };
 
   const handleInputChange = (e) => {
     const newValue = e.target.value.replace(/[^0-9]/g, ""); // 숫자 이외의 문자 제거

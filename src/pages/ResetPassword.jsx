@@ -14,12 +14,12 @@ export default function ResetPassword() {
   const handleResetPassword = async () => {
     try {
       const requestBody = {
-        email: email,
-        newPassword: newPassword,
+        email: "email@example.com",
+        newPassword: "1234",
       };
 
       const response = await axios.patch(
-        "http://15.165.194.140/member/pwdquery/change-pwd",
+        "/member/changepasswordbyemail",
         requestBody
       );
       if (response.data.isSuccess) {

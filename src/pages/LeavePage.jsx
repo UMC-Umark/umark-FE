@@ -81,7 +81,7 @@ export default function Findpassword() {
         return;
       }
 
-      const memberId = 123; // 탈퇴할 회원의 ID, 실제로는 해당 회원의 ID로 설정
+      //const memberId = 123; // 탈퇴할 회원의 ID, 실제로는 해당 회원의 ID로 설정
 
       const requestBody = {
         passwordConfirm,
@@ -89,15 +89,14 @@ export default function Findpassword() {
       };
 
       const response = await axios.patch(
-        `http://15.165.194.140/member/${memberId}`,
-        requestBody
+        `http://15.165.194.140/member/{memberId}`
       );
 
       if (response.data.isSuccess) {
         // 탈퇴 성공 처리
         alert("탈퇴가 완료되었습니다.");
       } else {
-        setWithdrawError("탈퇴에 실패하였습니다. 다시 시도해주세요.");
+        setWithdrawError("실패하였습니다. 다시 시도해주세요.");
       }
     } catch (error) {
       console.error("탈퇴 중 오류:", error);

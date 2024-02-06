@@ -51,7 +51,7 @@ export default function Login() {
             {/* value={pw} onChange={handlePw} */}
           </div>
           <div className="mb-12" />
-          <Link to="/Umark">
+          <Link to="/recommend">
             <button
               type="button"
               className="custom-loginbutton1 bg-green-400 text-black px-60 py-3 rounded-full font-bold"

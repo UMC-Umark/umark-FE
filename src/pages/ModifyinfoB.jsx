@@ -3,8 +3,9 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import "../components/Header.css";
+import axios from "axios";
 
-export default function Findpassword() {
+export default function ModifyinfoB() {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
   const [isValid, setIsValid] = useState(false);
