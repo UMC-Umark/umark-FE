@@ -5,6 +5,7 @@ import Modal from "../components/Modal";
 import arrow from "../img/arrow.png";
 import "../css/Agree.css";
 import axios from "axios";
+import "../css/Checkbox.css";
 
 export default function Agreement() {
   const [allAgreed, setAllAgreed] = useState(false);
