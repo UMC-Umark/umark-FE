@@ -11,7 +11,7 @@ export default function Menubar() {
             <Link to="/recommend">추천 북마크</Link>
           </div>
           <div className='text-2xl lg:mr-40 md:ml-8 md:mr-20 font-semibold text-gray-500 hover:text-black transition duration-200'>
-            모든 북마크
+            <Link to="/allbookmarks">모든 북마크</Link>
           </div>
         </div>
       </div>

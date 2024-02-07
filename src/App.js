@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Report from "./pages/Reporting";
 import Recommend from "./pages/Recommend";
+import AllBookmarks from "./pages/AllBookmarks";
 import MyBookmark from "./pages/MyBookmark";
 import Findpassword from "./pages/Findpassword";
 import ResetPassword from "./pages/ResetPassword";
@@ -28,6 +29,7 @@ function App() {
           <Route path="/mybookmark" element={<MyBookmark />} />
           <Route path="/Reporting" element={<Report />} />
           <Route path="/Recommend" element={<Recommend />} />
+          <Route path="/allbookmarks" element={<AllBookmarks />} />
           <Route path="/Findpassword" element={<Findpassword />} />
           <Route path="/ResetPassword" element={<ResetPassword />} />
           <Route path="/ModifyinfoB" element={<ModifyinfoB />} />
