@@ -37,13 +37,13 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-black text-white flex justify-between items-center h-24 border-b border-gray-200 fixed top-0 left-0 right-0 z-10">
+    <header className="bg-black text-white flex justify-between items-center h-24 border-b border-gray-200 fixed top-0 left-0 right-0 z-20">
       <Link to="/" className="flex items-center  ">
         <img src={adimg} alt="로고" className="header-logo h-22 pl-4" />
       </Link>
       <nav className="hidden md:flex flex-grow justify-center">
     <Link className="header-text" to="/">your bookmark space</Link>
-  </nav>
+      </nav>
       <div className="relative ml-auto pr-5" ref={menuRef}>
               <GiHamburgerMenu
                 onClick={toggleMenu}
