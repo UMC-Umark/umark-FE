@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import logo from "../img/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import arrow from "../img/arrow.png";
 import "../css/Signup.css";
 import axios from "axios";
@@ -18,7 +18,7 @@ export default function Signup() {
   const [validEmailMessage, setValidEmailMessage] = useState("");
 
   const [inputValue, setInputValue] = useState("");
-
+  const navigate = useNavigate();
   // 인증 메일 전송
   const handleSendVerification = async () => {
     try {
@@ -28,10 +28,7 @@ export default function Signup() {
       };
 
       const response = await axios.post("/member/sendemail", requestBody);
-
-      if (response.data.isSuccess) {
-        console.log(response.data);
-      }
+      console.log(response.data);
     } catch (error) {
       console.error("메일 인증 전송 중 오류:", error);
     }
@@ -46,10 +43,7 @@ export default function Signup() {
         code: 0,
       };
       const response = await axios.post("/member/checkemail", requestBody);
-
-      if (response.data.isSuccess) {
-        console.log(response.data);
-      }
+      console.log(response.data);
     } catch (error) {
       console.error("인증 코드 확인 중 오류:", error);
     }
@@ -75,11 +69,8 @@ export default function Signup() {
       };
 
       const response = await axios.post("/member/signup", requestBody);
-
-      if (response.data.isSuccess) {
-        console.log(response.data);
-        // 회원가입 성공 시, 로그인 페이지로 이동 또는 다른 처리
-      }
+      console.log(response.data);
+      navigate("/Login");
     } catch (error) {
       console.error("회원가입 중 오류:", error);
     }
@@ -250,16 +241,14 @@ export default function Signup() {
             <div className="text-green-600">비밀번호가 일치합니다.</div>
           )}
           <div className="mb-7" />
-          <Link to="/Login">
-            <button
-              type="button"
-              disabled={!isValid}
-              onClick={handleSignUp}
-              className="custom-endbutton2 bg-white text-black px-80 py-4 rounded-full font-bold"
-            >
-              완료
-            </button>
-          </Link>
+          <button
+            type="button"
+            disabled={!isValid}
+            onClick={handleSignUp}
+            className="custom-endbutton2 bg-white text-black px-80 py-4 rounded-full font-bold"
+          >
+            완료
+          </button>
           <div className="mb-10" />
         </div>
       </div>
