@@ -53,24 +53,22 @@ export default function Agreement() {
   };
 
   useEffect(() => {
-    const fetchAgreements = async () => {
+    async function fetchAgreements() {
       try {
         const response = await axios.get("/terms");
-
+        console.log(response.data);
+        /* 
         if (response.data.isSuccess) {
           setAgreementsData(response.data.data.terms); // 약관 정보를 가져와 state 업데이트
           const initialAgreements = response.data.data.terms.map((term) => ({
             ...term,
             agreed: false,
           }));
-          setAgreements(initialAgreements);
-        } else {
-          console.error("약관 정보를 불러오는데 실패했습니다.");
-        }
+          setAgreements(initialAgreements); */
       } catch (error) {
         console.error("약관 정보를 불러오는 중 오류 발생:", error);
       }
-    };
+    }
 
     fetchAgreements(); // 약관 정보를 가져오는 함수 호출
   }, []); // 컴포넌트가 마운트될 때 한 번만 호출하도록 빈 배열을 전달
