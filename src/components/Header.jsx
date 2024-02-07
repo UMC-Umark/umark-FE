@@ -61,7 +61,9 @@ const Header = () => {
                   <li className="text-black cursor-pointer hover:text-white text-2xl my-6 mx-6">
                     <Link to="/recommend" onClick={handleLinkClick}>추천 북마크</Link>
                   </li>
-                  <li className="text-black cursor-pointer hover:text-white text-2xl my-6 mx-6">모든 북마크</li>
+                  <li className="text-black cursor-pointer hover:text-white text-2xl my-6 mx-6">
+                    <Link to="/allbookmarks" onClick={handleLinkClick}>모든 북마크</Link>
+                  </li>
                   <li className="text-black cursor-pointer hover:text-white text-2xl my-6 mx-6">
                     <Link to="/write" onClick={handleLinkClick}>북마크 작성하기</Link>
                   </li>
