@@ -58,7 +58,6 @@ const Header = () => {
                 }
               >
                 <div className='mt-32 font-bold'>
-                  <li className="text-black cursor-pointer hover:text-white text-2xl my-6 mx-6">최신 북마크</li>
                   <li className="text-black cursor-pointer hover:text-white text-2xl my-6 mx-6">
                     <Link to="/recommend" onClick={handleLinkClick}>추천 북마크</Link>
                   </li>
