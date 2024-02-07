@@ -14,7 +14,7 @@ export default function MyBookmark() {
     <div className="flex flex-col"> 
       <Header/>
       <Menubar />
-      <div className='mx-12 sm:mx-20 my-10'>
+      <div className='mx-12 sm:mx-20 my-60'> {/* my-10 -> my-60 으로 수정 */}
         <h1 className="custom-title text-3xl font-bold mb-12">내가 쓴 북마크들</h1>
 
         <div className="flex items-center mb-12">

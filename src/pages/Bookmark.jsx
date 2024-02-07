@@ -42,7 +42,7 @@ function Bookmark() {
     <div>
       <Header />
       <Menubar />
-      <div className="mt-20">
+      <div className="mt-60"> {/* mt-20 -> mt-60 으로 수정 */}
         <div className="items-center justify-center flex-col h-4/6">
           <form
             onSubmit={handleSubmit}

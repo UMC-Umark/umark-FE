@@ -48,7 +48,7 @@ export default function AllBookmarks() {
         <div className="flex flex-col">
             <Header />
             <Menubar />
-            <section className='my-10'>
+            <div className='my-40'>
                 <div className='container py-5'>
                     <div className='top-container'>
                         <h3 className='title-big'>모든 북마크</h3>
@@ -63,7 +63,7 @@ export default function AllBookmarks() {
                     isOpen={isModalOpen}
                     onClose={closeModal}
                 />
-            </section>
+            </div>
         </div>
     );
 }
