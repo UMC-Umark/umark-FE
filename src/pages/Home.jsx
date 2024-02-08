@@ -5,7 +5,7 @@ import Header from '../components/Header';
 
   function Home() {
     return (
-      <div className="h-screen flex flex-col bg-black text-white">
+      <div className="h-screen flex flex-col bg-black text-white font-SUITE">
         <Header />
         <main className="flex-1 flex flex-col items-center justify-center border-t border-white">
       <h1 className="custom-maintitle font-bold m-0 leading-none">umark</h1>

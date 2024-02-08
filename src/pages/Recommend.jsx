@@ -6,19 +6,20 @@ import SearchBox from '../components/SearchBox';
 import Header from '../components/Header';
 import Menubar from '../components/Menubar';
 import CardList from '../cards/CardList';
-import { cardsData } from '../data/CardData';
+// import { cardsData } from '../data/CardData';
 import BookmarkModal from '../components/BookmarkModal';
 import axios from 'axios';
 
 export default function Recommend() {
-    // const [cardsData, setCardsData] = useState([]);
+    const [cardsData, setCardsData] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await axios.get('/bookmarks/recommends?page=0');
-                console.log(response.data);
+                const response = await axios.get('/bookmarks?page=0');
+                setCardsData(response.data.data.content);
+                console.log('fetchData success:', response.data.data.content);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -51,7 +52,7 @@ export default function Recommend() {
             <div className='my-40'>
                 <div className='container py-5'>
                     <div className='top-container'>
-                        <h3 className='title-big'>추천 북마크</h3>
+                        <h3 className='title-big font-SUITE'>추천 북마크</h3>
                         <SearchBox />
                     </div>
                     <CardList
