@@ -2,9 +2,9 @@ import React from "react";
 import { useState } from "react";
 import logo from "../img/logo.png";
 import { Link, useNavigate } from "react-router-dom";
-import Check from "../components/Check.jsx";
 import arrow from "../img/arrow.png";
 import "../css/Password.css";
+import axios from "axios";
 
 export default function Findpassword() {
   const [email, setEmail] = useState("");
@@ -15,6 +15,36 @@ export default function Findpassword() {
   const [nameError, setNameError] = useState("");
 
   const [inputValue, setInputValue] = useState("");
+
+  // 인증 메일 전송
+  const handleSendVerification = async () => {
+    try {
+      const requestBody = {
+        email: "email@example.com",
+        univName: "OOO대학교",
+      };
+
+      const response = await axios.post("/member/sendemail", requestBody);
+      console.log(response.data);
+    } catch (error) {
+      console.error("메일 인증 전송 중 오류:", error);
+    }
+  };
+
+  // 인증 코드 체크
+  const handleVerifyCode = async () => {
+    try {
+      const requestBody = {
+        email: "email@example.com",
+        univName: "OOO 대학교",
+        code: 0,
+      };
+      const response = await axios.post("/member/checkemail", requestBody);
+      console.log(response.data);
+    } catch (error) {
+      console.error("인증 코드 확인 중 오류:", error);
+    }
+  };
 
   const handleInputChange = (e) => {
     const newValue = e.target.value.replace(/[^0-9]/g, ""); // 숫자 이외의 문자 제거
@@ -35,25 +65,6 @@ export default function Findpassword() {
       //setValidEmailMessage('올바른 이메일 형식입니다.');
     }
     setIsValid(isValid);
-  };
-  const [allAgreed, setAllAgreed] = useState(false);
-  const [agreements, setAgreements] = useState({
-    termsAgreed: false,
-    personalInfoAgreed: false,
-  });
-  const [modalVisible, setModalVisible] = useState(false);
-  const navigate = useNavigate();
-
-  const handleNextButtonClick = () => {
-    if (!allAgreed) {
-      setModalVisible(true);
-    } else {
-      navigate("/ResetPassword");
-    }
-  };
-
-  const closeModal = () => {
-    setModalVisible(false);
   };
 
   return (
@@ -97,10 +108,14 @@ export default function Findpassword() {
             onChange={handleEmailChange}
             className="custom-findinput1 bg-black text-white px-60 py-4 rounded-full text-left focus:outline-none border border-1 border-white placeholder-white"
           />
-          <div className="text-red-600">{emailError}</div>
+          {isValid && (
+            <div className="text-green-600">올바른 이메일 형식입니다.</div>
+          )}
+          <br />
           <br />
           <button
             type="button"
+            onClick={handleSendVerification}
             className="custom-sendbutton bg-white text-black w-1/6 px-8 py-4 rounded-full mr-4 font-bold"
           >
             인증번호 전송
@@ -112,22 +127,25 @@ export default function Findpassword() {
             onChange={handleInputChange}
             className="custom-input2 bg-black text-white w-1/5 mr-4 px-20 py-4 rounded-full text-left focus:outline-none border border-1 border-white placeholder-gray-300"
           />
-          <button className="custom-endbutton1 bg-black text-white w-1/7 px-10 py-4 rounded-full focus:outline-none border border-1 border-white">
+          <button
+            onClick={handleVerifyCode}
+            className="custom-endbutton1 bg-black text-white w-1/7 px-10 py-4 rounded-full focus:outline-none border border-1 border-white"
+          >
             완료
           </button>
           <div className="text-red-600">{verifyError}</div>
           {/* {isValid && <div className="text-green-600">인증이 완료되었습니다</div>}<br /> */}
           <div className="mb-12" />
-          <button
-            type="button"
-            disabled={!isValid}
-            className="custom-nextbutton bg-white text-black px-60 py-3 rounded-full font-bold"
-            onClick={handleNextButtonClick}
-          >
-            다음
-          </button>
+          <Link to="/ResetPassword">
+            <button
+              type="button"
+              disabled={!isValid}
+              className="custom-nextbutton bg-white text-black px-60 py-3 rounded-full font-bold"
+            >
+              다음
+            </button>
+          </Link>
           <div className="mb-20" />
-          <div>{modalVisible && <Check closeModal={closeModal} />}</div>
         </div>
       </div>
       <br />

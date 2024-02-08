@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import logo from '../img/logo.png'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import arrow from '../img/arrow.png'
 import '../css/Signup.css'
 import axios from 'axios'
@@ -18,7 +18,7 @@ export default function Signup() {
   const [validEmailMessage, setValidEmailMessage] = useState('')
 
   const [inputValue, setInputValue] = useState('')
-
+  const navigate = useNavigate()
   // 인증 메일 전송
   const handleSendVerification = async () => {
     try {
@@ -80,6 +80,7 @@ export default function Signup() {
       if (response.data.isSuccess) {
         console.log(response.data)
         // 회원가입 성공 시, 로그인 페이지로 이동 또는 다른 처리
+        navigate('/Login')
       }
     } catch (error) {
       console.error('회원가입 중 오류:', error)

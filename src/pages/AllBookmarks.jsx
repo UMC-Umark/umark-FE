@@ -10,7 +10,7 @@ import { cardsData } from '../data/CardData';
 import BookmarkModal from '../components/BookmarkModal';
 import axios from 'axios';
 
-export default function Recommend() {
+export default function AllBookmarks() {
     // const [cardsData, setCardsData] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -51,7 +51,7 @@ export default function Recommend() {
             <div className='my-40'>
                 <div className='container py-5'>
                     <div className='top-container'>
-                        <h3 className='title-big'>추천 북마크</h3>
+                        <h3 className='title-big'>모든 북마크</h3>
                         <SearchBox />
                     </div>
                     <CardList

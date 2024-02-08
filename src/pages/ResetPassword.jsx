@@ -22,18 +22,14 @@ export default function ResetPassword() {
         "/member/changepasswordbyemail",
         requestBody
       );
-      if (response.data.isSuccess) {
-        alert("비밀번호가 성공적으로 변경되었습니다.");
-      } else {
-        alert("비밀번호 변경에 실패했습니다. 다시 시도해주세요.");
-      }
+      console.log(response.data);
     } catch (error) {
       console.error("비밀번호 재설정 중 오류:", error);
-      alert("비밀번호 재설정 중 오류가 발생했습니다.");
     }
   };
+
   return (
-    <div className="h-full bg-black text-white">
+    <div className="fixed top-0 left-0 w-full h-full bg-black text-white">
       <div className="w-full flex justify-between items-center">
         <Link className="custom-arrow" to="/Findpassword">
           <img src={arrow} alt="arrow" />

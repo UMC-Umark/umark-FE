@@ -37,13 +37,13 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-black text-white flex justify-between items-center h-24 border-b border-gray-200 fixed top-0 left-0 right-0 z-10">
+    <header className="bg-black text-white flex justify-between items-center h-24 border-b border-gray-200 fixed top-0 left-0 right-0 z-20">
       <Link to="/" className="flex items-center  ">
         <img src={adimg} alt="로고" className="header-logo h-22 pl-4" />
       </Link>
       <nav className="hidden md:flex flex-grow justify-center">
     <Link className="header-text" to="/">your bookmark space</Link>
-  </nav>
+      </nav>
       <div className="relative ml-auto pr-5" ref={menuRef}>
               <GiHamburgerMenu
                 onClick={toggleMenu}
@@ -58,11 +58,12 @@ const Header = () => {
                 }
               >
                 <div className='mt-32 font-bold'>
-                  <li className="text-black cursor-pointer hover:text-white text-2xl my-6 mx-6">최신 북마크</li>
                   <li className="text-black cursor-pointer hover:text-white text-2xl my-6 mx-6">
                     <Link to="/recommend" onClick={handleLinkClick}>추천 북마크</Link>
                   </li>
-                  <li className="text-black cursor-pointer hover:text-white text-2xl my-6 mx-6">모든 북마크</li>
+                  <li className="text-black cursor-pointer hover:text-white text-2xl my-6 mx-6">
+                    <Link to="/allbookmarks" onClick={handleLinkClick}>모든 북마크</Link>
+                  </li>
                   <li className="text-black cursor-pointer hover:text-white text-2xl my-6 mx-6">
                     <Link to="/write" onClick={handleLinkClick}>북마크 작성하기</Link>
                   </li>
