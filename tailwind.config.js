@@ -7,10 +7,6 @@ module.exports = {
   ],
   theme: {
     extend: {},
-    fontFamily: {
-      SUITE: ["SUITE Variable"],
-    },
   },
   plugins: [],
-}
-
+};
