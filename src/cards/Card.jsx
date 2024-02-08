@@ -6,31 +6,29 @@ import BookmarkOff from '../img/BookmarkOff.png';
 import BookmarkOn from '../img/BookmarkOn.png';
 import axios from 'axios';
 
-export default function Card({ bookMarkId, title, date, tags, description, link, onClick }) {
+export default function Card({ id, title, createdAt, hashTagContent, content, url, onClick }) {
     const [liked, setLiked] = useState(false)
+    const date = new Date(createdAt);
+    const formattedTime = `${date.getFullYear()}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getDate().toString().padStart(2, '0')} ${date.getHours()}:${date.getMinutes()}`;
 
-    const addBookmark = async (e) => {
+    const addBookmark = () => {
+        setLiked(!liked);
+        onClick(true);
+    }
+
+    const deleteBookmark = () => {
+        setLiked(!liked);
+        onClick(false);
+    }
+
+    const handleLike = async (e) => {
         try {
-            const response = await axios.post(`/bookmarks/${bookMarkId}/likes?memberId=1`)
-            console.log(response);
-            setLiked(!liked);
-            onClick(true);
+            const response = await axios.post(`/bookmarks/${id}/likes?memberId=1`)
+            console.log('bookmarkID:', {id}, response.data.data);
         } catch(error) {
             console.error('Error sending POST request:', error);
         }
     }
-
-    const deleteBookmark = async (e) => {
-        try {
-            const response = await axios.post(`/bookmarks/${bookMarkId}/likes?memberId=1`)
-            console.log(response);
-            setLiked(!liked);
-            onClick(false);
-        } catch(error) {
-            console.error('Error sending POST request:', error);
-        }
-    }
-
     
     return (
         <div className="card">
@@ -41,12 +39,14 @@ export default function Card({ bookMarkId, title, date, tags, description, link,
                         <img className="card-img-top" 
                             src={liked? BookmarkOn : BookmarkOff}
                             onClick={() => {
+                                handleLike();
+
                                 if(liked === true) {
-                                    deleteBookmark({bookMarkId: 1});
+                                    deleteBookmark();
                                 }
                                 
                                 if(liked === false) {
-                                    addBookmark({bookMarkId: 1});
+                                    addBookmark();
                                 }
                             }}
                             alt="bookMarkIcon"
@@ -54,12 +54,12 @@ export default function Card({ bookMarkId, title, date, tags, description, link,
                     </div>
                     <div className="flex flex-col">
                         <time className="text-gray-400">
-                            {date}
+                            {formattedTime}
                         </time>
                         <h6 className="flex items-center gap-x-4">
-                            {tags.map((tag) => (
-                                <div className="tags relative rounded-lg px-2.5 py-1">
-                                    #{tag}
+                            {hashTagContent.map((tag) => (
+                                <div className="hashTagContent relative rounded-lg px-2.5 py-1">
+                                    {tag}
                                 </div>
                             ))}
                         </h6>
@@ -67,12 +67,12 @@ export default function Card({ bookMarkId, title, date, tags, description, link,
                 </div>
             </div>
             <div className="card-body">
-                <p className="text-para">{description}</p>
+                <p className="text-para">{content}</p>
             </div>
             <div className="card-footer">
                 <ul className="footer-element">
                     <li>
-                        <a href={link}>링크 바로가기</a>
+                        <a href={url}>링크 바로가기</a>
                     </li>
                     <li>
                         <a href="/reporting">신고하기</a>

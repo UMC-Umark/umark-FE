@@ -217,6 +217,24 @@ h6,
     }
 }
 
+@media (min-width: 376px) {
+    .card {
+        min-width: 370px;
+    }
+}
+
+@media (min-width: 768px) {
+    .card {
+        min-width: 320px;
+    }
+}
+
+@media (min-width: 1280px) {
+    .card {
+        min-width: 370px;
+    }
+}
+
 /*-- //container --*/
 .title-big {
     font-size: 38px;

@@ -6,19 +6,20 @@ import SearchBox from '../components/SearchBox';
 import Header from '../components/Header';
 import Menubar from '../components/Menubar';
 import CardList from '../cards/CardList';
-import { cardsData } from '../data/CardData';
+// import { cardsData } from '../data/CardData';
 import BookmarkModal from '../components/BookmarkModal';
 import axios from 'axios';
 
 export default function AllBookmarks() {
-    // const [cardsData, setCardsData] = useState([]);
+    const [cardsData, setCardsData] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await axios.get('/bookmarks/recommends?page=0');
-                console.log(response.data);
+                const response = await axios.get('/bookmarks?page=0');
+                setCardsData(response.data.data.content);
+                console.log('fetchData success:', response.data.data.content);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
