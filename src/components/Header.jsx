@@ -42,7 +42,7 @@ const Header = () => {
         <img src={adimg} alt="로고" className="header-logo h-22 pl-4" />
       </Link>
       <nav className="hidden md:flex flex-grow justify-center">
-    <Link className="header-text" to="/">your bookmark space</Link>
+    <Link className="header-text font-SUITE" to="/">your bookmark space</Link>
       </nav>
       <div className="relative ml-auto pr-5" ref={menuRef}>
               <GiHamburgerMenu
