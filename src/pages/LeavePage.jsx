@@ -19,6 +19,7 @@ export default function Findpassword() {
   const [withdrawError, setWithdrawError] = useState("");
 
   const [inputValue, setInputValue] = useState("");
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const newValue = e.target.value.replace(/[^0-9]/g, ""); // 숫자 이외의 문자 제거
@@ -70,6 +71,11 @@ export default function Findpassword() {
     );
   };
 
+  const handlePasswordChange = (e) => {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+    validatePassword(newPassword);
+  };
   const handleWithdrawReasonChange = (e) => {
     setWithdrawReason(e.target.value);
   };
@@ -88,19 +94,11 @@ export default function Findpassword() {
         withdrawReason,
       };
 
-      const response = await axios.patch(
-        `http://15.165.194.140/member/{memberId}`
-      );
-
-      if (response.data.isSuccess) {
-        // 탈퇴 성공 처리
-        alert("탈퇴가 완료되었습니다.");
-      } else {
-        setWithdrawError("실패하였습니다. 다시 시도해주세요.");
-      }
+      const response = await axios.patch("/member/{memberId}");
+      console.log("탈퇴가 완료되었습니다.");
+      navigate("/");
     } catch (error) {
       console.error("탈퇴 중 오류:", error);
-      setWithdrawError("탈퇴 중 오류가 발생했습니다.");
     }
   };
 
@@ -133,15 +131,17 @@ export default function Findpassword() {
           <input
             name="passwordConfirm"
             type="password"
-            value={passwordConfirm}
+            value={password}
+            onChange={handlePasswordChange}
             className="bg-white text-gray-500 px-60 py-3 focus:outline-none border-2 border-black"
           />
           <div className="mb-10" />
-          <Link to="/">
-            <button className="text-xl font-bold border-2 border-black text-black rounded-full w-full px-60 py-2">
-              탈퇴하기
-            </button>
-          </Link>
+          <button
+            onClick={handleWithdraw}
+            className="text-xl font-bold border-2 border-black text-black rounded-full w-full px-60 py-2"
+          >
+            탈퇴하기
+          </button>
         </div>
       </div>
     </div>
