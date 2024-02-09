@@ -25,7 +25,7 @@ export default function Signup() {
       const requestBody = {
         univName: univName,
         email: email,
-        univ_check: false,
+        //univ_check: false,
       }
 
       const response = await axios.post('/member/sendemail', requestBody)
@@ -59,20 +59,20 @@ export default function Signup() {
   // 회원가입
   const handleSignUp = async () => {
     try {
-      // // 필수 정보 입력 여부 확인
-      // if (!email || !univName || !inputValue || !password || !passwordConfirm) {
-      //   alert('모든 필수 정보를 입력하세요.')
-      //   return
-      // }
-      // // 회원가입 유효성 검사
-      // if (!isValid) {
-      //   alert('올바른 회원가입 정보를 입력하세요.')
-      //   return
-      // }
+      // 필수 정보 입력 여부 확인
+      if (!email || !univName || !inputValue || !password || !passwordConfirm) {
+        alert('모든 필수 정보를 입력하세요.')
+        return
+      }
+      // 회원가입 유효성 검사
+      if (!isValid) {
+        alert('올바른 회원가입 정보를 입력하세요.')
+        return
+      }
       const requestBody = {
         email: email,
         password: password,
-        terms: [1, 2],
+        terms: [1],
       }
 
       const response = await axios.post('/member/signup', requestBody)
@@ -207,7 +207,7 @@ export default function Signup() {
             인증번호 전송
           </button>
           <input
-            type="text"
+            type="password"
             maxLength="4"
             value={inputValue}
             onChange={handleInputChange}
