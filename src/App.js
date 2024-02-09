@@ -14,7 +14,6 @@ import ResetPassword from "./pages/ResetPassword";
 import ModifyinfoB from "./pages/ModifyinfoB";
 import ModifyinfoA from "./pages/ModifyinfoA";
 import LeavePage from "./pages/LeavePage";
-import Updatebookmark from "./pages/Updatebookmark"
 
 function App() {
   return (
@@ -36,7 +35,6 @@ function App() {
           <Route path="/ModifyinfoB" element={<ModifyinfoB />} />
           <Route path="/ModifyinfoA" element={<ModifyinfoA />} />
           <Route path="/LeavePage" element={<LeavePage />} />
-          <Route path="/Updatebookmark" element={<Updatebookmark/>}/>
         </Routes>
       </BrowserRouter>
     </div>
