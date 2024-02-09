@@ -9,7 +9,7 @@ function Intro() {
 
   const navigate = useNavigate(); 
   const handleStartClick = () => {
-    navigate('/recommend'); 
+    navigate('/allbookmarks'); 
   };
 
   return (
