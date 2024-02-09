@@ -26,7 +26,6 @@ const RadioOptions = ({ options, selectedOption, setSelectedOption, onOtherSelec
   );
 };
 
-// 신고 페이지 컴포넌트
 const ReportingPage = () => {
   let navigate = useNavigate();
   const [selectedOption, setSelectedOption] = useState('');
@@ -38,42 +37,38 @@ const ReportingPage = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
   
-    // 신고 사유가 선택되었는지 확인
     if (!selectedOption) {
       alert('신고 사유를 선택해주세요.');
       return;
     }
   
-    // report 값 설정
-    const reportIndex = reportOptions.indexOf(selectedOption); // 인덱스 값
-    const reportValue = reportIndex + 1; // 옵션에 따라 1부터 시작하는 인덱스 값을 사용
+    const memberId = 1; // 예시 값
+    const bookMarkId = 1; // 예시 값
   
+    const reportIndex = reportOptions.indexOf(selectedOption) + 1;
     const reportData = {
-      reportIndex, // 선택된 옵션의 인덱스
-      reportValue, // 인덱스 + 1
-      reason: isOtherSelected ? otherText : selectedOption // 기타 선택 시 otherText, 아니면 선택된 옵션 사용
+      memberId,
+      bookMarkId,
+      report: reportIndex,
+      reason: isOtherSelected ? otherText : selectedOption
     };
-    console.log('Sending report data:', reportData);
   
-    // API 호출 및 처리
     try {
-      const response = await axios.post('/reports', reportData);
-      console.log('신고가 정상적으로 처리되었습니다.', response.data);
-      setShowModal(true);
+      const response = await axios.post('/bookmarks/reports', reportData);
+      console.log('Response:', response);
+      setShowModal(true); 
+      // 모달 추가
     } catch (error) {
-      console.error('신고 제출 중 오류가 발생했습니다:', error);
+      console.error('Error:', error);
       alert('신고 제출 중 오류가 발생했습니다. 다시 시도해주세요.');
-      // 추가적인 에러 처리 로직
     }
   };
-  
-  
   
   
 
   const handleCloseModal = () => {
     setShowModal(false);
-    navigate('/recommend'); // 성공 후 처리
+    navigate('/allbookmarks'); // 성공 후 처리
   };
 
   const reportOptions = [
@@ -86,9 +81,9 @@ const ReportingPage = () => {
   return (
     <div className="flex flex-col h-screen bg-white text-black">
       <nav className="flex items-center justify-between p-6 border-b border-gray-200 h-20">
-      <button onClick={() => navigate(-1)} className="text-black">
-  <img src={back} alt="아이콘" className="mx-auto my-3 h-8 back-icon" />
-</button>
+        <button onClick={() => navigate(-1)} className="text-black">
+          <img src={back} alt="아이콘" className="mx-auto my-3 h-8 back-icon" />
+        </button>
 
         <h1 className="text-center font-bold text-lg">신고하기</h1>
         <div style={{ width: "24px" }}></div>
@@ -126,7 +121,7 @@ const ReportingPage = () => {
       </div>
 
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center">
+        <div className="fixed inset-0 bg-black bg-opacity-85 flex justify-center items-center">
           <div className="text-white bg-transparent p-4 rounded-lg text-center">
             <p className="text-lg pb-4">신고가 정상적으로 제출되었어요.</p>
             <button
