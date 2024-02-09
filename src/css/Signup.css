@@ -4,7 +4,7 @@
 }
 
 .custom-info2 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     text-align: center;
 }
 
@@ -113,4 +113,11 @@
     hr {
         margin-top:1rem;
     }
+}
+
+@media (min-width: 992px) {  
+
+
+
+    
 }

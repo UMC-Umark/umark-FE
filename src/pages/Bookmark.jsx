@@ -15,16 +15,23 @@ function Bookmark() {
     const hashTags = tags.split(' ').map((tag) => ({ content: tag }))
     axios
       .post('/bookmarks/add', {
-        title,
-        url,
-        content,
-        hashTags,
+        title: title,
+        url: url,
+        content: content,
+        hashTags: hashTags,
         memberId: 1,
       })
       .then((response) => {
-        // Handle success
-        console.log(response)
-        handleCancel()
+        const data = response.data
+        console.log(data)
+        if (data.isSuccess) {
+          console.log(response.data)
+          handleCancel()
+        } else {
+          console.error(
+            `${data.code} : ${data.message} - ${JSON.stringify(data.data)}`
+          )
+        }
       })
       .catch((error) => {
         console.error('There was an error!', error)
@@ -42,7 +49,7 @@ function Bookmark() {
     <div>
       <Header />
       <Menubar />
-      <div className="mt-20">
+      <div className="mt-60"> {/* mt-20 -> mt-60 으로 수정 */}
         <div className="items-center justify-center flex-col h-4/6">
           <form
             onSubmit={handleSubmit}

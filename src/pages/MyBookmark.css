@@ -34,7 +34,7 @@
 
   @media (max-width: 768px) {
     .custom-title{
-      padding-top: 100px;
+      /* padding-top: 100px; */
       padding-left: 0;
     }
   }

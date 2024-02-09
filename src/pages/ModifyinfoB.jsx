@@ -83,7 +83,7 @@ export default function ModifyinfoB() {
       <Header />
       <div className="flex flex-col items-center mx-auto pt-24 pb-8 px-4 w-full">
         <br />
-        <div className="text-center inline-flex">
+        <div className="text-center inline-flex font-SUITE">
           <h1 className="text-4xl font-bold my-3 px-10">내 정보 수정</h1>
           <Link to="/LeavePage">
             <p className="text-xl underline my-4 text-gray-500">탈퇴하기</p>
@@ -133,7 +133,7 @@ export default function ModifyinfoB() {
           )}
           <div className="mb-20" />
           <div className="inline-block w-full">
-            <Link to="/">
+            <Link to="/Recommend">
               <button className="text-xl font-bold border-2 border-black text-black rounded-full px-10 py-2 mr-8">
                 수정 취소
               </button>
