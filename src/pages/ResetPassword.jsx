@@ -1,21 +1,23 @@
 import React from "react";
 import { useState } from "react";
-import logo from "../img/logo.png";
+import logo from "../img/logo.webp";
 import { Link, useNavigate } from "react-router-dom";
 import arrow from "../img/arrow.png";
 import "../css/Password.css";
 import axios from "axios";
+import Signup from "./Signup";
 
-export default function ResetPassword() {
-  const [email, setEmail] = useState("");
+export default function ResetPassword({ email, setEmail }) {
   const [newPassword, setNewPassword] = useState("");
+  const [newPasswordConfirm, setNewPasswordConfirm] = useState("");
+  const navigate = useNavigate();
 
   // 비밀번호 찾기-비밀번호 변경
   const handleResetPassword = async () => {
     try {
       const requestBody = {
-        email: "email@example.com",
-        newPassword: "1234",
+        email: email, //setEmail(response.data.email),
+        newPassword: newPassword,
       };
 
       const response = await axios.patch(
@@ -23,6 +25,8 @@ export default function ResetPassword() {
         requestBody
       );
       console.log(response.data);
+      console.log({ email });
+      navigate("/Login");
     } catch (error) {
       console.error("비밀번호 재설정 중 오류:", error);
     }
@@ -30,7 +34,7 @@ export default function ResetPassword() {
 
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-black text-white">
-      <div className="w-full flex justify-between items-center">
+      <div className="w-full flex justify-between items-center font-SUITE">
         <Link className="custom-arrow" to="/Findpassword">
           <img src={arrow} alt="arrow" />
         </Link>
@@ -44,9 +48,8 @@ export default function ResetPassword() {
       <div className="custom-findform1 border border-1 border-white rounded-3xl w-2/3 m-auto">
         <div className="flex items-center justify-center ">
           <div className="mb-40" />
-          <img src={logo} alt="umark" />
+          <img src={logo} width="100px" height="100px" alt="umark" />
         </div>
-        <div className="mb-8" />
         <p className="custom-findinfo text-center">비밀번호를 재설정해주세요</p>
         <br />
         <div className="custom-findform2 text-center inline-block relative">
@@ -54,7 +57,8 @@ export default function ResetPassword() {
             비밀번호
           </span>
           <input
-            name="email"
+            name="newPassword"
+            type="password"
             placeholder="8자리 이상, 특수문자 포함"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
@@ -65,23 +69,21 @@ export default function ResetPassword() {
             비밀번호 확인
           </span>
           <input
-            name="name"
-            type="text"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
+            name="newPasswordConfirm"
+            type="password"
+            value={newPasswordConfirm}
+            onChange={(e) => setNewPasswordConfirm(e.target.value)}
             className="custom-findinput1 bg-black text-white px-60 py-4 rounded-full focus:outline-none border border-1 border-white placeholder-gray-300"
           />
           <div className="mb-12" />
-          <Link to="/Login">
-            <button
-              type="button"
-              onClick={handleResetPassword}
-              className="custom-tologin bg-green-400 text-black px-60 py-3 rounded-full font-bold"
-            >
-              로그인 하러가기
-            </button>
-          </Link>
-          <div className="mb-12" />
+          <button
+            type="button"
+            onClick={handleResetPassword}
+            className="custom-tologin bg-green-400 text-black px-60 py-3 rounded-full font-bold"
+          >
+            로그인 하러가기
+          </button>
+          <div className="mb-20" />
         </div>
       </div>
       <br />

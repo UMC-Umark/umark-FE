@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import logo from "../img/logo.png";
+import logo from "../img/logo.webp";
 import { Link, useNavigate } from "react-router-dom";
 import Modal from "../components/Modal";
 import arrow from "../img/arrow.png";
 import "../css/Agree.css";
 import axios from "axios";
+import "../css/Checkbox.css";
 
 export default function Agreement() {
   const [allAgreed, setAllAgreed] = useState(false);
@@ -75,7 +76,7 @@ export default function Agreement() {
 
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-black text-white">
-      <div className="w-full flex justify-between items-center">
+      <div className="w-full flex justify-between items-center font-SUITE">
         <Link className="custom-arrow" to="/Login">
           <img src={arrow} alt="arrow" />
         </Link>
@@ -89,7 +90,7 @@ export default function Agreement() {
       <div className="custom-agreeform border border-1 border-white rounded-3xl w-2/3 m-auto">
         <br />
         <div className="flex items-center justify-center">
-          <img src={logo} alt="umark" />
+          <img src={logo} width="100px" height="100px" alt="umark" />
         </div>
         <div className="inline rounded-lg border-white">
           <br />
@@ -111,9 +112,12 @@ export default function Agreement() {
                 className="w-5 h-5"
               />
 
-              <label htmlFor="agree_check_used" className="custom-text ml-2">
+              <label htmlFor="agree_check_used" className="custom-text ml-3">
                 [필수] umark 계정 약관
               </label>
+              <p className="inline-block ml-4 text-gray-300">
+                <button>본문 보기</button>
+              </p>
               {agreementsData && (
                 <>
                   {agreementsData.map((term) => (
@@ -149,6 +153,9 @@ export default function Agreement() {
               <label htmlFor="agree_check_info" className="custom-text ml-2">
                 [필수] 개인정보 수집 및 이용 동의
               </label>
+              <p className="inline-block ml-4 text-gray-300">
+                <button>본문 보기</button>
+              </p>
             </div>
             <div className="mb-5" />
             <div className="flex items-center justify-center">

@@ -1,6 +1,6 @@
 .custom-logintitle {
     font-size:2.8rem;
-    margin-left:-5rem;
+    margin-left:-6rem;
 }
 
 .custom-info1 {
@@ -92,3 +92,9 @@
         margin-right: 0rem;
     }
 }
+
+@media (min-width: 992px) {
+    
+ } 
+
+@media (min-width: 1200px) {  }

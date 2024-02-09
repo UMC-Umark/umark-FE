@@ -104,13 +104,12 @@ export default function ModifyinfoA() {
       <Header />
       <div className="flex flex-col items-center mx-auto pt-24 pb-8 px-4 w-full">
         <br />
-        <div className="text-center inline-flex">
+        <div className="text-center inline-flex font-SUITE">
           <h1 className="text-4xl font-bold my-3 px-10">내 정보 수정</h1>
           <Link to="/LeavePage">
             <p className="text-xl underline my-4 text-gray-500">탈퇴하기</p>
           </Link>
         </div>
-        <div className="mb-8" />
         <div className="text-center inline-block relative">
           <span className="text-lg font-bold absolute left-0 top-50 text-black">
             학교명
@@ -118,7 +117,7 @@ export default function ModifyinfoA() {
           <br />
           <input
             name="univName"
-            className="custom-input3 bg-gray-100 text-gray-500 px-60 py-3 focus:outline-none border-2 border-black"
+            className="custom-input3 bg-gray-100 text-gray-500 px-60 py-2 focus:outline-none border-2 border-black"
           />
           <br />
           <br />
@@ -128,7 +127,7 @@ export default function ModifyinfoA() {
           <br />
           <input
             name="email"
-            className="custom-input1 bg-gray-100 text-gray-500 px-60 py-3 focus:outline-none border-2 border-black"
+            className="custom-input1 bg-gray-100 text-gray-500 px-60 py-2 focus:outline-none border-2 border-black"
           />
           <div className="mb-12" />
           <span className="text-lg font-bold absolute left-0 top-50 text-black">
@@ -138,7 +137,7 @@ export default function ModifyinfoA() {
           <input
             name="password"
             type="password"
-            className="custom-input3 bg-white text-gray-500 px-60 py-3 focus:outline-none border-2 border-black"
+            className="custom-input3 bg-white text-gray-500 px-60 py-2 focus:outline-none border-2 border-black"
           />
           <br />
           <br />
@@ -149,7 +148,7 @@ export default function ModifyinfoA() {
           <input
             name="password"
             type="password"
-            className="custom-input3 bg-white text-gray-500 px-60 py-3 focus:outline-none border-2 border-black"
+            className="custom-input3 bg-white text-gray-500 px-60 py-2 focus:outline-none border-2 border-black"
           />
           <br />
           <br />
@@ -162,12 +161,12 @@ export default function ModifyinfoA() {
             type="password"
             value={passwordConfirm}
             onChange={handlePasswordConfirmChange}
-            className="custom-input1 bg-white text-gray-500 px-60 py-3 focus:outline-none border-2 border-black"
+            className="custom-input1 bg-white text-gray-500 px-60 py-2 focus:outline-none border-2 border-black"
           />
           {passwordConfirm !== "" && isValid && (
             <div className="text-green-600">비밀번호가 일치합니다.</div>
           )}
-          <div className="mb-10" />
+          <div className="mb-7" />
           <div className="inline-block w-full">
             <Link to="/">
               <button className="text-xl font-bold border-2 border-black text-black rounded-full px-10 py-2 mr-8">

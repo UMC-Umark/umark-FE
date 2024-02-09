@@ -11,7 +11,7 @@
 }
 
 .custom-ho {
-    width:53%;
+    width:60%;
 }
 .custom-agreee {
     font-size: 1.4rem;
@@ -55,7 +55,7 @@
         padding-left:0.2rem;
     }
     .custom-check {
-        margin-left:-4rem;
+        margin-left:3rem;
         display: flex;
         flex-direction: row; /* 수평 방향으로 정렬 */
         align-items: flex-start; /* 왼쪽 정렬 */
