@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import logo from "../img/logo.webp";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import arrow from "../img/arrow.png";
 import "../css/Password.css";
 import axios from "axios";
@@ -16,7 +16,7 @@ export default function Findpassword() {
   const [nameError, setNameError] = useState("");
 
   const [inputValue, setInputValue] = useState("");
-
+  const location = useLocation();
   // 인증 메일 전송
   const handleSendVerification = async () => {
     try {
@@ -144,7 +144,9 @@ export default function Findpassword() {
             <div className="text-green-600">인증이 완료되었습니다</div>
           )} */}
           <div className="mb-12" />
-          <Link to="/ResetPassword">
+          <Link
+            to={{ pathname: "/ResetPassword", state: location.state?.email }}
+          >
             <button
               type="button"
               disabled={!isValid}

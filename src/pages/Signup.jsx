@@ -63,7 +63,7 @@ export default function Signup() {
 
       const response = await axios.post("/member/signup", requestBody);
       console.log(response.data);
-      navigate("/Login");
+      navigate("/Login", { state: { email: email } });
     } catch (error) {
       console.error("회원가입 중 오류:", error);
     }

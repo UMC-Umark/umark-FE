@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import logo from "../img/logo.webp";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import "../css/Login.css";
 import arrow from "../img/arrow.png";
 import axios from "axios";
@@ -9,8 +9,8 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginCheck, setLoginCheck] = useState(false); // 로그인 상태 체크
-
   const navigate = useNavigate();
+  const location = useLocation();
   const handleLogin = async () => {
     try {
       const requestBody = {
@@ -76,7 +76,9 @@ export default function Login() {
           </button>
           <div className="mb-12" />
           <div className="inline-block w-full">
-            <Link to="/Findpassword">
+            <Link
+              to={{ pathname: "/Findpassword", state: location.state?.email }}
+            >
               <p className="custom-links inline-block px-30 underline">
                 비밀번호 찾기
               </p>
