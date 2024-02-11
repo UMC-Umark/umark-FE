@@ -1,6 +1,14 @@
 import { FaTrashAlt } from 'react-icons/fa'
+import { useNavigate } from 'react-router-dom'
 
 function BookmarkList({ bookmarks }) {
+  const navigate = useNavigate() // useNavigate 훅 사용
+
+  // 수정 페이지로 이동하는 함수
+  const handleEdit = (bookmarkId) => {
+    navigate(`/modifyBookmark/${bookmarkId}`) // `modifyBookmark` 페이지로 이동하도록 경로 설정
+  }
+
   return (
     <div className="my-bookmark-container">
       {bookmarks.map((bookmark, index) => (
@@ -21,7 +29,10 @@ function BookmarkList({ bookmarks }) {
               : ''}
           </p>
           <hr className="border-b-1 border-black" />
-          <button className="text-xl font-bold text-center mt-2">
+          <button
+            onClick={() => handleEdit(bookmark.id)} // 수정 버튼 클릭 이벤트 핸들러
+            className="text-xl font-bold text-center mt-2"
+          >
             수정하기
           </button>
         </div>
