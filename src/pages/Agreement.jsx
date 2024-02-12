@@ -119,7 +119,7 @@ export default function Agreement() {
                 [필수] umark 계정 약관
               </label>
               <button
-                className="ml-3 text-gray-300"
+                className="custom-detailbutton ml-3 text-gray-300"
                 onClick={() => {
                   setCheck1((e) => !e); // setCheck로 state값을 변경
                 }}
@@ -127,7 +127,7 @@ export default function Agreement() {
                 {isCheck1 ? "본문 닫기" : "본문 보기"}
               </button>
               {isCheck1 && (
-                <p className="p-8 border border-1 w-1/2 flex justify-center ml-60">
+                <p className="custom-details p-8 border border-1 w-1/2 flex justify-center ml-60 border-gray-300">
                   umark 약관 1항:~
                 </p>
               )}
@@ -167,7 +167,7 @@ export default function Agreement() {
                 [필수] 개인정보 수집 및 이용 동의
               </label>
               <button
-                className="ml-3 text-gray-300"
+                className="custom-detailbutton ml-3 text-gray-300"
                 onClick={() => {
                   setCheck2((e) => !e); // setCheck로 state값을 변경
                 }}
@@ -175,7 +175,7 @@ export default function Agreement() {
                 {isCheck2 ? "본문 닫기" : "본문 보기"}
               </button>
               {isCheck2 && (
-                <p className="p-8 border border-1 w-1/2 flex justify-center ml-60">
+                <p className="custom-details p-8 border border-1 w-1/2 flex justify-center ml-60 border-gray-300">
                   개인정보약관 1항:~
                 </p>
               )}

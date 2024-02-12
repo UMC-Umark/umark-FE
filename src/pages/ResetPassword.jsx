@@ -17,7 +17,7 @@ export default function ResetPassword() {
   const handleResetPassword = async () => {
     try {
       const requestBody = {
-        email: emailSignup, //setEmail(response.data.email),
+        emailSignup: emailSignup, //setEmail(response.data.email),
         newPassword: newPassword,
       };
 

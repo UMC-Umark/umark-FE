@@ -44,7 +44,7 @@
 }
 
 /* 모바일 화면에서의 스타일 */
-@media (max-width:768px){
+@media (min-width:576px) and (max-width:767px) {
 
     .custom-signuptitle{
         font-size:3rem;
@@ -114,9 +114,25 @@
         margin-top:1rem;
     }
 }
+@media (min-width:768px) and (max-width:991px) {
+    .custom-input1, .custom-input3 {
+        width: 90%;
+        max-width: 100%; /* 최대 너비를 100%로 설정하여 가로폭에 꽉 차게 함 */
+        height:3.5rem;
+        padding-left: 5rem;
+        text-align: center;
 
-@media (min-width: 992px) {  
+    }
+}
+@media (min-width: 992px) and (max-width: 1199px) {  
+    .custom-input1, .custom-input3 {
+        width: 90%;
+        max-width: 100%; /* 최대 너비를 100%로 설정하여 가로폭에 꽉 차게 함 */
+        height:3.5rem;
+        padding-left: 5rem;
+        text-align: center;
 
+    }
 
 
     
