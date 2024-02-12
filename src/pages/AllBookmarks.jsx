@@ -1,49 +1,42 @@
-//Recommend.jsx
-
-import React, { useState, useEffect } from 'react'
-import './Recommend.css'
-import SearchBox from '../components/SearchBox'
-import Header from '../components/Header'
-import Menubar from '../components/Menubar'
-import CardList from '../cards/CardList'
-// import { cardsData } from '../data/CardData';
-import BookmarkModal from '../components/BookmarkModal'
-import axios from 'axios'
+import React, { useState, useEffect } from 'react';
+import './Recommend.css';
+import SearchBox from '../components/SearchBox';
+import Header from '../components/Header';
+import Menubar from '../components/Menubar';
+import CardList from '../cards/CardList';
+import BookmarkModal from '../components/BookmarkModal';
+import axios from 'axios';
 
 export default function AllBookmarks() {
-  const [cardsData, setCardsData] = useState([])
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [cardsData, setCardsData] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get('/bookmarks?page=1')
-        setCardsData(response.data.data.content)
-        console.log('fetchData success:', response.data.data.content)
+        const response = await axios.get('/bookmarks?page=1');
+        const dataWithIsReported = response.data.data.content.map(item => ({
+          ...item,
+          isReported: item.reported 
+        }));
+        setCardsData(dataWithIsReported);
       } catch (error) {
-        console.error('Error fetching data:', error)
+        console.error('Error fetching data:', error);
       }
     }
-    fetchData()
-  }, [])
-
+    fetchData();
+  }, []);
   const openModal = () => {
-    setIsModalOpen(true)
-  }
+    setIsModalOpen(true);
+  };
 
   const closeModal = () => {
-    setIsModalOpen(false)
-  }
+    setIsModalOpen(false);
+  };
 
   const handleModal = (isOpen) => {
-    if (isOpen === true) {
-      openModal()
-    }
-
-    if (isOpen === false) {
-      closeModal()
-    }
-  }
+    isOpen ? openModal() : closeModal();
+  };
 
   return (
     <div className="flex flex-col">
@@ -60,5 +53,5 @@ export default function AllBookmarks() {
         <BookmarkModal isOpen={isModalOpen} onClose={closeModal} />
       </div>
     </div>
-  )
+  );
 }

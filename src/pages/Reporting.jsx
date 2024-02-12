@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import back from '../img/back_icon.png';
@@ -32,43 +32,61 @@ const ReportingPage = () => {
   const [isOtherSelected, setIsOtherSelected] = useState(false);
   const [otherText, setOtherText] = useState('');
   const [showModal, setShowModal] = useState(false); // 모달 표시 상태
-  
+  const [bookmarkId, setBookmarkId] = useState(null); // 북마크 ID 상태 추가
+
+  useEffect(() => {
+    const fetchBookmarkId = async () => {
+      try {
+        const response = await axios.get('/bookmarks?page=1');
+        const firstBookmarkId = response.data.data.content[0].id;
+        setBookmarkId(firstBookmarkId);
+      } catch (error) {
+        console.error('Error fetching bookmark ID:', error);
+      }
+    };
+
+    fetchBookmarkId();
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+
     if (!selectedOption) {
       alert('신고 사유를 선택해주세요.');
       return;
     }
-  
+
+    if (!bookmarkId) {
+      console.error('Bookmark ID is not available.');
+      return;
+    }
+
     const memberId = 1; // 예시 값
-    const bookMarkId = 1; // 예시 값
-  
     const reportIndex = reportOptions.indexOf(selectedOption) + 1;
     const reportData = {
       memberId,
-      bookMarkId,
+      bookMarkId: bookmarkId,
       report: reportIndex,
       reason: isOtherSelected ? otherText : selectedOption
     };
-  
+
     try {
       const response = await axios.post('/bookmarks/reports', reportData);
-      console.log('Response:', response);
-      setShowModal(true); 
+      console.log('Response:', response.data);
+      setShowModal(true);
       // 모달 추가
+      if (response.data.reported) {
+        navigate('/allbookmarks'); // 신고된 페이지로 이동
+      }
     } catch (error) {
       console.error('Error:', error);
       alert('신고 제출 중 오류가 발생했습니다. 다시 시도해주세요.');
     }
   };
-  
-  
 
   const handleCloseModal = () => {
     setShowModal(false);
-    navigate('/allbookmarks'); // 성공 후 처리
+    navigate('/allbookmarks');
   };
 
   const reportOptions = [
