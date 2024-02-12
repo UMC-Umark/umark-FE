@@ -17,7 +17,7 @@ export default function AllBookmarks() {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await axios.get('/bookmarks?page=0');
+                const response = await axios.get('/bookmarks?page=1');
                 setCardsData(response.data.data.content);
                 console.log('fetchData success:', response.data.data.content);
             } catch (error) {

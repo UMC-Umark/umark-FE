@@ -1,12 +1,11 @@
-//Card.jsx
-
-import React, { useState } from "react";
+import React from "react";
 import './Card.css';
 import BookmarkOff from '../img/BookmarkOff.png';
 import BookmarkOn from '../img/BookmarkOn.png';
 import axios from 'axios';
+import { useState } from "react";
 
-export default function Card({ id, title, createdAt, hashTagContent, content, url, onClick }) {
+export default function Card({ id, title, createdAt, hashTagContent, content, url, onClick, isReported }) {
     const [liked, setLiked] = useState(false)
     const date = new Date(createdAt);
     const formattedTime = `${date.getFullYear()}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getDate().toString().padStart(2, '0')} ${date.getHours()}:${date.getMinutes()}`;
@@ -34,7 +33,7 @@ export default function Card({ id, title, createdAt, hashTagContent, content, ur
         <div className="card">
             <div className="card-header">
                 <div className="header-wrap">
-                    <h4>{title}</h4>
+                    <h4>{isReported ? "신고된 게시물입니다" : title}</h4>
                     <div>
                         <img className="card-img-top" 
                             src={liked? BookmarkOn : BookmarkOff}
@@ -57,8 +56,8 @@ export default function Card({ id, title, createdAt, hashTagContent, content, ur
                             {formattedTime}
                         </time>
                         <h6 className="flex items-center gap-x-4">
-                            {hashTagContent.map((tag) => (
-                                <div className="hashTagContent relative rounded-lg px-2.5 py-1">
+                            {hashTagContent.map((tag, index) => (
+                                <div key={index} className="hashTagContent relative rounded-lg px-2.5 py-1">
                                     {tag}
                                 </div>
                             ))}
@@ -67,7 +66,7 @@ export default function Card({ id, title, createdAt, hashTagContent, content, ur
                 </div>
             </div>
             <div className="card-body">
-                <p className="text-para">{content}</p>
+                <p className="text-para">{isReported ? "신고된 게시물입니다" : content}</p>
             </div>
             <div className="card-footer">
                 <ul className="footer-element">
@@ -81,4 +80,4 @@ export default function Card({ id, title, createdAt, hashTagContent, content, ur
             </div>
         </div>  
     );
-}
+} 

@@ -32,19 +32,18 @@ const ReportingPage = () => {
   const [isOtherSelected, setIsOtherSelected] = useState(false);
   const [otherText, setOtherText] = useState('');
   const [showModal, setShowModal] = useState(false); // 모달 표시 상태
-  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+
     if (!selectedOption) {
       alert('신고 사유를 선택해주세요.');
       return;
     }
-  
+
     const memberId = 1; // 예시 값
     const bookMarkId = 1; // 예시 값
-  
+
     const reportIndex = reportOptions.indexOf(selectedOption) + 1;
     const reportData = {
       memberId,
@@ -52,23 +51,24 @@ const ReportingPage = () => {
       report: reportIndex,
       reason: isOtherSelected ? otherText : selectedOption
     };
-  
+
     try {
       const response = await axios.post('/bookmarks/reports', reportData);
       console.log('Response:', response);
-      setShowModal(true); 
+      setShowModal(true);
       // 모달 추가
+      if (response.data.reported) {
+        navigate('/allbookmarks'); // 신고된 페이지로 이동
+      }
     } catch (error) {
       console.error('Error:', error);
       alert('신고 제출 중 오류가 발생했습니다. 다시 시도해주세요.');
     }
   };
-  
-  
 
   const handleCloseModal = () => {
     setShowModal(false);
-    navigate('/allbookmarks'); // 성공 후 처리
+    navigate('/allbookmarks');
   };
 
   const reportOptions = [

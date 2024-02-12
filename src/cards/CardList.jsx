@@ -1,9 +1,7 @@
-//CardList.jsx
-
 import React from "react";
 import Card from './Card';
 
-export default function CardList({cardsData, onClick}) {
+export default function CardList({ cardsData, onClick }) {
     return (
         <div className='row'>
             {cardsData.map((bookmark) => (
@@ -11,6 +9,7 @@ export default function CardList({cardsData, onClick}) {
                     <Card
                         {...bookmark}
                         onClick={onClick}
+                        isReported={bookmark.isReported} // isReported prop 추가
                     />
                 </div>
             ))}
