@@ -8,6 +8,9 @@ import axios from "axios";
 import "../css/Checkbox.css";
 
 export default function Agreement() {
+  const [isCheck1, setCheck1] = useState(false); // 토글을 닫아두기 위해 초기값을 false로 설정
+  const [isCheck2, setCheck2] = useState(false);
+
   const [allAgreed, setAllAgreed] = useState(false);
   const [agreements, setAgreements] = useState({
     termsAgreed: false,
@@ -115,9 +118,19 @@ export default function Agreement() {
               <label htmlFor="agree_check_used" className="custom-text ml-3">
                 [필수] umark 계정 약관
               </label>
-              <p className="inline-block ml-4 text-gray-300">
-                <button>본문 보기</button>
-              </p>
+              <button
+                className="custom-detailbutton ml-3 text-gray-300"
+                onClick={() => {
+                  setCheck1((e) => !e); // setCheck로 state값을 변경
+                }}
+              >
+                {isCheck1 ? "본문 닫기" : "본문 보기"}
+              </button>
+              {isCheck1 && (
+                <p className="custom-details p-8 border border-1 w-1/2 flex justify-center ml-60 border-gray-300">
+                  umark 약관 1항:~
+                </p>
+              )}
               {agreementsData && (
                 <>
                   {agreementsData.map((term) => (
@@ -153,9 +166,19 @@ export default function Agreement() {
               <label htmlFor="agree_check_info" className="custom-text ml-2">
                 [필수] 개인정보 수집 및 이용 동의
               </label>
-              <p className="inline-block ml-4 text-gray-300">
-                <button>본문 보기</button>
-              </p>
+              <button
+                className="custom-detailbutton ml-3 text-gray-300"
+                onClick={() => {
+                  setCheck2((e) => !e); // setCheck로 state값을 변경
+                }}
+              >
+                {isCheck2 ? "본문 닫기" : "본문 보기"}
+              </button>
+              {isCheck2 && (
+                <p className="custom-details p-8 border border-1 w-1/2 flex justify-center ml-60 border-gray-300">
+                  개인정보약관 1항:~
+                </p>
+              )}
             </div>
             <div className="mb-5" />
             <div className="flex items-center justify-center">

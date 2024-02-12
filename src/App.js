@@ -1,19 +1,20 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
-import Intro from "./pages/Intro";
-import Bookmark from "./pages/Bookmark";
-import Agreement from "./pages/Agreement";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import Report from "./pages/Reporting";
-import Recommend from "./pages/Recommend";
-import AllBookmarks from "./pages/AllBookmarks";
-import MyBookmark from "./pages/MyBookmark";
-import Findpassword from "./pages/Findpassword";
-import ResetPassword from "./pages/ResetPassword";
-import ModifyinfoB from "./pages/ModifyinfoB";
-import ModifyinfoA from "./pages/ModifyinfoA";
-import LeavePage from "./pages/LeavePage";
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Home from './pages/Home'
+import Intro from './pages/Intro'
+import Bookmark from './pages/Bookmark'
+import Agreement from './pages/Agreement'
+import Login from './pages/Login'
+import Signup from './pages/Signup'
+import Report from './pages/Reporting'
+import Recommend from './pages/Recommend'
+import AllBookmarks from './pages/AllBookmarks'
+import MyBookmark from './pages/MyBookmark'
+import Findpassword from './pages/Findpassword'
+import ResetPassword from './pages/ResetPassword'
+import ModifyinfoB from './pages/ModifyinfoB'
+import ModifyinfoA from './pages/ModifyinfoA'
+import LeavePage from './pages/LeavePage'
+import ModifyBookmark from './pages/ModifyBookmark'
 
 function App() {
   return (
@@ -35,10 +36,14 @@ function App() {
           <Route path="/ModifyinfoB" element={<ModifyinfoB />} />
           <Route path="/ModifyinfoA" element={<ModifyinfoA />} />
           <Route path="/LeavePage" element={<LeavePage />} />
+          <Route
+            path="modifyBookmark/:bookmarkId"
+            element={<ModifyBookmark />}
+          />
         </Routes>
       </BrowserRouter>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

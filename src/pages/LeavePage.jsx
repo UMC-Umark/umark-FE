@@ -6,8 +6,6 @@ import "../components/Header.css";
 import axios from "axios";
 
 export default function Findpassword() {
-  const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState("");
   const [isValid, setIsValid] = useState(false);
   const [validEmailMessage, setValidEmailMessage] = useState("");
   const [verifyError, setVerifyError] = useState("");
@@ -18,29 +16,8 @@ export default function Findpassword() {
   const [withdrawReason, setWithdrawReason] = useState("");
   const [withdrawError, setWithdrawError] = useState("");
 
-  const [inputValue, setInputValue] = useState("");
   const navigate = useNavigate();
 
-  const handleInputChange = (e) => {
-    const newValue = e.target.value.replace(/[^0-9]/g, ""); // 숫자 이외의 문자 제거
-    setInputValue(newValue);
-  };
-  const handleEmailChange = (e) => {
-    const newEmail = e.target.value;
-    setEmail(newEmail);
-    validateEmail(newEmail);
-  };
-  const validateEmail = (input) => {
-    const emailRegex = /^[a-zA-Z0-9._-]+@[^@]+\.ac\.kr$/;
-    const isValid = emailRegex.test(input);
-    if (!isValid) {
-      setEmailError("올바른 이메일 형식이 아닙니다.");
-    } else {
-      setEmailError("");
-      //setValidEmailMessage('올바른 이메일 형식입니다.');
-    }
-    setIsValid(isValid);
-  };
   const validatePassword = (input) => {
     const passwordRegex =
       /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
@@ -53,10 +30,7 @@ export default function Findpassword() {
       setPasswordError("");
     }
     setIsValid(
-      isValid &&
-        emailError === "" &&
-        passwordConfirmError === "" &&
-        passwordConfirm === input
+      isValid && passwordConfirmError === "" && passwordConfirm === input
     );
   };
   const validatePasswordConfirm = (input) => {
@@ -66,9 +40,7 @@ export default function Findpassword() {
     } else {
       setPasswordConfirmError("");
     }
-    setIsValid(
-      isValid && emailError === "" && passwordError === "" && password === input
-    );
+    setIsValid(isValid && passwordError === "" && password === input);
   };
 
   const handlePasswordChange = (e) => {
@@ -76,9 +48,14 @@ export default function Findpassword() {
     setPassword(newPassword);
     validatePassword(newPassword);
   };
+  const handlePasswordConfirmChange = (e) => {
+    setPasswordConfirm(e.target.value);
+  };
   const handleWithdrawReasonChange = (e) => {
     setWithdrawReason(e.target.value);
   };
+
+  // 회원 탈퇴
   const handleWithdraw = async () => {
     try {
       // 유효성 검사 로직 추가
@@ -87,15 +64,14 @@ export default function Findpassword() {
         return;
       }
 
-      //const memberId = 123; // 탈퇴할 회원의 ID, 실제로는 해당 회원의 ID로 설정
+      const memberId = 1; // 탈퇴할 회원의 ID, 실제로는 해당 회원의 ID로 설정
 
       const requestBody = {
         passwordConfirm,
         withdrawReason,
       };
-
-      const response = await axios.patch("/member/{memberId}");
-      console.log("탈퇴가 완료되었습니다.");
+      const response = await axios.patch(`/member/${memberId}`, requestBody);
+      console.log(response.data);
       navigate("/");
     } catch (error) {
       console.error("탈퇴 중 오류:", error);
@@ -110,7 +86,7 @@ export default function Findpassword() {
         <h1 className="text-center text-4xl font-bold my-3">탈퇴하기</h1>
         <div className="mb-8" />
         <div>
-          <pre className="text-xl font-bold font-sans">
+          <pre className="text-xl">
             {`
     탈퇴하기 전 확인해주세요!
             
@@ -125,14 +101,18 @@ export default function Findpassword() {
           </pre>
           <br />
           <h1 className="text-lg font-bold">탈퇴사유</h1>
-          <textarea className="w-full border-2 border-black px-60 py-6 text-left" />
+          <textarea
+            value={withdrawReason}
+            onChange={handleWithdrawReasonChange}
+            className="w-full border-2 border-black px-60 py-6 text-left"
+          />
           <div className="mb-5" />
           <h1 className="text-lg font-bold">비밀번호 확인</h1>
           <input
             name="passwordConfirm"
             type="password"
-            value={password}
-            onChange={handlePasswordChange}
+            value={passwordConfirm}
+            onChange={handlePasswordConfirmChange}
             className="bg-white text-gray-500 px-60 py-3 focus:outline-none border-2 border-black"
           />
           <div className="mb-10" />
@@ -142,6 +122,7 @@ export default function Findpassword() {
           >
             탈퇴하기
           </button>
+          {withdrawError && <p className="text-red-500">{withdrawError}</p>}
         </div>
       </div>
     </div>

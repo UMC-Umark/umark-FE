@@ -18,24 +18,23 @@ export default function ModifyinfoA() {
 
   const [inputValue, setInputValue] = useState("");
 
+  const navigate = useNavigate();
   const handleModifyInfo = async () => {
     try {
-      //const memberId = 123; // 실제 사용자 ID로 교체
+      const memberId = 1; // 실제 사용자 ID로 교체
       const requestBody = {
         newPassword: password,
       };
 
-      const response = await axios.patch(`/member/changepassword/{memberId}`);
+      const response = await axios.patch(
+        `/member/changepassword/${memberId}`,
+        requestBody
+      );
 
-      if (response.data.isSuccess) {
-        alert("비밀번호가 성공적으로 변경되었습니다.");
-        // 성공 시 처리, 예를 들어 다른 페이지로 이동
-      } else {
-        alert("비밀번호 변경에 실패했습니다. 다시 시도해주세요.");
-      }
+      console.log("response.data");
+      navigate("/Recommend");
     } catch (error) {
       console.error("비밀번호 변경 중 오류:", error);
-      alert("비밀번호 변경 중 오류가 발생했습니다.");
     }
   };
 
@@ -168,16 +167,18 @@ export default function ModifyinfoA() {
           )}
           <div className="mb-7" />
           <div className="inline-block w-full">
-            <Link to="/">
+            <Link to="/Recommend">
               <button className="text-xl font-bold border-2 border-black text-black rounded-full px-10 py-2 mr-8">
                 수정 취소
               </button>
             </Link>
-            <Link to="/ModifyinfoA">
-              <button className="text-xl font-bold text-white bg-black rounded-full px-10 py-2 mr-8">
-                수정 완료
-              </button>
-            </Link>
+
+            <button
+              onClick={handleModifyInfo}
+              className="text-xl font-bold text-white bg-black rounded-full px-10 py-2 mr-8"
+            >
+              수정 완료
+            </button>
           </div>
         </div>
       </div>

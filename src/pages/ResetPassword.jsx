@@ -1,22 +1,23 @@
 import React from "react";
 import { useState } from "react";
 import logo from "../img/logo.webp";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import arrow from "../img/arrow.png";
 import "../css/Password.css";
 import axios from "axios";
 import Signup from "./Signup";
 
-export default function ResetPassword({ email, setEmail }) {
+export default function ResetPassword() {
   const [newPassword, setNewPassword] = useState("");
   const [newPasswordConfirm, setNewPasswordConfirm] = useState("");
   const navigate = useNavigate();
-
+  const location = useLocation();
+  const emailSignup = location.state?.email;
   // 비밀번호 찾기-비밀번호 변경
   const handleResetPassword = async () => {
     try {
       const requestBody = {
-        email: email, //setEmail(response.data.email),
+        emailSignup: emailSignup, //setEmail(response.data.email),
         newPassword: newPassword,
       };
 
@@ -25,7 +26,7 @@ export default function ResetPassword({ email, setEmail }) {
         requestBody
       );
       console.log(response.data);
-      console.log({ email });
+      console.log({ emailSignup });
       navigate("/Login");
     } catch (error) {
       console.error("비밀번호 재설정 중 오류:", error);
