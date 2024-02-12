@@ -31,13 +31,43 @@
     width:62%;
 }
 
-/* 모바일 화면에서의 스타일 */
-@media (max-width:768px){
-
+@media (min-width:576px) and (max-width:767px) {
     .custom-logintitle{
         font-size:3rem;
         text-align:right;
         display:block;
+    }
+    .custom-logininput {
+        text-align:left;
+        width: 100%;
+        color:white;
+        max-width: 100%; /* 최대 너비를 100%로 설정하여 가로폭에 꽉 차게 함 */
+        height:3.5rem;
+        padding-left: 6rem;  
+    }
+    .custom-loginbutton1 {
+        height:3.5rem;
+        width:4rem;
+        white-space: nowrap;
+        width:90%;
+        padding: 5px 0; /* 내부 패딩을 추가하여 버튼의 세로 중앙으로 텍스트를 위치시킴 */
+    }
+    .custom-form1 {
+        text-align: center;
+        justify-items: center;
+        width: 90%;
+        margin: 0 auto; /* 가운데 정렬을 위해 추가 */
+    }
+}
+
+/* 모바일 화면에서의 스타일 */
+@media (min-width:768px) and (max-width:991px) {
+
+    .custom-logintitle{
+        font-size:3rem;
+        text-align:center;
+        display:block;
+        margin-right:5rem;
         
     }
 
@@ -54,7 +84,7 @@
     .custom-form1 {
         text-align: center;
         justify-items: center;
-        width: 100%;
+        width: 90%;
         margin: 0 auto; /* 가운데 정렬을 위해 추가 */
     }
 
@@ -89,12 +119,29 @@
     }
     .custom-links {
         font-size:1rem;
-        margin-right: 0rem;
+        margin-left: 1.4rem;
     }
 }
 
-@media (min-width: 992px) {
-    
+@media (min-width: 992px) and (max-width: 1199px) {
+    .custom-logintitle{
+        font-size:3rem;
+        display:block;
+    }
+    .custom-loginbutton1 {
+        display:inline-block;
+        font-size:1.6rem;
+        text-align: center;
+    }
+    .custom-logininput {
+        text-align:left;
+        width: 100%;
+        color:white;
+        max-width: 100%; /* 최대 너비를 100%로 설정하여 가로폭에 꽉 차게 함 */
+        height:3.5rem;
+        padding-left: 6rem;  
+    }
+
  } 
 
 @media (min-width: 1200px) {  }

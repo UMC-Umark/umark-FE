@@ -24,15 +24,34 @@
 /* 모바일 화면에서의 스타일 */
 
 
-@media (min-width: 576px) { 
+@media (min-width:576px) and (max-width:767px) {
+    
+    .custom-nextbutton1 {
+        height:3rem;
+        width:4rem;
+        font-size:1.5rem;
+        white-space: nowrap;
+        width:90%;
+        padding: 2px 0; /* 내부 패딩을 추가하여 버튼의 세로 중앙으로 텍스트를 위치시킴 */
+    }
+    .custom-signuptitle {
+        font-size:3rem;
+        text-align:center;
+        display:block;
+        
+    }
+    .custom-arrow {
+        padding-left:50px;
+        padding-right:50px;
+    }
  } 
 
 
-@media (max-width:768px){
+@media (min-width:768px) and (max-width:991px) {
 
     .custom-signuptitle{
         font-size:3rem;
-        text-align:right;
+        text-align:center;
         display:block;
     }
 
@@ -61,6 +80,7 @@
         align-items: flex-start; /* 왼쪽 정렬 */
         margin-bottom:0.7rem;
     }
+
     button {
         width:1.5rem;
         height:4rem;
@@ -81,6 +101,6 @@
     }
 }
 	
-@media (min-width: 992px) {  } 
+@media (min-width: 992px) and (max-width: 1199px) {  } 
 
 @media (min-width: 1200px) {  }

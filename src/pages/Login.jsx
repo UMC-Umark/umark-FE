@@ -11,16 +11,31 @@ export default function Login() {
   const [loginCheck, setLoginCheck] = useState(false); // 로그인 상태 체크
   const navigate = useNavigate();
   const location = useLocation();
+
+  // 로그인
   const handleLogin = async () => {
     try {
       const requestBody = {
         email: email,
         password: password,
+        loginCheck: false,
       };
+      const response = await axios.post("/member/login", requestBody);
+      console.log(response.data);
+      setLoginCheck(true);
       navigate("/Recommend");
     } catch (error) {
       console.error("로그인 중 오류:", error);
     }
+  };
+
+  const handleEmailChange = (e) => {
+    const newEmail = e.target.value;
+    setEmail(newEmail);
+  };
+  const handlePasswordChange = (e) => {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
   };
 
   return (
@@ -52,9 +67,10 @@ export default function Login() {
             </span>
             <input
               name="email"
+              value={email}
+              onChange={handleEmailChange}
               className="custom-logininput bg-white text-black px-60 py-4 rounded-full text-left focus:outline-none border border-1"
-            />{" "}
-            {/* value={email} onChange={handleEmail} */}
+            />
             <br />
             <br />
             <span className="custom-loginlabel font-bold absolute left-50 top-50 text-black mt-4 ml-5">
@@ -63,13 +79,15 @@ export default function Login() {
             <input
               name="password"
               type="password"
+              value={password}
+              onChange={handlePasswordChange}
               className="custom-logininput bg-white text-black px-60 py-4 rounded-full focus:outline-none border border-1"
-            />{" "}
-            {/* value={pw} onChange={handlePw} */}
+            />
           </div>
           <div className="mb-12" />
           <button
             type="button"
+            onClick={handleLogin}
             className="custom-loginbutton1 bg-green-400 text-black px-60 py-3 rounded-full font-bold"
           >
             로그인

@@ -26,10 +26,14 @@
     text-align: center;
     box-sizing: border-box;
     border-radius: 5px;
-    border: 3px solid #fff; /* 체크박스 외곽선 */
+    border: 2px solid #fff; /* 체크박스 외곽선 */
     border-radius: 50%; /* 원형으로 만들기 */
   }
   
+  .custom-check input[type="checkbox"]:checked + label:before {
+    background-color: #000; /* 큰 원의 배경 색상 */
+    border:3px solid #16DE91;
+  }
   /* 보여질 부분의 스타일을 추가하면 된다. */
   .custom-check input[type="checkbox"]:checked + label:after {
     content: "";
@@ -43,26 +47,21 @@
     border-radius: 5px;
     border: 2px solid #000; /* 체크박스 외곽선 */
     border-radius: 50%; /* 원형으로 만들기 */
+    z-index: 1; /* 작은 원이 큰 원 위에 오도록 z-index 설정 */
   }
   
   .custom-check input[type="checkbox"]:checked + label:after {
     content: "";
     position: absolute;
-    left: 2px;
-    top: 5px;
-    width: 20px;
-    height: 20px;
+    left: 3px;
+    top: 5.7px;
+    width: 19px;
+    height: 19px;
     text-align: center;
     box-sizing: border-box;
+    background-position: center center;
     border-radius: 5px;
     border: 2px solid #000; /* 체크박스 외곽선 */
     border-radius: 50%; /* 원형으로 만들기 */
   }
 
-  .custom-check input[type="checkbox"] + label span {
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 26px;  
-    letter-spacing: -1px;
-    color: rgba(0, 0, 0, 0.5);
-  }

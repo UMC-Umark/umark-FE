@@ -220,7 +220,10 @@ export default function Signup() {
           <button
             type="button"
             disabled={!isValid}
-            onClick={handleSignUp}
+            onClick={() => {
+              handleSignUp();
+              navigate("/Login", { state: { email: email } });
+            }}
             className="custom-endbutton2 bg-white text-black px-80 py-4 rounded-full font-bold"
           >
             완료
