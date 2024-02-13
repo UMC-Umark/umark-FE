@@ -15,16 +15,12 @@ function ModifyBookmark() {
     axios
       .get(`/bookmarks/${bookmarkId}/mywrite?page=1`)
       .then((response) => {
-        // 응답에서 북마크 리스트를 가져옵니다.
         const bookmarks = response.data.data.content
-        // bookmarkId와 일치하는 북마크를 찾습니다.
         const bookmark = bookmarks.find((b) => b.id === parseInt(bookmarkId))
         if (bookmark) {
-          // 찾은 북마크의 데이터로 상태를 업데이트합니다.
           setTitle(bookmark.title)
           setURL(bookmark.url)
           setContent(bookmark.content)
-          // hashTagContent가 배열인지 확인하고, 맞다면 join 함수로 문자열로 변환합니다.
           setTags(bookmark.hashTagContent.join(' '))
         }
       })
@@ -38,7 +34,7 @@ function ModifyBookmark() {
     // ... (axios 요청 로직)
     const hashTags = tags.split(' ').map((tag) => ({ content: tag }))
     axios
-      .put(`/bookmarks/update/${bookmarkId}`, {
+      .put(`/bookmarks/${bookmarkId}`, {
         title: title,
         url: url,
         content: content,

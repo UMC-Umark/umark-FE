@@ -5,23 +5,55 @@ import '../pages/MyBookmark.css'
 import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import BookmarkList from './BookmarkList'
-
+import { useNavigate } from 'react-router-dom' // useNavigate 추가
 export default function MyBookmark() {
-  const [bookmark, setBookmark] = useState([])
+  const [bookmarks, setBookmarks] = useState([])
 
+  const [writtenCount, setWrittenCount] = useState(0)
+
+  const [likedCount, setLikedCount] = useState(0)
+  useEffect(() => {
+    // API 요청
+    axios
+      .get('/bookmarks/1/mywrite?page=1') // 실제 요청할 엔드포인트 주소로 변경
+      .then((response) => {
+        // 응답으로부터 writtenCount 추출하여 상태 업데이트
+        setLikedCount(response.data.data.likedCount)
+      })
+      .catch((error) => {
+        console.error('Fetching writtenCount failed:', error)
+      })
+  }, []) // 의존성 배열이 비어 있으므로 컴포넌트 마운트 시 1회 실행
+  useEffect(() => {
+    // API 요청
+    axios
+      .get('/bookmarks/1/mywrite?page=1') // 실제 요청할 엔드포인트 주소로 변경
+      .then((response) => {
+        // 응답으로부터 writtenCount 추출하여 상태 업데이트
+        setWrittenCount(response.data.data.writtenCount)
+      })
+      .catch((error) => {
+        console.error('Fetching writtenCount failed:', error)
+      })
+  }, []) // 의존성 배열이 비어 있으므로 컴포넌트 마운트 시 1회 실행
+  const navigate = useNavigate() // useNavigate 초기화
   // 컴포넌트가 마운트될 때 API 호출
   useEffect(() => {
     axios
       .get('/bookmarks/1/mywrite?page=1')
       .then((response) => {
-        // API 응답으로 받은 데이터로 상태 업데이트
-        setBookmark(response.data.data.content)
-        console.log(bookmark.title)
+        setBookmarks(response.data.data.myWrittenBookMarkPage.content)
+        console.log(response.data.data.myWrittenBookMarkPage)
       })
       .catch((error) => {
         console.log(error)
       })
   }, [])
+
+  // 수정 페이지로 이동하는 함수
+  const handleEdit = (bookmarkId) => {
+    navigate(`/modifyBookmark/${bookmarkId}`)
+  }
 
   return (
     <div className="flex flex-col">
@@ -39,7 +71,7 @@ export default function MyBookmark() {
               <p className="text-black text-lg font-bold no-underline p-0">
                 내가 쓴 북마크
               </p>
-              <p className="text-4xl font-bold">{bookmark.id}</p>
+              <p className="text-4xl font-bold">{writtenCount}</p>
             </div>
           </div>
           <div className="w-32 h-32 bg-orange-500 rounded-full flex items-center justify-center ml-2 text-black">
@@ -47,16 +79,16 @@ export default function MyBookmark() {
               <p className="text-black text-lg font-bold no-underline p-0">
                 추천한 북마크
               </p>
-              <p className="text-4xl font-bold">38</p>
+              <p className="text-4xl font-bold">{likedCount}</p>
             </div>
           </div>
         </div>
         <h2 className="text-3xl font-bold mb-4 pt-4">your bookmark</h2>
         <hr className="border-b-2 border-black mb-8" />
         <div className="my-bookmark-container">
-          <p className="pt-4 item-center text-2xl font-bold flex-wrap">
-            <BookmarkList bookmarks={bookmark} />
-          </p>
+          <div className="pt-4 item-center text-2xl font-bold flex-wrap">
+            <BookmarkList bookmarks={bookmarks} onEdit={handleEdit} />
+          </div>
           <div className="border-b-2 border-black mt-2"></div>
         </div>
       </div>
