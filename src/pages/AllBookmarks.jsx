@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import './Recommend.css';
-import SearchBox from '../components/SearchBox';
+import axios from 'axios';
+
 import Header from '../components/Header';
 import Menubar from '../components/Menubar';
+import SearchBox from '../components/SearchBox';
 import CardList from '../cards/CardList';
 import BookmarkModal from '../components/BookmarkModal';
-import axios from 'axios';
+import './Recommend.css';
 
 export default function AllBookmarks() {
   const [cardsData, setCardsData] = useState([]);

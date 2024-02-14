@@ -1,14 +1,13 @@
-//Recommend.jsx
-
 import React, { useState, useEffect } from 'react';
-import './Recommend.css';
-import SearchBox from '../components/SearchBox';
+import axios from 'axios';
+
 import Header from '../components/Header';
 import Menubar from '../components/Menubar';
+import SearchBox from '../components/SearchBox';
 import CardList from '../cards/CardList';
-// import { cardsData } from '../data/CardData';
 import BookmarkModal from '../components/BookmarkModal';
-import axios from 'axios';
+import './Recommend.css';
+
 
 export default function Recommend() {
     const [cardsData, setCardsData] = useState([]);
