@@ -5,11 +5,15 @@ function BookmarkList({ bookmarks, onEdit }) {
   const safeBookmarks = Array.isArray(bookmarks) ? bookmarks : []
 
   return (
-    <div className="my-bookmark-container">
+    <div className="flex flex-wrap justify-center">
       {safeBookmarks.map((bookmark, index) => (
-        <div key={index} className="bookmark-card bg-greens">
+        <div
+          key={index}
+          className="flex-auto min-w-0 p-4 h-60 border border-black bg-red-50 shadow-md m-2"
+          style={{ flexBasis: 'calc(25% - 2rem)' }}
+        >
           <FaTrashAlt
-            className="cursor-pointer absolute top-2 right-2 text-red-50"
+            className="cursor-pointer absolute top-2 right-2 text-black"
             size={24}
           />
           <p className="pt-4 item-center text-2xl font-bold">
