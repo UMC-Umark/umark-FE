@@ -14,6 +14,7 @@ export default function Card({ id, title, createdAt, hashTagContent, content, ur
             const response = await axios.post(`/bookmarks/${id}/likes?memberId=1`);
             console.log('bookmarkID:', {id}, response.data.data);
             setLiked(!liked);
+            onClick(!liked);
         } catch(error) {
             console.error('Error sending POST request:', error);
         }
@@ -40,7 +41,7 @@ export default function Card({ id, title, createdAt, hashTagContent, content, ur
                             </time>
                             <h6 className="flex items-center gap-x-4">
                                 {hashTagContent.map((tag, index) => (
-                                    <div key={index} className="hashTagContent relative rounded-lg px-2.5 py-1">
+                                    <div key={index} className="tags hashTagContent relative rounded-lg px-2.5 py-1">
                                         {tag}
                                     </div>
                                 ))}
