@@ -1,9 +1,9 @@
-import React from "react";
-import './Card.css';
+import React, { useState } from "react";
+import axios from 'axios';
+
 import BookmarkOff from '../img/BookmarkOff.png';
 import BookmarkOn from '../img/BookmarkOn.png';
-import axios from 'axios';
-import { useState } from "react";
+import './Card.css';
 
 export default function Card({ id, title, createdAt, hashTagContent, content, url, onClick, isReported }) {
     const [liked, setLiked] = useState(false);

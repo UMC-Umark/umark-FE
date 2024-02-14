@@ -1,7 +1,6 @@
 import React from "react";
 import Card from './Card';
 
-// CardList.jsx
 export default function CardList({ cardsData, onClick }) {
     return (
         <div className='row'>
