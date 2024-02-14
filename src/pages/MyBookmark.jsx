@@ -84,7 +84,7 @@ export default function MyBookmark() {
           </div>
         </div>
         <h2 className="text-3xl font-bold mb-4 pt-4">your bookmark</h2>
-        <hr className="border-b-2 border-black mb-8" />
+        <hr className="border-b-4 border-black mb-8" />
         <div className="my-bookmark-container">
           <div className="pt-4 item-center text-2xl font-bold flex-wrap">
             <BookmarkList bookmarks={bookmarks} onEdit={handleEdit} />
