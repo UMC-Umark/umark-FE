@@ -13,15 +13,14 @@ function ModifyBookmark() {
 
   useEffect(() => {
     axios
-      .get(`/bookmarks/${bookmarkId}/mywrite?page=1`)
+      .get(`/bookmarks/update/${bookmarkId}`)
       .then((response) => {
-        const bookmarks = response.data.data.content
-        const bookmark = bookmarks.find((b) => b.id === parseInt(bookmarkId))
-        if (bookmark) {
-          setTitle(bookmark.title)
-          setURL(bookmark.url)
-          setContent(bookmark.content)
-          setTags(bookmark.hashTagContent.join(' '))
+        const bookmarkData = response.data.data // Directly access the bookmark data
+        if (bookmarkData) {
+          setTitle(bookmarkData.title)
+          setURL(bookmarkData.url)
+          setContent(bookmarkData.content)
+          setTags(bookmarkData.hashTagContent.join(' ')) // Join the tags array to a string
         }
       })
       .catch((error) => {
