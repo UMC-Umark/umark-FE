@@ -4,6 +4,7 @@ import BookmarkOff from '../img/BookmarkOff.png';
 import BookmarkOn from '../img/BookmarkOn.png';
 import axios from 'axios';
 import { useState } from "react";
+
 export default function Card({ id, title, createdAt, hashTagContent, content, url, onClick, isReported }) {
     const [liked, setLiked] = useState(false);
     const date = new Date(createdAt);
@@ -14,7 +15,7 @@ export default function Card({ id, title, createdAt, hashTagContent, content, ur
             const response = await axios.post(`/bookmarks/${id}/likes?memberId=1`);
             console.log('bookmarkID:', {id}, response.data.data);
             setLiked(!liked);
-            onClick(!liked);
+            onClick(!liked, response.data.data.likeCount);
         } catch(error) {
             console.error('Error sending POST request:', error);
         }
