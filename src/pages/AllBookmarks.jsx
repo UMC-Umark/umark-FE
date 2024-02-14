@@ -10,6 +10,7 @@ import axios from 'axios';
 export default function AllBookmarks() {
   const [cardsData, setCardsData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [likeCount, setLikeCount] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -20,22 +21,25 @@ export default function AllBookmarks() {
           isReported: item.reported 
         }));
         setCardsData(dataWithIsReported);
+        console.log(cardsData);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     }
     fetchData();
   }, []);
+
+  const handleModal = (isOpen, likeCount) => {
+    isOpen ? openModal() : closeModal();
+    setLikeCount(likeCount);
+  };
+
   const openModal = () => {
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
-  };
-
-  const handleModal = (isOpen) => {
-    isOpen ? openModal() : closeModal();
   };
 
   return (
@@ -48,9 +52,14 @@ export default function AllBookmarks() {
             <h3 className="title-big font-SUITE">모든 북마크</h3>
             <SearchBox />
           </div>
-          <CardList cardsData={cardsData} onClick={handleModal} />
+          <CardList 
+            cardsData={cardsData}
+            onClick={handleModal} />
         </div>
-        <BookmarkModal isOpen={isModalOpen} onClose={closeModal} />
+        <BookmarkModal
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          likeCount={likeCount} />
       </div>
     </div>
   );
