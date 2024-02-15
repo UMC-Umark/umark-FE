@@ -56,33 +56,52 @@ const ReportingPage = () => {
       return;
     }
 
-    if (!bookmarkId) {
-      console.error('Bookmark ID is not available.');
-      return;
-    }
+    // if (!bookmarkId) {
+    //   console.error('Bookmark ID is not available.');
+    //   return;
+    // }
 
-    const memberId = 1; // 예시 값
+    // const memberId = 1; // 예시 값
     const reportIndex = reportOptions.indexOf(selectedOption) + 1;
     const reportData = {
-      memberId,
+      // memberId,
       bookMarkId: bookmarkId,
       report: reportIndex,
       reason: isOtherSelected ? otherText : selectedOption
     };
 
-    try {
-      const response = await axios.post('/bookmarks/reports', reportData);
-      console.log('Response:', response.data);
-      setShowModal(true);
-      // 모달 추가
-      if (response.data.reported) {
-        navigate('/allbookmarks'); // 신고된 페이지로 이동
+  //   try {
+  //     const response = await axios.post('/bookmarks/reports', reportData);
+  //     console.log('Response:', response.data);
+  //     setShowModal(true);
+  //     // 모달 추가
+  //     if (response.data.reported) {
+  //       navigate('/allbookmarks'); // 신고된 페이지로 이동
+  //     }
+  //   } catch (error) {
+  //     console.error('Error:', error);
+  //     alert('신고 제출 중 오류가 발생했습니다. 다시 시도해주세요.');
+  //   }
+  // };
+  try {
+    const accessToken = localStorage.getItem('accessToken'); // 저장된 accessToken 가져오기
+    console.log(accessToken);
+    const response = await axios.post('/bookmarks/reports', reportData, {
+      headers: {
+        Authorization: `Bearer ${accessToken}` // 헤더에 accessToken 포함
       }
-    } catch (error) {
-      console.error('Error:', error);
-      alert('신고 제출 중 오류가 발생했습니다. 다시 시도해주세요.');
+    });
+    console.log('Response:', response.data);
+    setShowModal(true);
+
+    if (response.data.reported) {
+      navigate('/allbookmarks'); // 신고된 페이지로 이동
     }
-  };
+  } catch (error) {
+    console.error('Error:', error);
+    alert('신고 제출 중 오류가 발생했습니다. 다시 시도해주세요.');
+  }
+};
 
   const handleCloseModal = () => {
     setShowModal(false);
