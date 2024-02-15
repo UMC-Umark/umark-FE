@@ -15,9 +15,8 @@ export default function MyBookmark() {
   useEffect(() => {
     // API 요청
     axios
-      .get('/bookmarks/1/mywrite?page=1') // 실제 요청할 엔드포인트 주소로 변경
+      .get('/bookmarks/1/mywrite?page=1')
       .then((response) => {
-        // 응답으로부터 writtenCount 추출하여 상태 업데이트
         setLikedCount(response.data.data.likedCount)
       })
       .catch((error) => {
@@ -27,15 +26,14 @@ export default function MyBookmark() {
   useEffect(() => {
     // API 요청
     axios
-      .get('/bookmarks/1/mywrite?page=1') // 실제 요청할 엔드포인트 주소로 변경
+      .get('/bookmarks/1/mywrite?page=1')
       .then((response) => {
-        // 응답으로부터 writtenCount 추출하여 상태 업데이트
         setWrittenCount(response.data.data.writtenCount)
       })
       .catch((error) => {
         console.error('Fetching writtenCount failed:', error)
       })
-  }, []) // 의존성 배열이 비어 있으므로 컴포넌트 마운트 시 1회 실행
+  }, [])
   const navigate = useNavigate() // useNavigate 초기화
   // 컴포넌트가 마운트될 때 API 호출
   useEffect(() => {
@@ -60,8 +58,7 @@ export default function MyBookmark() {
       <Header />
       <Menubar />
       <div className="mx-12 sm:mx-20 my-60">
-        {' '}
-        {/* my-10 -> my-60 으로 수정 */}
+        {/* my-10 -> my-60 으로 수정 */}{' '}
         <h1 className="custom-title text-3xl font-bold mb-12">
           내가 쓴 북마크들
         </h1>

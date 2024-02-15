@@ -20,7 +20,7 @@ function BookmarkList({ bookmarks, onEdit }) {
         return (
           <div
             key={index}
-            className="p-4 h-72 border-2 border-black bg-gray-100 shadow-md m-2 mb-4"
+            className="p-4 h-72 border-2 border-black bg-gray-100 shadow-md m-2 mb-4 relative"
             style={{ width: 'calc(25% - 1rem)' }} // 여기서 너비를 계산식으로 조정
           >
             <FaTrashAlt
@@ -62,5 +62,5 @@ function BookmarkList({ bookmarks, onEdit }) {
     </div>
   )
 }
-
+//token eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJVbWFyayIsImlhdCI6M…Fn1LR74rqe0B4OXu4wBad8L0o6frwzY0TmzKF4V2Dh3rtXI9Q
 export default BookmarkList

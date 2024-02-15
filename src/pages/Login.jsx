@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import logo from "../img/logo.webp";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import "../css/Login.css";
-import arrow from "../img/arrow.png";
-import axios from "axios";
+import React, { useState } from 'react'
+import logo from '../img/logo.webp'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
+import '../css/Login.css'
+import arrow from '../img/arrow.png'
+import axios from 'axios'
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loginCheck, setLoginCheck] = useState(false); // 로그인 상태 체크
-  const navigate = useNavigate();
-  const location = useLocation();
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [loginCheck, setLoginCheck] = useState(false) // 로그인 상태 체크
+  const navigate = useNavigate()
+  const location = useLocation()
 
   // 로그인
   const handleLogin = async () => {
@@ -19,24 +19,26 @@ export default function Login() {
         email: email,
         password: password,
         loginCheck: false,
-      };
-      const response = await axios.post("/member/login", requestBody);
-      console.log(response.data);
-      setLoginCheck(true);
-      navigate("/Recommend");
+      }
+      const response = await axios.post('/member/login', requestBody)
+      console.log(response.data)
+      setLoginCheck(true)
+      navigate('/Recommend')
+      // setCookie("at", response.data.accessToken)
+      // setCookie("rt", response.data.refreshToken)
     } catch (error) {
-      console.error("로그인 중 오류:", error);
+      console.error('로그인 중 오류:', error)
     }
-  };
+  }
 
   const handleEmailChange = (e) => {
-    const newEmail = e.target.value;
-    setEmail(newEmail);
-  };
+    const newEmail = e.target.value
+    setEmail(newEmail)
+  }
   const handlePasswordChange = (e) => {
-    const newPassword = e.target.value;
-    setPassword(newPassword);
-  };
+    const newPassword = e.target.value
+    setPassword(newPassword)
+  }
 
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-black text-white">
@@ -95,7 +97,7 @@ export default function Login() {
           <div className="mb-12" />
           <div className="inline-block w-full">
             <Link
-              to={{ pathname: "/Findpassword", state: location.state?.email }}
+              to={{ pathname: '/Findpassword', state: location.state?.email }}
             >
               <p className="custom-links inline-block px-30 underline">
                 비밀번호 찾기
@@ -111,5 +113,5 @@ export default function Login() {
         </div>
       </main>
     </div>
-  );
+  )
 }

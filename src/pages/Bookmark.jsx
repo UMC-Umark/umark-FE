@@ -9,18 +9,25 @@ function Bookmark() {
   const [content, setContent] = useState('')
   const [tags, setTags] = useState('')
 
+  const axios_post_with_login = (url, header, request) => {
+    // const accessToken = getCookie("at")
+    // const refreshToken = getCookie("rt")
+    return axios.post(url, { ...header, Authorization: accessToken }, request)
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
     // ... (axios 요청 로직)
     const hashTags = tags.split(' ').map((tag) => ({ content: tag }))
-    axios
-      .post('/bookmarks/add', {
-        title: title,
-        url: url,
-        content: content,
-        hashTags: hashTags,
-        memberId: 1,
-      })
+    // const accessToken = getCookie("at")
+    // const refreshToken = getCookie("rt")
+    axios_post_with_login('/bookmarks/add', {
+      title: title,
+      url: url,
+      content: content,
+      hashTags: hashTags,
+      memberId: 1,
+    })
       .then((response) => {
         const data = response.data
         console.log(data)
