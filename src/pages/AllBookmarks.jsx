@@ -15,10 +15,25 @@ export default function AllBookmarks() {
   const [pageNumber, setPageNumber] = useState(1); // 현재 페이지 번호
   const pageSize = 15; // 페이지당 아이템 개수
   const [totalPages, setTotalPages] = useState(0); // 전체 페이지 수
+  const [myLikeArray, setMyLikeArray] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
       try {
+        const accessToken = localStorage.getItem('accessToken');
+        console.log(`Token: `, accessToken);
+
+        const responseMyLike = await axios.get(`/bookmarks/1/mylike?page=1`);
+        console.log(responseMyLike.data.data);
+        if (responseMyLike.data.data) {
+          // id 값을 가져와 isBookMark 배열에 추가
+          const ids = responseMyLike.data.data.myLikeBookMarkPage.content.map(item => item.id);
+          console.log(`My Likes: `, ids); // 수정된 부분
+          setMyLikeArray(ids);
+        } else {
+          console.log('Content is empty.');
+        }
+
         const response = await axios.get(`/bookmarks?page=${pageNumber}&size=${pageSize}`);
         const responseData = response.data.data;
         const dataWithIsReported = responseData.content.map(item => ({
@@ -63,7 +78,9 @@ export default function AllBookmarks() {
           </div>
           <CardList 
             cardsData={cardsData}
-            onClick={handleModal} />
+            onClick={handleModal}
+            myLike={myLikeArray}
+             />
           <Pagination 
             totalPages={totalPages} 
             currentPage={pageNumber} 
