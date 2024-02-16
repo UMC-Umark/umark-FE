@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from 'axios';
 
 import BookmarkOff from '../img/BookmarkOff.png';
 import BookmarkOn from '../img/BookmarkOn.png';
 import './Card.css';
 
-export default function Card({ id, title, createdAt, hashTagContent, content, url, onClick, isReported }) {
+export default function Card({ id, title, createdAt, hashTagContent, content, url, onClick, isReported, myLike }) {
     const [liked, setLiked] = useState(false);
     const date = new Date(createdAt);
     const formattedTime = `${date.getFullYear()}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getDate().toString().padStart(2, '0')} ${date.getHours()}:${date.getMinutes()}`;
@@ -20,6 +20,12 @@ export default function Card({ id, title, createdAt, hashTagContent, content, ur
             console.error('Error sending POST request:', error);
         }
     }
+
+    useEffect(() => {
+        if (myLike.includes(id)) {
+            setLiked(!liked);
+        }
+    }, [myLike, id]);
 
     return (
         <div className="card">

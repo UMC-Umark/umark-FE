@@ -1,7 +1,7 @@
 import React from "react";
 import Card from './Card';
 
-export default function CardList({ cardsData, onClick }) {
+export default function CardList({ cardsData, onClick, myLike }) {
     return (
         <div className='row'>
             {cardsData.map((bookmark) => {
@@ -12,6 +12,7 @@ export default function CardList({ cardsData, onClick }) {
                             {...bookmark}
                             onClick={onClick}
                             isReported={bookmark.isReported} // isReported prop 전달
+                            myLike={myLike}
                         />
                     </div>
                 );
