@@ -25,7 +25,7 @@ export default function Card({ id, title, createdAt, hashTagContent, content, ur
         if (myLike.includes(id)) {
             setLiked(!liked);
         }
-    }, [myLike, id]);
+    }, []);
 
     return (
         <div className="card">
