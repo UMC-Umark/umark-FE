@@ -18,16 +18,26 @@ export default function Login() {
       const requestBody = {
         email: email,
         password: password,
-        loginCheck: false,
       }
       const response = await axios.post('/member/login', requestBody)
-      console.log(response.data)
-      setLoginCheck(true)
-      navigate('/Recommend')
-      // setCookie("at", response.data.accessToken)
-      // setCookie("rt", response.data.refreshToken)
+
+      if (response.data.isSuccess) {
+        // 응답에서 accessToken, refreshToken 추출 및 저장
+        const { accessToken, refreshToken, memberId } = response.data.data
+        localStorage.setItem('accessToken', accessToken)
+        localStorage.setItem('refreshToken', refreshToken)
+        localStorage.setItem('memberId', memberId.toString())
+        setLoginCheck(true)
+        navigate('/allbookmarks')
+      } else {
+        // 로그인 실패 처리
+        alert('로그인 실패: ' + response.data.message)
+        setLoginCheck(false)
+      }
     } catch (error) {
       console.error('로그인 중 오류:', error)
+      alert('로그인 과정에서 오류가 발생했습니다.')
+      setLoginCheck(false)
     }
   }
 
