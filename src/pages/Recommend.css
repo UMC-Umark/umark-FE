@@ -249,7 +249,7 @@ h6,
     }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 767.5px) {
     .title-big {
         display: none;
     }
