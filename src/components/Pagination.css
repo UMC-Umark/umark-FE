@@ -1,12 +1,30 @@
-.pagination {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-top: 30px;
+.pagination button {
+    padding: 8px;
+    margin: 0;
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    color: #909090;
 }
 
-.pagination img {
-    height: 30px;
-    width: 30px;
+.arrow-button {
+    &:hover {
+        color: black;
+    }
+}
+
+.page-button {
+    border: none;
+    border-radius: 9999px;
+    font-size: 1rem;
+
+    &:hover {
+        background-color: #FF6133;
+        color: white;
+    }
+
+    &[aria-current] {
+        background-color: #FF6133;
+        color: white;
+    }
 }
