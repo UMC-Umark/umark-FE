@@ -8,34 +8,87 @@ function Bookmark() {
   const [url, setURL] = useState('')
   const [content, setContent] = useState('')
   const [tags, setTags] = useState('')
+  const refreshAccessToken = async () => {
+    try {
+      const refreshToken = localStorage.getItem('refreshToken')
+      const response = await axios.post('/member/refresh', { refreshToken })
+      const { accessToken, refreshToken: newRefreshToken } = response.data.data
+      localStorage.setItem('accessToken', accessToken)
+      localStorage.setItem('refreshToken', newRefreshToken)
+      return accessToken
+    } catch (error) {
+      console.error('Refresh token error:', error)
+      // Refresh Token이 유효하지 않을 경우 로그인 페이지로 이동할 수 있습니다.
+      // navigate('/login');
+      return null
+    }
+  }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     // ... (axios 요청 로직)
     const hashTags = tags.split(' ').map((tag) => ({ content: tag }))
-    axios
-      .post('/bookmarks/add', {
-        title: title,
-        url: url,
-        content: content,
-        hashTags: hashTags,
-        memberId: 1,
-      })
-      .then((response) => {
-        const data = response.data
-        console.log(data)
-        if (data.isSuccess) {
-          console.log(response.data)
-          handleCancel()
-        } else {
-          console.error(
-            `${data.code} : ${data.message} - ${JSON.stringify(data.data)}`
-          )
+    const accessToken = localStorage.getItem('accessToken')
+    try {
+      const response = await axios.post(
+        '/bookmarks/add',
+        {
+          title: title,
+          url: url,
+          content: content,
+          hashTags: hashTags,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
         }
-      })
-      .catch((error) => {
-        console.error('There was an error!', error)
-      })
+      )
+      console.log(response.data)
+      if (response.data.isSuccess) {
+        console.log(response.data)
+        handleCancel() // 성공 시 취소 로직 호출
+      } else {
+        console.error(
+          `${response.data.code} : ${response.data.message} - ${JSON.stringify(
+            response.data.data
+          )}`
+        )
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        // 만약 Access Token이 만료되었다면
+        accessToken = refreshAccessToken() // 새로운 Access Token을 얻습니다.
+        if (accessToken) {
+          // 새로운 Access Token으로 요청을 재시도합니다.
+          try {
+            const retryResponse = await axios.post(
+              '/bookmarks/add',
+              {
+                title: title,
+                url: url,
+                content: content,
+                hashTags: hashTags,
+                // 요청 본문
+              },
+              {
+                headers: {
+                  Authorization: `Bearer ${accessToken}`,
+                },
+              }
+            )
+            console.log(retryResponse.data)
+            handleCancel() // 성공 시 취소 로직 호출
+          } catch (retryError) {
+            // 재시도 요청 실패 처리
+            console.error('Retry failed:', retryError)
+          }
+        }
+      } else {
+        // 다른 종류의 오류 처리
+        console.error('Request failed:', error)
+      }
+    }
   }
 
   const handleCancel = () => {

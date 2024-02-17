@@ -12,35 +12,87 @@ export default function MyBookmark() {
   const [writtenCount, setWrittenCount] = useState(0)
 
   const [likedCount, setLikedCount] = useState(0)
+  const accessToken = localStorage.getItem('accessToken')
+  const memberId = localStorage.getItem('memberId')
+  const refreshAccessToken = async () => {
+    try {
+      const refreshToken = localStorage.getItem('refreshToken')
+      const response = await axios.post('/member/refresh', { refreshToken })
+      const { accessToken, refreshToken: newRefreshToken } = response.data.data
+      localStorage.setItem('accessToken', accessToken)
+      localStorage.setItem('refreshToken', newRefreshToken)
+      return accessToken
+    } catch (error) {
+      console.error('Refresh token error:', error)
+      // Refresh Token이 유효하지 않을 경우 로그인 페이지로 이동할 수 있습니다.
+      // navigate('/login');
+      return null
+    }
+  }
+  useEffect(() => {
+    const fetchData = async () => {
+      let currentAccessToken = localStorage.getItem('accessToken')
+
+      const headers = {
+        Authorization: `Bearer ${currentAccessToken}`,
+      }
+
+      try {
+        const response = await axios.get(
+          `/bookmarks/${accessToken}/mywrite?page=1`,
+          { headers }
+        )
+        setBookmarks(response.data.data.myWrittenBookMarkPage.content)
+        // 다른 state 설정
+      } catch (error) {
+        if (error.response && error.response.status === 401) {
+          const newAccessToken = await refreshAccessToken()
+          if (newAccessToken) {
+            const headers = {
+              Authorization: `Bearer ${newAccessToken}`,
+            }
+            const response = await axios.get(
+              `/bookmarks/${memberId}/mywrite?page=1`,
+              { headers }
+            )
+            setBookmarks(response.data.data.myWrittenBookMarkPage.content)
+            // 다른 state 설정
+          } else {
+            // 새로운 accessToken을 받아오지 못한 경우, 예: 로그인 페이지로 이동
+            console.log('error')
+          }
+        } else {
+          console.error('Fetching data failed:', error)
+        }
+      }
+    }
+
+    fetchData()
+  }, [])
   useEffect(() => {
     // API 요청
     axios
-      .get('/bookmarks/1/mywrite?page=1') // 실제 요청할 엔드포인트 주소로 변경
-      .then((response) => {
-        // 응답으로부터 writtenCount 추출하여 상태 업데이트
-        setLikedCount(response.data.data.likedCount)
+      .get(`/bookmarks/${memberId}/mywrite?page=1`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
       })
-      .catch((error) => {
-        console.error('Fetching writtenCount failed:', error)
-      })
-  }, []) // 의존성 배열이 비어 있으므로 컴포넌트 마운트 시 1회 실행
-  useEffect(() => {
-    // API 요청
-    axios
-      .get('/bookmarks/1/mywrite?page=1') // 실제 요청할 엔드포인트 주소로 변경
       .then((response) => {
-        // 응답으로부터 writtenCount 추출하여 상태 업데이트
         setWrittenCount(response.data.data.writtenCount)
       })
       .catch((error) => {
         console.error('Fetching writtenCount failed:', error)
       })
-  }, []) // 의존성 배열이 비어 있으므로 컴포넌트 마운트 시 1회 실행
+  }, [])
   const navigate = useNavigate() // useNavigate 초기화
   // 컴포넌트가 마운트될 때 API 호출
   useEffect(() => {
     axios
-      .get('/bookmarks/1/mywrite?page=1')
+      .get(`/bookmarks/${memberId}/mywrite?page=1`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
       .then((response) => {
         setBookmarks(response.data.data.myWrittenBookMarkPage.content)
         console.log(response.data.data.myWrittenBookMarkPage)
@@ -60,8 +112,7 @@ export default function MyBookmark() {
       <Header />
       <Menubar />
       <div className="mx-12 sm:mx-20 my-60">
-        {' '}
-        {/* my-10 -> my-60 으로 수정 */}
+        {/* my-10 -> my-60 으로 수정 */}{' '}
         <h1 className="custom-title text-3xl font-bold mb-12">
           내가 쓴 북마크들
         </h1>
