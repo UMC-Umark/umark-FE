@@ -5,7 +5,6 @@ export default function CardList({ cardsData, onClick, myLike }) {
     return (
         <div className='row'>
             {cardsData.map((bookmark) => {
-                // console.log(bookmark); // 각 북마크 데이터 로깅
                 return (
                     <div key={bookmark.id} className="col-lg-4 col-md-6 col-sm-auto mt-5">
                         <Card
