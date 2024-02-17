@@ -4,7 +4,7 @@ import Header from '../components/Header'
 import Menubar from '../components/Menubar'
 import SearchBox from '../components/SearchBox'
 import CardList from '../cards/CardList'
-import BookMarkModal from '../components/BookmarkModal'
+import BookmarkModal from '../components/BookmarkModal'
 import Pagination from '../components/Pagination' // 페이지네이션 컴포넌트 추가
 import './Recommend.css'
 
@@ -90,7 +90,7 @@ export default function AllBookMarks() {
             onPageChange={handlePageChange}
           />
         </div>
-        <BookMarkModal
+        <BookmarkModal
           isOpen={isModalOpen}
           onClose={closeModal}
           likeCount={likeCount}
