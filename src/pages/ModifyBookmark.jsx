@@ -10,8 +10,25 @@ function ModifyBookmark() {
   const [url, setURL] = useState('')
   const [content, setContent] = useState('')
   const [tags, setTags] = useState('')
-
+  const accessToken = localStorage.getItem('accessToken')
+  const memberId = localStorage.getItem('memberId')
+  const refreshAccessToken = async () => {
+    try {
+      const refreshToken = localStorage.getItem('refreshToken')
+      const response = await axios.post('/member/refresh', { refreshToken })
+      const { accessToken, refreshToken: newRefreshToken } = response.data.data
+      localStorage.setItem('accessToken', accessToken)
+      localStorage.setItem('refreshToken', newRefreshToken)
+      return accessToken
+    } catch (error) {
+      console.error('Refresh token error:', error)
+      // Refresh Token이 유효하지 않을 경우 로그인 페이지로 이동할 수 있습니다.
+      // navigate('/login');
+      return null
+    }
+  }
   useEffect(() => {
+    const headers = {}
     axios
       .get(`/bookmarks/update/${bookmarkId}`)
       .then((response) => {
