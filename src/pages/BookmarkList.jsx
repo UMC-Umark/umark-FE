@@ -24,7 +24,7 @@ function BookmarkList({ bookmarks, onEdit }) {
             style={{ width: 'calc(25% - 1rem)' }} // 여기서 너비를 계산식으로 조정
           >
             <FaTrashAlt
-              className="cursor-pointer absolute top-2 right-2 text-black"
+              className="cursor-pointer absolute top-2 right-2 text-gray fill-gray-400"
               size={24}
             />
             <div className="flex flex-col mb-1 h-4/5 ml-4">

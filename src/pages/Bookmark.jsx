@@ -134,7 +134,7 @@ function Bookmark() {
                 htmlFor="url"
                 className="ml-4 flex items-center text-black font-bold w-1/5 pr-4 border-r border-black"
               >
-                부제
+                URL
               </label>
               <input
                 type="text"
