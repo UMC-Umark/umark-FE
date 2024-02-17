@@ -52,6 +52,21 @@ export default function Recommend() {
     fetchData()
   }, [pageNumber]) // 페이지 번호가 변경될 때마다 호출
 
+  const handleSearch = async (keyword) => {
+    try {
+      const response = await axios.get(`/bookmarks/recommends/search?keyWord=${keyword}&page=1`);
+      const responseData = response.data.data;
+      const dataWithIsReported = responseData.content.map((item) => ({
+        ...item,
+        isReported: item.isReported, // 백엔드에서 "isReported" 키로 제공되므로 그대로 사용
+      }));
+      setCardsData(dataWithIsReported);
+      setTotalPages(responseData.totalPages);
+    } catch (error) {
+      console.error('Error fetching search data:', error);
+    }
+  };
+
   const handleModal = (isOpen, likeCount) => {
     isOpen ? openModal() : closeModal()
     setLikeCount(likeCount)
@@ -77,7 +92,7 @@ export default function Recommend() {
         <div className="container py-5">
           <div className="top-container">
             <h3 className="title-big font-SUITE">추천 북마크</h3>
-            <SearchBox />
+            <SearchBox onSearch={handleSearch} />
           </div>
           <CardList
             cardsData={cardsData}
