@@ -9,6 +9,7 @@ const Header = () => {
   const [isOpen, setMenu] = useState(false)
   const navigate = useNavigate()
   const menuRef = useRef(null)
+
   const isLoggedIn = !!localStorage.getItem('accessToken')
 
   const toggleMenu = () => {
@@ -75,39 +76,60 @@ const Header = () => {
         >
           <div className="mt-32 font-bold">
             {' '}
-            <li className="text-black cursor-pointer hover:text-white text-2xl my-6 mx-6">
-              <Link to="/recommend" onClick={handleLinkClick}>
-                추천 북마크
-              </Link>
-            </li>
-            <li className="text-black cursor-pointer hover:text-white text-2xl my-6 mx-6">
-              <Link to="/allbookmarks" onClick={handleLinkClick}>
-                모든 북마크
-              </Link>
-            </li>
-            <li className="text-black cursor-pointer hover:text-white text-2xl my-6 mx-6">
-              <Link to="/write" onClick={handleLinkClick}>
-                북마크 작성하기
-              </Link>
-            </li>
-            <li className="text-black cursor-pointer hover:text-white text-2xl my-6 mx-6">
-              <Link to="/mybookmark" onClick={handleLinkClick}>
-                내가 쓴 북마크들
-              </Link>
-            </li>
-          </div>
-          <div className="mt-16 font-bold">
-            <li className="text-black cursor-pointer hover:text-white text-2xl my-6 mx-6">
-              피드 광고 제안
-            </li>
-            <li className="text-black cursor-pointer hover:text-white text-2xl my-6 mx-6">
-              QnA
-            </li>
-            <li className="text-black cursor-pointer hover:text-white text-2xl my-6 mx-6">
-              <Link to="/intro" onClick={handleLinkClick}>
-                사용 방법
-              </Link>
-            </li>
+            {isLoggedIn ? (
+              <>
+                <li className="text-black cursor-pointer hover:text-white text-2xl my-6 mx-6">
+                  <Link to="/recommend" onClick={handleLinkClick}>
+                    추천 북마크
+                  </Link>
+                </li>
+                <li className="text-black cursor-pointer hover:text-white text-2xl my-6 mx-6">
+                  <Link to="/allbookmarks" onClick={handleLinkClick}>
+                    모든 북마크
+                  </Link>
+                </li>
+                <li className="text-black cursor-pointer hover:text-white text-2xl my-6 mx-6">
+                  <Link to="/write" onClick={handleLinkClick}>
+                    북마크 작성하기
+                  </Link>
+                </li>
+                <li className="text-black cursor-pointer hover:text-white text-2xl my-6 mx-6">
+                  <Link to="/mybookmark" onClick={handleLinkClick}>
+                    내가 쓴 북마크들
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li className="text-black cursor-pointer hover:text-white text-2xl my-6 mx-6">
+                  <Link to="/recommend" onClick={handleLinkClick}>
+                    추천 북마크
+                  </Link>
+                </li>
+                <li className="text-black cursor-pointer hover:text-white text-2xl my-6 mx-6">
+                  <Link to="/allbookmarks" onClick={handleLinkClick}>
+                    모든 북마크
+                  </Link>
+                </li>
+                <li className="text-black cursor-pointer hover:text-white text-2xl my-6 mx-6">
+                  <Link to="/Login" onClick={handleLinkClick}>
+                    로그인
+                  </Link>
+                </li>
+                <li className="text-black cursor-pointer hover:text-white text-2xl my-6 mx-6">
+                  <Link to="/Signup" onClick={handleLinkClick}>
+                    회원가입
+                  </Link>
+                </li>
+              </>
+            )}
+            <div className="mt-16 font-bold">
+              <li className="text-black cursor-pointer hover:text-white text-2xl my-6 mx-6">
+                <Link to="/intro" onClick={handleLinkClick}>
+                  사용 방법
+                </Link>
+              </li>
+            </div>
           </div>
           <AiOutlineClose
             onClick={closeMenu}

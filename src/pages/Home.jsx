@@ -14,6 +14,8 @@ function Home() {
     localStorage.removeItem('accessToken')
     localStorage.removeItem('refreshToken')
     localStorage.removeItem('memberId')
+    //알림
+    alert('로그아웃 하시겠습니까?')
     // 사용자를 홈으로 리디렉트
     window.location.href = '/'
   }
