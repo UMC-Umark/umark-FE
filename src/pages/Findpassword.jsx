@@ -17,6 +17,7 @@ export default function Findpassword() {
 
   const [inputValue, setInputValue] = useState("");
   const location = useLocation();
+
   // 인증 메일 전송
   const handleSendVerification = async () => {
     try {
@@ -68,7 +69,6 @@ export default function Findpassword() {
       setEmailError("올바른 이메일 형식이 아닙니다.");
     } else {
       setEmailError("");
-      //setValidEmailMessage('올바른 이메일 형식입니다.');
     }
     setIsValid(isValid);
   };
@@ -144,9 +144,7 @@ export default function Findpassword() {
             <div className="text-green-600">인증이 완료되었습니다</div>
           )} */}
           <div className="mb-12" />
-          <Link
-            to={{ pathname: "/ResetPassword", state: location.state?.email }}
-          >
+          <Link to={{ pathname: "/ResetPassword", state: { email: email } }}>
             <button
               type="button"
               disabled={!isValid}
