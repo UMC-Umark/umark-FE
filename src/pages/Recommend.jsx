@@ -4,7 +4,7 @@ import axios from 'axios'
 import Header from '../components/Header'
 import Menubar from '../components/Menubar'
 import SearchBox from '../components/SearchBox'
-import BookMarkModal from '../components/BookmarkModal'
+import BookmarkModal from '../components/BookmarkModal'
 import CardList from '../cards/CardList'
 import './Recommend.css'
 
@@ -55,7 +55,7 @@ export default function Recommend() {
           </div>
           <CardList cardsData={cardsData} onClick={handleModal} />
         </div>
-        <BookMarkModal isOpen={isModalOpen} onClose={closeModal} />
+        <BookmarkModal isOpen={isModalOpen} onClose={closeModal} />
       </div>
     </div>
   )
