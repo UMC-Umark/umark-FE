@@ -9,6 +9,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginCheck, setLoginCheck] = useState(false); // 로그인 상태 체크
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -19,44 +20,38 @@ export default function Login() {
         email: email,
         password: password,
       };
-  
+
       const response = await axios.post("/member/login", requestBody, {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       });
-  
+
       if (response.data.isSuccess) {
         // 로그인 성공: 토큰 저장 및 상태 업데이트
         const { accessToken, refreshToken } = response.data.data;
-        localStorage.setItem('accessToken', accessToken);
-        localStorage.setItem('refreshToken', refreshToken);
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("refreshToken", refreshToken);
         setLoginCheck(true);
         navigate("/allbookmarks");
       } else {
-        // 로그인 실패 처리
-        alert('로그인 실패: ' + response.data.message);
+        setErrorMessage("잘못된 비밀번호 입니다");
         setLoginCheck(false);
       }
     } catch (error) {
       if (error.response && error.response.status === 401) {
         // 401 Unauthorized 응답 처리
-        alert('로그인 정보가 유효하지 않습니다. 다시 로그인해 주세요.');
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
+        //alert("로그인 정보가 유효하지 않습니다. 다시 로그인해 주세요.");
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
         setLoginCheck(false);
       } else {
         // 그 외 오류 처리
         console.error("로그인 중 오류:", error);
-        alert('로그인 과정에서 오류가 발생했습니다.');
       }
     }
   };
-  
-  
-  
-  
-  
+
   const handleEmailChange = (e) => {
     const newEmail = e.target.value;
     setEmail(newEmail);
@@ -112,7 +107,7 @@ export default function Login() {
               className="custom-logininput bg-white text-black px-60 py-4 rounded-full focus:outline-none border border-1"
             />
           </div>
-          <div className="mb-12" />
+          <div className="mb-4 ml-80 text-red-500">{errorMessage}</div>
           <button
             type="button"
             onClick={handleLogin}
