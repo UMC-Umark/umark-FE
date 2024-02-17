@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import back from '../img/back_icon.png';
+import './Reporting.css';
 
 const RadioOptions = ({ options, selectedOption, setSelectedOption, onOtherSelected }) => {
   return (
@@ -10,7 +11,7 @@ const RadioOptions = ({ options, selectedOption, setSelectedOption, onOtherSelec
         <label key={idx} className="flex items-center mb-2">
           <input
             type="radio"
-            className="form-radio h-4 w-4 text-red-600"
+            className="custom-radio"
             name="reportReason"
             value={option}
             checked={selectedOption === option}
@@ -25,6 +26,9 @@ const RadioOptions = ({ options, selectedOption, setSelectedOption, onOtherSelec
     </>
   );
 };
+
+
+
 
 const ReportingPage = () => {
   let navigate = useNavigate();

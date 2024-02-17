@@ -140,7 +140,7 @@ h6,
 
 @media (min-width: 1280px) {
     .container {
-        max-width: 2400px;
+        max-width: 1800px;
     }
 }
 
@@ -225,7 +225,7 @@ h6,
 
 @media (min-width: 768px) {
     .card {
-        min-width: 320px;
+        min-width: 340px;
     }
 }
 

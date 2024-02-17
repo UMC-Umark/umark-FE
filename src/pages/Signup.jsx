@@ -17,9 +17,11 @@ export default function Signup() {
   const [passwordConfirmError, setPasswordConfirmError] = useState("");
   const [isValid, setIsValid] = useState(false);
   const [validEmailMessage, setValidEmailMessage] = useState("");
+  const [VerifyErrorMessage, setVerifyErrorMessage] = useState("");
 
   const [inputValue, setInputValue] = useState("");
   const navigate = useNavigate();
+
   // 인증 메일 전송
   const handleSendVerification = async () => {
     try {
@@ -44,9 +46,23 @@ export default function Signup() {
         email: email,
         code: inputValue,
       };
-      const response = await axios.post("/member/checkemail", requestBody);
+      const response = await axios.post("/member/checkemail", requestBody, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.data.isSuccess) {
+        setVerifyErrorMessage("인증이 완료되었습니다");
+      } else {
+        setVerifyErrorMessage("인증번호가 일치하지 않습니다");
+      }
       console.log(response.data);
     } catch (error) {
+      if (error.response && error.response.status === 400) {
+        setVerifyErrorMessage("인증번호가 일치하지 않습니다");
+      } else if (error.response && error.response.status === 200) {
+        setVerifyErrorMessage("인증이 완료되었습니다");
+      }
       console.error("인증 코드 확인 중 오류:", error);
     }
   };
@@ -63,11 +79,13 @@ export default function Signup() {
 
       const response = await axios.post("/member/signup", requestBody);
       console.log(response.data);
-      navigate("/Login", { state: { email: email } });
+      navigate("/Login");
+      //navigate("/Login", { state: { email: email } });
     } catch (error) {
       console.error("회원가입 중 오류:", error);
     }
   };
+
   const handleInputUniv = (e) => {
     const newUniv = e.target.value;
     setUnivName(newUniv);
@@ -110,6 +128,7 @@ export default function Signup() {
   };
   const validatePasswordConfirm = (input) => {
     const isValid = input === password;
+    setPasswordConfirmError(isValid ? "" : "비밀번호가 일치하지 않습니다");
     setIsValid(
       isValid && emailError === "" && passwordError === "" && password === input
     );
@@ -180,14 +199,18 @@ export default function Signup() {
           >
             완료
           </button>
-          {/* {!isValid && (
-            <div className="text-red-600">인증번호가 일치하지 않습니다</div> 
-          )}
-          {isValid && (
-            <div className="text-green-600">인증이 완료되었습니다</div>
-          )}*/}
+          <div
+            className={`${
+              VerifyErrorMessage &&
+              VerifyErrorMessage.includes("인증이 완료되었습니다")
+                ? "text-green-600"
+                : "text-red-600"
+            } ml-80`}
+          >
+            {VerifyErrorMessage}
+          </div>
           <br />
-          <div className="mb-10" />
+
           <span className="custom-label absolute ml-4 left-50 top-50 text-white mt-3">
             비밀번호
           </span>
@@ -212,18 +235,20 @@ export default function Signup() {
             className="custom-input1 bg-black text-white px-60 py-3 rounded-full focus:outline-none border border-1 border-white"
           />
           <br />
-          {/* <div className="text-red-600">{passwordConfirmError}</div> */}
-          {passwordConfirm !== "" && isValid && (
-            <div className="text-green-600">비밀번호가 일치합니다.</div>
+          {passwordConfirm !== "" && isValid ? (
+            <div className="ml-80 text-green-600">비밀번호가 일치합니다</div>
+          ) : (
+            <div className="text-red-600">{passwordConfirmError}</div>
           )}
           <div className="mb-7" />
           <button
             type="button"
             disabled={!isValid}
-            onClick={() => {
+            onClick={handleSignUp}
+            /* onClick={() => {
               handleSignUp();
               navigate("/Login", { state: { email: email } });
-            }}
+            }} */
             className="custom-endbutton2 bg-white text-black px-80 py-4 rounded-full font-bold"
           >
             완료
