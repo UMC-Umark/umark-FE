@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import back from '../img/back_icon.png';
 
@@ -28,80 +28,98 @@ const RadioOptions = ({ options, selectedOption, setSelectedOption, onOtherSelec
 
 const ReportingPage = () => {
   let navigate = useNavigate();
+  let location = useLocation();
+
   const [selectedOption, setSelectedOption] = useState('');
   const [isOtherSelected, setIsOtherSelected] = useState(false);
   const [otherText, setOtherText] = useState('');
-  const [showModal, setShowModal] = useState(false); // 모달 표시 상태
-  const [bookmarkId, setBookmarkId] = useState(null); // 북마크 ID 상태 추가
+  const [showModal, setShowModal] = useState(false);
 
-  useEffect(() => {
-    const fetchBookmarkId = async () => {
-      try {
-        const response = await axios.get('/bookmarks?page=1');
-        const firstBookmarkId = response.data.data.content[0].id;
-        setBookmarkId(firstBookmarkId);
-      } catch (error) {
-        console.error('Error fetching bookmark ID:', error);
-      }
-    };
+  const bookmarkId = location.state?.bookmarkId; 
 
-    fetchBookmarkId();
-  }, []);
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+  //   if (!selectedOption) {
+  //     alert('신고 사유를 선택해주세요.');
+  //     return;
+  //   }
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  //   if (!bookmarkId) {
+  //     console.error('Bookmark ID is not available.');
+  //     return;
+  //   }
 
-    if (!selectedOption) {
-      alert('신고 사유를 선택해주세요.');
-      return;
-    }
-
-    // if (!bookmarkId) {
-    //   console.error('Bookmark ID is not available.');
-    //   return;
-    // }
-
-    // const memberId = 1; // 예시 값
-    const reportIndex = reportOptions.indexOf(selectedOption) + 1;
-    const reportData = {
-      // memberId,
-      bookMarkId: bookmarkId,
-      report: reportIndex,
-      reason: isOtherSelected ? otherText : selectedOption
-    };
+  //   const memberId = 1; // 예시 값
+  //   const reportIndex = reportOptions.indexOf(selectedOption) + 1;
+  //   const reportData = {
+  //     memberId,
+  //     bookMarkId: bookmarkId,
+  //     report: reportIndex,
+  //     reason: isOtherSelected ? otherText : selectedOption
+  //   };
 
   //   try {
   //     const response = await axios.post('/bookmarks/reports', reportData);
   //     console.log('Response:', response.data);
   //     setShowModal(true);
-  //     // 모달 추가
   //     if (response.data.reported) {
-  //       navigate('/allbookmarks'); // 신고된 페이지로 이동
+  //       navigate('/allbookmarks');
   //     }
   //   } catch (error) {
   //     console.error('Error:', error);
   //     alert('신고 제출 중 오류가 발생했습니다. 다시 시도해주세요.');
   //   }
   // };
-  try {
-    const accessToken = localStorage.getItem('accessToken'); // 저장된 accessToken 가져오기
-    console.log(accessToken);
-    const response = await axios.post('/bookmarks/reports', reportData, {
-      headers: {
-        Authorization: `Bearer ${accessToken}` // 헤더에 accessToken 포함
-      }
-    });
-    console.log('Response:', response.data);
-    setShowModal(true);
-
-    if (response.data.reported) {
-      navigate('/allbookmarks'); // 신고된 페이지로 이동
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (!selectedOption) {
+      alert('신고 사유를 선택해주세요.');
+      return;
     }
-  } catch (error) {
-    console.error('Error:', error);
-    alert('신고 제출 중 오류가 발생했습니다. 다시 시도해주세요.');
-  }
-};
+  
+    if (!bookmarkId) {
+      console.error('Bookmark ID is not available.');
+      return;
+    }
+  
+    // 로컬 스토리지에서 토큰 가져오기
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+      alert('로그인이 필요합니다.');
+      navigate('/login');
+      return;
+    }
+  
+    const reportData = {
+      bookMarkId: bookmarkId,
+      report: reportOptions.indexOf(selectedOption) + 1,
+      reason: isOtherSelected ? otherText : selectedOption
+    };
+  
+    try {
+      const response = await axios.post('/bookmarks/reports', reportData, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      console.log('Response:', response.data);
+      setShowModal(true);
+      if (response.data.reported) {
+        navigate('/allbookmarks');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      if (error.response && error.response.status === 401) {
+        // 토큰이 유효하지 않은 경우 처리
+        alert('로그인 세션이 만료되었습니다. 다시 로그인해주세요.');
+        localStorage.removeItem('accessToken');
+        navigate('/login');
+      } else {
+        alert('신고 제출 중 오류가 발생했습니다. 다시 시도해주세요.');
+      }
+    }
+  };
+  
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -121,7 +139,6 @@ const ReportingPage = () => {
         <button onClick={() => navigate(-1)} className="text-black">
           <img src={back} alt="아이콘" className="mx-auto my-3 h-8 back-icon" />
         </button>
-
         <h1 className="text-center font-bold text-lg">신고하기</h1>
         <div style={{ width: "24px" }}></div>
       </nav>

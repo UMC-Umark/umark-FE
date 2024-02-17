@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // useNavigate 추가
 
-import BookmarkOff from '../img/BookmarkOff.png';
-import BookmarkOn from '../img/BookmarkOn.png';
+import bookMark from '../img/bookMark.png';
+import bookMarkFill from '../img/bookMarkFill.png';
 import './Card.css';
 
 export default function Card({ id, title, createdAt, hashTagContent, content, url, onClick, isReported, myLike }) {
     const [liked, setLiked] = useState(false);
+    const navigate = useNavigate(); // useNavigate 사용
+
+    
     const date = new Date(createdAt);
     const formattedTime = `${date.getFullYear()}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getDate().toString().padStart(2, '0')} ${date.getHours()}:${date.getMinutes()}`;
 
@@ -27,6 +31,9 @@ export default function Card({ id, title, createdAt, hashTagContent, content, ur
         }
     }, []);
 
+    const reportBookmark = () => {
+        navigate('/reporting', { state: { bookmarkId: id } });
+    };
     return (
         <div className="card">
             <div className="card-header">
@@ -35,7 +42,7 @@ export default function Card({ id, title, createdAt, hashTagContent, content, ur
                     {isReported ? null : (
                         <div>
                             <img className="card-img-top" 
-                                src={liked ? BookmarkOn : BookmarkOff}
+                                src={liked ? bookMarkFill : bookMark}
                                 onClick={handleLike}
                                 alt="bookMarkIcon"
                             />
@@ -70,7 +77,7 @@ export default function Card({ id, title, createdAt, hashTagContent, content, ur
                             <a href={url}>링크 바로가기</a>
                         </li>
                         <li>
-                            <a href="/reporting">신고하기</a>
+                        <button onClick={reportBookmark}>신고하기</button>
                         </li>
                     </ul>
                 )}

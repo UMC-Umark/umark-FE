@@ -19,7 +19,11 @@ export default function Login() {
         email: email,
         password: password,
       }
-      const response = await axios.post('/member/login', requestBody)
+      const response = await axios.post('/member/login', requestBody, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
 
       if (response.data.isSuccess) {
         // 응답에서 accessToken, refreshToken 추출 및 저장
@@ -29,15 +33,32 @@ export default function Login() {
         localStorage.setItem('memberId', memberId.toString())
         setLoginCheck(true)
         navigate('/allbookmarks')
+      }
+
+      if (response.data.isSuccess) {
+        // 로그인 성공: 토큰 저장 및 상태 업데이트
+        const { accessToken, refreshToken } = response.data.data
+        localStorage.setItem('accessToken', accessToken)
+        localStorage.setItem('refreshToken', refreshToken)
+        setLoginCheck(true)
+        navigate('/allbookmarks')
       } else {
         // 로그인 실패 처리
         alert('로그인 실패: ' + response.data.message)
         setLoginCheck(false)
       }
     } catch (error) {
-      console.error('로그인 중 오류:', error)
-      alert('로그인 과정에서 오류가 발생했습니다.')
-      setLoginCheck(false)
+      if (error.response && error.response.status === 401) {
+        // 401 Unauthorized 응답 처리
+        alert('로그인 정보가 유효하지 않습니다. 다시 로그인해 주세요.')
+        localStorage.removeItem('accessToken')
+        localStorage.removeItem('refreshToken')
+        setLoginCheck(false)
+      } else {
+        // 그 외 오류 처리
+        console.error('로그인 중 오류:', error)
+        alert('로그인 과정에서 오류가 발생했습니다.')
+      }
     }
   }
 
