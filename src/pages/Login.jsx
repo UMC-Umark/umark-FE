@@ -19,14 +19,19 @@ export default function Login() {
         email: email,
         password: password,
       };
-      const response = await axios.post("/member/login", requestBody);
+  
+      // 로그인 요청 시 Authorization 헤더 제외
+      const response = await axios.post("/member/login", requestBody, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
   
       if (response.data.isSuccess) {
-        // 응답에서 accessToken, refreshToken 추출 및 저장
+        // 로그인 성공: 토큰 저장 및 상태 업데이트
         const { accessToken, refreshToken } = response.data.data;
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('refreshToken', refreshToken);
-  
         setLoginCheck(true);
         navigate("/allbookmarks");
       } else {
@@ -35,11 +40,15 @@ export default function Login() {
         setLoginCheck(false);
       }
     } catch (error) {
+      // 네트워크 오류 또는 서버 오류 처리
       console.error("로그인 중 오류:", error);
+      console.log("에러 응답:", error.response);
       alert('로그인 과정에서 오류가 발생했습니다.');
       setLoginCheck(false);
     }
   };
+  
+  
   
   
   const handleEmailChange = (e) => {
