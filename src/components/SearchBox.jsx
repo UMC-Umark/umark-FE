@@ -1,24 +1,20 @@
 import React, { useState } from "react";
 import '@fortawesome/fontawesome-free/css/all.min.css';
-
 import "./SearchBox.css";
 
-const SearchBox = () => {
+const SearchBox = ({ onSearch }) => {
   const [searchInput, setSearchInput] = useState("");
-  const [searchData, setSearchData] = useState("");
 
   const handleSearch = () => {
-    if (searchInput !== "") {
-      setSearchData(`You just typed ${searchInput}`);
+    if (searchInput.trim() !== "") {
+      onSearch(searchInput.trim());
       console.log(`Search result: You just typed ${searchInput}`);
     } else {
-      setSearchData("");
       console.log("Search result: No input");
     }
   };
 
   const handleCancel = () => {
-    setSearchData("");
     setSearchInput("");
   };
 
@@ -35,9 +31,6 @@ const SearchBox = () => {
       </div>
       <div className="cancel-icon" onClick={handleCancel}>
         <i className="fas fa-times"></i>
-      </div>
-      <div className={`search-data ${searchData ? "active" : ""}`}>
-        {searchData && <span style={{ fontWeight: 500 }}>{searchData}</span>}
       </div>
     </div>
   );

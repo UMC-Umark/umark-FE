@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // useNavigate 추가
 
-import BookmarkOff from '../img/BookmarkOff.png';
-import BookmarkOn from '../img/BookmarkOn.png';
+import bookMark from '../img/bookMark.png';
+import bookMarkFill from '../img/bookMarkFill.png';
 import './Card.css';
 
 export default function Card({ id, title, createdAt, hashTagContent, content, url, onClick, isReported, myLike }) {
@@ -42,7 +42,7 @@ export default function Card({ id, title, createdAt, hashTagContent, content, ur
                     {isReported ? null : (
                         <div>
                             <img className="card-img-top" 
-                                src={liked ? BookmarkOn : BookmarkOff}
+                                src={liked ? bookMarkFill : bookMark}
                                 onClick={handleLike}
                                 alt="bookMarkIcon"
                             />

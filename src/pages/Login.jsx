@@ -20,12 +20,21 @@ export default function Login() {
         email: email,
         password: password,
       };
-
       const response = await axios.post("/member/login", requestBody, {
         headers: {
           "Content-Type": "application/json",
         },
       });
+
+      if (response.data.isSuccess) {
+        // 응답에서 accessToken, refreshToken 추출 및 저장
+        const { accessToken, refreshToken, memberId } = response.data.data;
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("refreshToken", refreshToken);
+        localStorage.setItem("memberId", memberId.toString());
+        setLoginCheck(true);
+        navigate("/allbookmarks");
+      }
 
       if (response.data.isSuccess) {
         // 로그인 성공: 토큰 저장 및 상태 업데이트
@@ -41,7 +50,7 @@ export default function Login() {
     } catch (error) {
       if (error.response && error.response.status === 401) {
         // 401 Unauthorized 응답 처리
-        //alert("로그인 정보가 유효하지 않습니다. 다시 로그인해 주세요.");
+        // alert('로그인 정보가 유효하지 않습니다. 다시 로그인해 주세요.')
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
         setLoginCheck(false);
