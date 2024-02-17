@@ -20,7 +20,6 @@ export default function Login() {
         password: password,
       };
   
-      // 로그인 요청 시 Authorization 헤더 제외
       const response = await axios.post("/member/login", requestBody, {
         headers: {
           'Content-Type': 'application/json',
@@ -40,13 +39,20 @@ export default function Login() {
         setLoginCheck(false);
       }
     } catch (error) {
-      // 네트워크 오류 또는 서버 오류 처리
-      console.error("로그인 중 오류:", error);
-      console.log("에러 응답:", error.response);
-      alert('로그인 과정에서 오류가 발생했습니다.');
-      setLoginCheck(false);
+      if (error.response && error.response.status === 401) {
+        // 401 Unauthorized 응답 처리
+        alert('로그인 정보가 유효하지 않습니다. 다시 로그인해 주세요.');
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        setLoginCheck(false);
+      } else {
+        // 그 외 오류 처리
+        console.error("로그인 중 오류:", error);
+        alert('로그인 과정에서 오류가 발생했습니다.');
+      }
     }
   };
+  
   
   
   
