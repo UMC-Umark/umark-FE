@@ -4,11 +4,11 @@ import Header from '../components/Header';
 import Menubar from '../components/Menubar';
 import SearchBox from '../components/SearchBox';
 import CardList from '../cards/CardList';
-import BookmarkModal from '../components/BookmarkModal';
+import BookMarkModal from '../components/BookMarkModal';
 import Pagination from '../components/Pagination'; // 페이지네이션 컴포넌트 추가
 import './Recommend.css';
 
-export default function AllBookmarks() {
+export default function AllBookMarks() {
   const [cardsData, setCardsData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [likeCount, setLikeCount] = useState([]);
@@ -26,9 +26,8 @@ export default function AllBookmarks() {
         const responseMyLike = await axios.get(`/bookmarks/1/mylike?page=1`);
         console.log(responseMyLike.data.data);
         if (responseMyLike.data.data) {
-          // id 값을 가져와 isBookMark 배열에 추가
           const ids = responseMyLike.data.data.myLikeBookMarkPage.content.map(item => item.id);
-          console.log(`My Likes: `, ids); // 수정된 부분
+          console.log(`My Likes: `, ids);
           setMyLikeArray(ids);
         } else {
           console.log('Content is empty.');
@@ -87,7 +86,7 @@ export default function AllBookmarks() {
             onPageChange={handlePageChange} 
           />
         </div>
-        <BookmarkModal
+        <BookMarkModal
           isOpen={isModalOpen}
           onClose={closeModal}
           likeCount={likeCount} />

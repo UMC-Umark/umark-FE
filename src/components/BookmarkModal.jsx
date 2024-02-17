@@ -1,7 +1,7 @@
 import React from "react";
-import './BookmarkModal.css';
+import './BookMarkModal.css';
 
-export default function Modal({ isOpen, onClose, likeCount }) {
+export default function BookMarkModal({ isOpen, onClose, likeCount }) {
     if (!isOpen) return null;
 
     return (
