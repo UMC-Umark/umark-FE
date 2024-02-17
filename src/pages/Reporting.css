@@ -23,3 +23,44 @@
     font-size: 0.875rem; /* 예시: 글씨 크기를 조금 줄임 */
   }
 }
+
+/* 기본 스타일 */
+.custom-radio {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  border: 2px solid #ddd;
+  border-radius: 50%;
+  width: 24px; 
+  height: 24px;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  margin-right: 8px; 
+}
+
+.custom-radio::before {
+  content: '';
+  position: absolute;
+  top: 2px; 
+  left: 2px; 
+  width: 16px; 
+  height: 16px; 
+  border-radius: 50%;
+  background: #fff;
+  transition: background 0.2s;
+}
+
+.custom-radio:checked {
+  border-color: #FF6133;
+}
+
+.custom-radio:checked::before {
+  background: #FF6133;
+}
+
+
+.custom-radio:focus {
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
