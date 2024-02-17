@@ -8,6 +8,7 @@ import './Card.css';
 
 export default function Card({ id, title, createdAt, hashTagContent, content, url, onClick, isReported, myLike }) {
     const [liked, setLiked] = useState(false);
+    const [hovered, setHovered] = useState(false); // hovered 상태 추가
     const navigate = useNavigate(); // useNavigate 사용
 
     
@@ -34,6 +35,7 @@ export default function Card({ id, title, createdAt, hashTagContent, content, ur
     const reportBookmark = () => {
         navigate('/reporting', { state: { bookmarkId: id } });
     };
+
     return (
         <div className="card">
             <div className="card-header">
@@ -41,8 +43,11 @@ export default function Card({ id, title, createdAt, hashTagContent, content, ur
                     <h4>{isReported ? "부적절한 게시물입니다." : title}</h4> 
                     {isReported ? null : (
                         <div>
-                            <img className="card-img-top" 
-                                src={liked ? bookMarkFill : bookMark}
+                            <img 
+                                className="card-img-top" 
+                                src={hovered || liked ? bookMarkFill : bookMark} // 마우스 hover 또는 좋아요 상태에 따라 이미지를 변경
+                                onMouseEnter={() => setHovered(true)} // 마우스가 이미지에 올라갔을 때 hovered 상태를 true로 변경
+                                onMouseLeave={() => setHovered(false)} // 마우스가 이미지에서 벗어났을 때 hovered 상태를 false로 변경
                                 onClick={handleLike}
                                 alt="bookMarkIcon"
                             />
