@@ -84,6 +84,41 @@ export default function MyBookmark() {
         console.error('Fetching writtenCount failed:', error)
       })
   }, [])
+  useEffect(() => {
+    const fetchData = async () => {
+      const currentAccessToken = localStorage.getItem('accessToken')
+      const headers = {
+        Authorization: `Bearer ${currentAccessToken}`,
+      }
+
+      try {
+        const response = await axios.get(`/bookmarks/mylike?page=1`, {
+          headers,
+        })
+        setLikedCount(response.data.data.likedCount)
+        console.log(response.data)
+      } catch (error) {
+        console.error('Fetching likedCount failed:', error)
+        if (error.response && error.response.status === 401) {
+          const newAccessToken = await refreshAccessToken()
+          if (newAccessToken) {
+            const headers = {
+              Authorization: `Bearer ${newAccessToken}`,
+            }
+            const response = await axios.get(`/bookmarks/mylike?page=1`, {
+              headers,
+            })
+            setLikedCount(response.data.data.likedCount)
+            console.log(response.data)
+          } else {
+            console.log('error')
+          }
+        }
+      }
+    }
+
+    fetchData()
+  }, [])
   const navigate = useNavigate() // useNavigate 초기화
   // 컴포넌트가 마운트될 때 API 호출
   useEffect(() => {
