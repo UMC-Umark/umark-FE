@@ -238,9 +238,9 @@ export default function Signup() {
           {passwordConfirm !== "" && isValid ? (
             <div className="ml-80 text-green-600">비밀번호가 일치합니다</div>
           ) : (
-            <div className="text-red-600">{passwordConfirmError}</div>
+            <div className="ml-80 text-red-600">{passwordConfirmError}</div>
           )}
-          <div className="mb-7" />
+          <br />
           <button
             type="button"
             disabled={!isValid}
