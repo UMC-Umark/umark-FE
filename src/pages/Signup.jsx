@@ -149,8 +149,8 @@ export default function Signup() {
       <div className="mb-12" />
       <div className="custom-signupform1 border border-1 border-white rounded-3xl w-2/3 m-auto">
         <br />
-        <div className="flex items-center justify-center">
-          <img src={logo} width="100px" height="100px" alt="umark" />
+        <div className="flex items-center justify-center pb-4 pt-2">
+          <img src={logo} width="25px" height="25px" alt="umark" />
         </div>
         <div className="mb-5" />
         <p className="custom-info2">회원가입 정보를 입력해 주세요</p>
@@ -164,7 +164,7 @@ export default function Signup() {
             placeholder="정확한 학교명을 적어주세요"
             value={univName}
             onChange={handleInputUniv}
-            className="custom-input3 bg-black text-white px-60 py-3 rounded-full focus:outline-none border border-1 border-white placeholder-white"
+            className="custom-input3  bg-black text-white px-60 py-3 rounded-full focus:outline-none border border-1 border-white placeholder-white"
           />
           <br />
           <br />
@@ -236,7 +236,7 @@ export default function Signup() {
           />
           <br />
           {passwordConfirm !== "" && isValid ? (
-            <div className="ml-80 text-green-600">비밀번호가 일치합니다</div>
+            <div className="ml-80 text-green-600 paasswordcorrect">비밀번호가 일치합니다</div>
           ) : (
             <div className="text-red-600">{passwordConfirmError}</div>
           )}
