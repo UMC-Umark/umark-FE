@@ -79,7 +79,7 @@ export default function Login() {
         <Link className="custom-arrow" to="/">
           <img src={arrow} alt="arrow" />
         </Link>
-        <div className="custom-logintitle text-center inline-block w-1/2 text-sm">
+        <div className="custom-logintitle">
           login
         </div>
         <br />
@@ -88,12 +88,12 @@ export default function Login() {
       <hr />
       <div className="mb-10" />
       <main className="flex-1 flex flex-col items-center justify-center border-white">
-      <div className="flex items-center justify-center mt-5">
+      <div className="flex items-center justify-center mt-2">
           <div className="mb-20 " />
-          <img src={logo} width="150px" height="150px" alt="umark" />
+          <img src={logo} width="160px" height="160px" alt="umark" />
         </div>
         <br />
-        <p className="custom-info1 pt-10"> 로그인 정보를 입력해 주세요</p>
+        <p className="custom-info1 pt-4"> 로그인 정보를 입력해 주세요</p>
         <div className="custom-form1 text-center inline-block rounded-lg border-white">
           <div className="mb-12" />
           <div className="relative">
@@ -128,7 +128,7 @@ export default function Login() {
           <button
             type="button"
             onClick={handleLogin}
-            className="custom-loginbutton1 bg-green-400 text-black px-60 py-3 rounded-full font-bold"
+            className="custom-loginbutton1 bg-green-400 text-black px-80 py-3 rounded-full font-bold"
           >
             로그인
           </button>

@@ -137,12 +137,12 @@ export default function Signup() {
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-black text-white">
       <div className="w-full flex justify-between items-center font-SUITE">
-        <Link className="custom-arrow" to="/Agreement">
+        <Link className="custom-arrow" to="/login">
           <img src={arrow} alt="arrow" />
         </Link>
-        <h1 className="custom-signuptitle text-center inline-block w-1/2">
-          sign up
-        </h1>
+        <div className="custom-logintitle">
+          Sign up
+        </div>
         <div className="mb-12" />
       </div>
       <hr />

@@ -23,7 +23,11 @@
 
 /* 모바일 화면에서의 스타일 */
 @media (max-width: 767px) {
-    
+  .custom-signuptitle {
+    font-size: 2rem; /* 제목 폰트 크기 조정 */
+    margin-left: 0px;
+    /* text-align: center; */
+}
   
     .custom-agreeform {
       width: 90%; 
