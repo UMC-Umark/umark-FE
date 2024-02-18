@@ -92,7 +92,7 @@ export default function MyBookmark() {
       }
 
       try {
-        const response = await axios.get(`/bookmarks/mylike?page=1`, {
+        const response = await axios.get(`/bookmarks/1/mylike?page=1`, {
           headers,
         })
         setLikedCount(response.data.data.likedCount)
