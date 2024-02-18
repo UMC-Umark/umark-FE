@@ -102,9 +102,9 @@ export default function Findpassword() {
       <hr />
       <div className="mb-12" />
       <div className="custom-findform1 border border-1 border-white rounded-3xl w-2/3 m-auto">
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center pt-8 pb-2">
           <div className="mb-40" />
-          <img src={logo} width="100px" height="100px" alt="umark" />
+          <img src={logo} width="40px" height="40px" alt="umark" />
         </div>
         <p className="custom-findinfo text-center">이메일을 인증해 주세요</p>
         <div className="mb-5" />
