@@ -33,10 +33,10 @@
 }
 
 @media (min-width:400px) and (max-width:767px) {
-    .custom-logintitle{
-        font-size:3rem;
-        text-align:right;
-        display:block;
+    .custom-logintitle {
+        font-size: 2rem; /* 제목 폰트 크기 조정 */
+        margin-right: 0px;
+        /* text-align: center; */
     }
     .custom-logininput {
         text-align:left;
@@ -50,7 +50,7 @@
         height:3.5rem;
         width:4rem;
         white-space: nowrap;
-        width:90%;
+        width:100%;
         padding: 5px 0; /* 내부 패딩을 추가하여 버튼의 세로 중앙으로 텍스트를 위치시킴 */
     }
     .custom-form1 {
@@ -80,12 +80,10 @@
 /* 모바일 화면에서의 스타일 */
 @media (min-width:768px) and (max-width:991px) {
 
-    .custom-logintitle{
-        font-size:3rem;
-        text-align:center;
-        display:block;
-        margin-right:5rem;
-        
+    .custom-signuptitle {
+        font-size: 2rem; /* 제목 폰트 크기 조정 */
+        margin: 0 auto; /* 중앙 정렬 */
+        text-align: center;
     }
 
     .custom-arrow {

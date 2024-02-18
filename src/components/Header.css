@@ -10,7 +10,7 @@
   
   @media screen and (max-width: 640px) {
     .header-logo {
-      height: 50px; /* 작은 크기 화면에서의 로고 크기 */
+      height: 70px; /* 작은 크기 화면에서의 로고 크기 */
     }
   
     .header-text {
