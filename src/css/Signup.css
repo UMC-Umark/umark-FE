@@ -1,5 +1,5 @@
 .custom-signuptitle {
-    font-size:2.3rem;
+    font-size:2.5rem;
     margin-left:-5rem;
 }
 
@@ -54,8 +54,7 @@
 @media (max-width: 767px) {
     .custom-signuptitle {
         font-size: 2rem; /* 제목 폰트 크기 조정 */
-        margin: 0 auto; /* 중앙 정렬 */
-        text-align: center;
+        margin-right: 0px;
     }
 
     .custom-info2 {
@@ -91,7 +90,7 @@
     }
 
     .custom-input2 {
-        width: 80%; /* 인증번호 입력 필드 너비 조정 */
+        width: 100%; /* 인증번호 입력 필드 너비 조정 */
     }
     .custom-error-message {
         margin-left: 1rem; /* 모바일 화면에 맞게 왼쪽 마진 조정 */
