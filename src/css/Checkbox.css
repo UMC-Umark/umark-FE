@@ -12,7 +12,7 @@
   .custom-check input[type="checkbox"] + label {
     display: inline-block;
     position: relative;
-    padding-left: 26px;
+    padding-left: 30px;
     cursor: pointer;
   }
   

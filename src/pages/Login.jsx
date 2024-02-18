@@ -95,7 +95,7 @@ export default function Login() {
         <br />
         <p className="custom-info1 pt-10"> 로그인 정보를 입력해 주세요</p>
         <div className="custom-form1 text-center inline-block rounded-lg border-white">
-          <div className="mb-8" />
+          <div className="mb-12" />
           <div className="relative">
             <span className="custom-loginlabel font-bold absolute left-50 top-50 text-black mt-4 ml-5">
               이메일
