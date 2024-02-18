@@ -44,7 +44,7 @@ const Header = () => {
   return (
     <header className="bg-black text-white flex justify-between items-center h-24 border-b border-gray-200 fixed top-0 left-0 right-0 z-20">
       <Link to="/" className="flex items-center" onClick={scrollToTop}>
-        <img src={adimg} alt="로고" className="header-logo h-22 pl-4" />
+        <img src={adimg} alt="로고" className="header-logo h-18 pl-8 pb-2 pt-1" />
       </Link>
       <nav className="hidden md:flex flex-grow justify-center">
         <Link
