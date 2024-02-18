@@ -1,5 +1,5 @@
 .custom-logintitle {
-    font-size:2.4rem;
+    font-size:2.8rem;
     margin-left:-6rem;
 }
 
@@ -12,11 +12,11 @@
     display:inline-block;
     font-size:1.6rem;
     text-align: center;
-    width:65%;
 }
 
 .custom-logininput::placeholder {
     text-align:right;
+    color: white;
 }
 
 .custom-loginlabel {
@@ -32,7 +32,7 @@
     width:62%;
 }
 
-@media (min-width:576px) and (max-width:767px) {
+@media (min-width:400px) and (max-width:767px) {
     .custom-logintitle{
         font-size:3rem;
         text-align:right;
@@ -59,6 +59,22 @@
         width: 90%;
         margin: 0 auto; /* 가운데 정렬을 위해 추가 */
     }
+    .custom-logininput::placeholder {
+        text-align:right;
+        color: white;
+    }
+    .custom-logininput {
+        color: black; /* 글자색을 검은색으로 변경 */
+        background-color: white; /* 배경색을 흰색으로 설정 */
+        height: 3.5rem; /* 입력란 높이 조정 */
+        font-size: 1rem; /* 텍스트 크기 증가 */
+        padding-left: 6rem; /* 왼쪽 패딩 추가 */
+        padding-right: 1rem; /* 오른쪽 패딩 추가 */
+      }
+    
+      .custom-logininput::placeholder {
+        color: white; /* 플레이스홀더 색상을 회색으로 변경 */
+      }
 }
 
 /* 모바일 화면에서의 스타일 */
@@ -142,45 +158,5 @@
         height:3.5rem;
         padding-left: 6rem;  
     }
-    
 
  } 
-
-
-
- @media (max-width: 767px) {
-    .custom-logintitle {
-        font-size: 2rem; /* 모바일 화면에서의 로그인 타이틀 텍스트 크기 조정 */
-    }
-    .custom-logininput {
-        width: 90%; /* 입력 필드 너비 조정 */
-        padding-left: 1rem; /* 패딩 조정 */
-        height: 2.5rem; /* 입력 필드 높이 조정 */
-    }
-    .custom-loginbutton1 {
-        width: 90%; /* 버튼 너비 조정 */
-        padding: 10px 0; /* 버튼 내부 패딩 조정 */
-        font-size: 1.4rem; /* 버튼 텍스트 크기 조정 */
-    }
-    .custom-links {
-        font-size: 1rem; /* 링크 텍스트 크기 조정 */
-    }
-    .custom-form1 {
-        width: 100%;
-        padding-left: 10px; /* 폼 너비 조정 */
-    }
-    .custom-logininput {
-        /* 기존 속성들을 유지하면서 왼쪽 패딩 추가 */
-        padding-left: 1rem; /* 원하는 패딩 크기로 조절 */
-    }
-    .custom-loginlabel {
-        display: none;
-    }
-    .custom-error-message {
-        margin-left: 1rem; /* 모바일 화면에 맞게 왼쪽 마진 조정 */
-        font-size: 0.8rem; /* 텍스트 크기를 작게 조정 */
-        text-align: center; /* 텍스트를 중앙 정렬 */
-        padding-top: 4px;
-    }
-    
-}

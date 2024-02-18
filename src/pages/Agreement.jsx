@@ -93,7 +93,7 @@ export default function Agreement() {
       <div className="custom-agreeform border border-1 border-white rounded-3xl w-2/3 m-auto">
         <br />
         <div className="flex items-center justify-center pt-8 pb-4">
-          <img src={logo} width="25px" height="25px" alt="umark" />
+          <img src={logo} width="120px" height="120px" alt="umark" />
         </div>
         <div className="inline rounded-lg border-white">
           <br />
@@ -127,7 +127,7 @@ export default function Agreement() {
                 {isCheck1 ? "본문 닫기" : "본문 보기"}
               </button>
               {isCheck1 && (
-                <p className="custom-details p-8 border border-1 w-1/2 flex justify-center ml-60 border-gray-300 mb-4 ">
+                <p className="custom-details p-8 border border-1 w-1/2 flex justify-center ml-60  border-gray-300 mb-4 ">
                   umark 약관 1항:~
                 </p>
               )}

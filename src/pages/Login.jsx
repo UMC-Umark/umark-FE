@@ -88,9 +88,9 @@ export default function Login() {
       <hr />
       <div className="mb-10" />
       <main className="flex-1 flex flex-col items-center justify-center border-white">
-        <div className="flex items-center justify-center pt-16">
+      <div className="flex items-center justify-center mt-5">
           <div className="mb-20 " />
-          <img src={logo} width="40px" height="40px" alt="umark" />
+          <img src={logo} width="150px" height="150px" alt="umark" />
         </div>
         <br />
         <p className="custom-info1 pt-10"> 로그인 정보를 입력해 주세요</p>
