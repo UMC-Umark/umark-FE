@@ -44,7 +44,7 @@ const Header = () => {
   return (
     <header className="bg-black text-white flex justify-between items-center h-24 border-b border-gray-200 fixed top-0 left-0 right-0 z-20">
       <Link to="/" className="flex items-center" onClick={scrollToTop}>
-        <img src={adimg} alt="로고" className="header-logo h-22 pl-8" />
+        <img src={adimg} alt="로고" className="header-logo h-22 pl-4" />
       </Link>
       <nav className="hidden md:flex flex-grow justify-center">
         <Link
@@ -66,10 +66,10 @@ const Header = () => {
         <ul
           className={
             isOpen
-              ? `no-margin-padding w-96 h-screen absolute top-0 right-0 duration-500 transform translate-x-0 transition-transform ease-out ${
+              ? `no-margin-padding w-96 h-screen absolute top-0 right-0 mt-20 duration-500 transform translate-x-0 transition-transform ease-out ${
                   isLoggedIn ? "bg-orange-500" : "bg-green-500"
                 } text-black`
-              : `no-margin-padding w-96 h-screen absolute top-0 right-full duration-500 ease-out transform translate-x-full transition-transform ${
+              : `no-margin-padding w-96 h-screen absolute top-0 right-0 duration-500 ease-out transform translate-x-full transition-transform ${
                   isLoggedIn ? "bg-orange-500" : "bg-green-500"
                 } text-black hidden`
           }

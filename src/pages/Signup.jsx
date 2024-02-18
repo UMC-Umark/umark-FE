@@ -149,8 +149,8 @@ export default function Signup() {
       <div className="mb-12" />
       <div className="custom-signupform1 border border-1 border-white rounded-3xl w-2/3 m-auto">
         <br />
-        <div className="flex items-center justify-center pb-4 pt-2">
-          <img src={logo} width="25px" height="25px" alt="umark" />
+         <div className="flex items-center justify-center">
+          <img src={logo} width="100px" height="100px" alt="umark" />
         </div>
         <div className="mb-5" />
         <p className="custom-info2">회원가입 정보를 입력해 주세요</p>
