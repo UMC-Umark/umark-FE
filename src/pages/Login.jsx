@@ -70,7 +70,7 @@ export default function Login() {
     setPassword(newPassword);
   };
   const handleFocus = (e) => {
-    e.target.placeholder = '';
+    e.target.placeholder = "";
   };
 
   return (
@@ -79,16 +79,14 @@ export default function Login() {
         <Link className="custom-arrow" to="/">
           <img src={arrow} alt="arrow" />
         </Link>
-        <div className="custom-logintitle">
-          login
-        </div>
+        <div className="custom-logintitle">login</div>
         <br />
         <br />
       </div>
       <hr />
       <div className="mb-10" />
       <main className="flex-1 flex flex-col items-center justify-center border-white">
-      <div className="flex items-center justify-center mt-2">
+        <div className="flex items-center justify-center mt-5">
           <div className="mb-20 " />
           <img src={logo} width="160px" height="160px" alt="umark" />
         </div>
@@ -124,7 +122,9 @@ export default function Login() {
               placeholder="비밀번호"
             />
           </div>
-          <div className="custom-error-message mb-4 ml-80 text-red-500">{errorMessage}</div>
+          <div className="custom-error-message mb-4 ml-80 text-red-500">
+            {errorMessage}
+          </div>
           <button
             type="button"
             onClick={handleLogin}

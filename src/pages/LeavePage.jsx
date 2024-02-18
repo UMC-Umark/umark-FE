@@ -59,12 +59,12 @@ export default function Findpassword() {
   const handleWithdraw = async () => {
     try {
       // 유효성 검사 로직 추가
-      if (passwordConfirmError !== "") {
-        setWithdrawError("비밀번호 확인이 올바르지 않습니다.");
+      if (passwordConfirm === "") {
+        setPasswordConfirmError("비밀번호를 입력해주세요");
         return;
       }
 
-      const memberId = 1; // 탈퇴할 회원의 ID, 실제로는 해당 회원의 ID로 설정
+      const memberId = localStorage.getItem("memberId"); // 로그인한 회원의 ID
 
       const requestBody = {
         passwordConfirm,
@@ -86,19 +86,17 @@ export default function Findpassword() {
         <h1 className="text-center text-4xl font-bold my-3">탈퇴하기</h1>
         <div className="mb-8" />
         <div>
-          <pre className="text-xl">
-            {`
-    탈퇴하기 전 확인해주세요!
-            
-    umark는 탈퇴하는 유마커님들의
-    정보만 삭제합니다.
-            
-    작성한 게시글들은 자동으로 삭제되지 않으며
-    유마커 페이지에서 삭제해야 합니다.
-    탈퇴 시 수정이나 삭제가 불가하니 탈퇴 전에
-    확인해주세요.
-            `}
-          </pre>
+          <div className="text-xl">
+            <p>탈퇴하기 전 확인해주세요!</p>
+            <br />
+            <p>umark는 탈퇴하는 유마커님들의</p>
+            <p>정보만 삭제합니다.</p>
+            <br />
+            <p>작성한 게시글들은 자동으로 삭제되지 않으며</p>
+            <p>유마커 페이지에서 삭제해야 합니다.</p>
+            <p>탈퇴 시 수정이나 삭제가 불가하니 탈퇴 전에</p>
+            <p>확인해주세요.</p>
+          </div>
           <br />
           <h1 className="text-lg font-bold">탈퇴사유</h1>
           <textarea
@@ -115,6 +113,9 @@ export default function Findpassword() {
             onChange={handlePasswordConfirmChange}
             className="bg-white text-gray-500 px-60 py-3 focus:outline-none border-2 border-black"
           />
+          {passwordConfirmError && (
+            <p className="text-red-500">{passwordConfirmError}</p>
+          )}
           <div className="mb-10" />
           <button
             onClick={handleWithdraw}

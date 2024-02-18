@@ -98,6 +98,12 @@ const Header = () => {
                     내가 쓴 북마크들
                   </Link>
                 </li>
+                <li className="text-black cursor-pointer hover:text-white text-2xl my-6 mx-6">
+                  <Link to="/ModifyinfoA" onClick={handleLinkClick}>
+                    {/* ModifyinfoB는 피그마에서 삭제된 페이지(ModifyinfoB에서 비밀번호 확인을 하고 "다음"을 누른 후 ModifyinfoA에서 비밀번호를 변경하는 형식이었음!) */}
+                    회원정보 수정
+                  </Link>
+                </li>
               </>
             ) : (
               <>
