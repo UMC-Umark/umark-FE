@@ -34,7 +34,7 @@ export default function Signup() {
       const response = await axios.post('/member/sendemail', requestBody)
       console.log(response.data)
     } catch (error) {
-      console.error('메일 인증 전송 중 오류:', error)
+      console.error('오류:', error)
     }
   }
 
@@ -223,7 +223,7 @@ export default function Signup() {
           <br />
           <br />
           <span className="custom-label absolute ml-4 left-50 top-70 text-white mt-3">
-            비밀번호 확인 djfwkfjawjejfkaslfwfjjekfjffnk
+            비밀번호 확인
           </span>
           <input
             name="passwordConfirm"
