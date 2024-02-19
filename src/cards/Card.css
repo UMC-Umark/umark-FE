@@ -67,9 +67,15 @@ time {
     font-size: 17px;
 }
 
+.tags-wrap {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .tags {
     background-color: #D9D9D9;
     flex-shrink: 0;
+    margin-bottom: 8px; /* 줄바꿈 시 아래 여백 추가 */
 }
 
 .text-para {
