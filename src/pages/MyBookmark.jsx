@@ -12,8 +12,36 @@ export default function MyBookmark() {
   const [writtenCount, setWrittenCount] = useState(0)
 
   const [likedCount, setLikedCount] = useState(0)
+  const [displayType, setDisplayType] = useState('written')
   const accessToken = localStorage.getItem('accessToken')
   const memberId = localStorage.getItem('memberId')
+
+  const handleDisplayChange = (type) => {
+    setDisplayType(type)
+    fetchData(type)
+  }
+
+  const fetchData = async (type) => {
+    const headers = { Authorization: `Bearer ${accessToken}` }
+    let url =
+      type === 'written'
+        ? `/bookmarks/${memberId}/mywrite?page=1`
+        : `/bookmarks/mylike?page=1`
+
+    try {
+      const response = await axios.get(url, { headers })
+      setBookmarks(response.data.data.content)
+      // 다음은 예시입니다. 실제 응답 구조에 따라 조정하세요.
+      if (type === 'written') {
+        setWrittenCount(response.data.data.content.writtenCount)
+      } else {
+        setLikedCount(response.data.data.content.likedCount)
+      }
+    } catch (error) {
+      console.error(`Fetching ${type} bookmarks failed:`, error)
+    }
+  }
+
   const refreshAccessToken = async () => {
     try {
       const refreshToken = localStorage.getItem('refreshToken')
@@ -84,6 +112,46 @@ export default function MyBookmark() {
         console.error('Fetching writtenCount failed:', error)
       })
   }, [])
+  useEffect(() => {
+    const fetchData = async () => {
+      const currentAccessToken = localStorage.getItem('accessToken')
+      const headers = {
+        Authorization: `Bearer ${currentAccessToken}`,
+      }
+
+      try {
+        const response = await axios.get(`/bookmarks/mylike?page=1`, {
+          headers,
+        })
+        // API 응답에서 likedCount 추출
+        const likedCount = response.data.data.likedCount
+        // 상태 업데이트
+        setLikedCount(likedCount)
+        console.log(response.data)
+      } catch (error) {
+        console.error('Fetching likedCount failed:', error)
+        if (error.response && error.response.status === 401) {
+          const newAccessToken = await refreshAccessToken()
+          if (newAccessToken) {
+            const headers = {
+              Authorization: `Bearer ${newAccessToken}`,
+            }
+            const response = await axios.get(`/bookmarks/mylike?page=1`, {
+              headers,
+            })
+            // 재시도에서도 likedCount 추출 및 상태 업데이트
+            const likedCount = response.data.data.likedCount
+            setLikedCount(likedCount)
+            console.log(response.data)
+          } else {
+            console.log('error')
+          }
+        }
+      }
+    }
+
+    fetchData()
+  }, [])
   const navigate = useNavigate() // useNavigate 초기화
   // 컴포넌트가 마운트될 때 API 호출
   useEffect(() => {
@@ -120,7 +188,26 @@ export default function MyBookmark() {
           <div className="w-32 h-32 bg-green-500 rounded-full flex items-center justify-center text-black mr-4">
             <div className="text-center">
               <p className="text-black text-lg font-bold no-underline p-0">
-                내가 쓴 북마크
+                <button
+                  className={`px-4 py-2 rounded-full ${
+                    displayType === 'written'
+                      ? 'bg-blue-500 text-white'
+                      : 'bg-gray-200'
+                  } focus:outline-none`}
+                  onClick={() => handleDisplayChange('written')}
+                >
+                  내가 쓴 북마크 ({writtenCount})
+                </button>
+                <button
+                  className={`px-4 py-2 rounded-full ${
+                    displayType === 'liked'
+                      ? 'bg-blue-500 text-white'
+                      : 'bg-gray-200'
+                  } focus:outline-none`}
+                  onClick={() => handleDisplayChange('liked')}
+                >
+                  추천한 북마크 ({likedCount})
+                </button>
               </p>
               <p className="text-4xl font-bold">{writtenCount}</p>
             </div>
@@ -128,7 +215,12 @@ export default function MyBookmark() {
           <div className="w-32 h-32 bg-orange-500 rounded-full flex items-center justify-center ml-2 text-black">
             <div className="text-center">
               <p className="text-black text-lg font-bold no-underline p-0">
-                추천한 북마크
+                <button
+                  className="rounded-full underline-on-hover"
+                  onClick={() => handleDisplayChange('liked')}
+                >
+                  추천한 북마크
+                </button>
               </p>
               <p className="text-4xl font-bold">{likedCount}</p>
             </div>
