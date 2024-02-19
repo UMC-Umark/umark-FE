@@ -118,8 +118,8 @@ export default function AllBookmarks() {
             <Header />
             <Menubar />
             <div className="my-40">
-                <div className="container py-5 border">
-                    <div className="top-container border">
+                <div className="container py-5">
+                    <div className="top-container">
                         <h3 className="title-big font-SUITE">모든 북마크</h3>
                         <SearchBox onSearch={handleSearch} />
                     </div>
