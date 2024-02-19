@@ -1,116 +1,147 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
-import Header from '../components/Header'
-import Menubar from '../components/Menubar'
-import SearchBox from '../components/SearchBox'
-import CardList from '../cards/CardList'
-import BookmarkModal from '../components/BookmarkModal'
-import Pagination from '../components/Pagination' // 페이지네이션 컴포넌트 추가
-import './Recommend.css'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Header from '../components/Header';
+import Menubar from '../components/Menubar';
+import SearchBox from '../components/SearchBox';
+import CardList from '../cards/CardList';
+import BookmarkModal from '../components/BookmarkModal';
+import Pagination from '../components/Pagination';
+import './Recommend.css';
 
-export default function Recommend() {
-  const [cardsData, setCardsData] = useState([])
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [likeCount, setLikeCount] = useState([])
-  const [pageNumber, setPageNumber] = useState(1) // 현재 페이지 번호
-  const pageSize = 15 // 페이지당 아이템 개수
-  const [totalPages, setTotalPages] = useState(0) // 전체 페이지 수
-  const [myLikeArray, setMyLikeArray] = useState([])
+export default function AllBookmarks() {
+    // 상태 관리
+    const [cardsData, setCardsData] = useState([]); // 북마크 데이터
+    const [isModalOpen, setIsModalOpen] = useState(false); // 북마크 모달 열림 상태
+    const [likeCount, setLikeCount] = useState([]); // 좋아요 수
+    const [pageNumber, setPageNumber] = useState(1); // 현재 페이지 번호
+    const pageSize = 15; // 페이지당 아이템 개수
+    const [totalPages, setTotalPages] = useState(0); // 전체 페이지 수
+    const [myLikeArray, setMyLikeArray] = useState([]); // 내가 좋아요한 북마크 배열
+    const [accessToken, setAccessToken] = useState(localStorage.getItem('accessToken')); // accessToken 상태 추가
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const accessToken = localStorage.getItem('accessToken')
-        console.log(`Token: `, accessToken)
-
-        const responseMyLike = await axios.get(`/bookmarks/1/mylike?page=1`)
-        console.log(responseMyLike.data.data)
-        if (responseMyLike.data.data) {
-          const ids = responseMyLike.data.data.myLikeBookMarkPage.content.map(
-            (item) => item.id
-          )
-          console.log(`My Likes: `, ids)
-          setMyLikeArray(ids)
-        } else {
-          console.log('Content is empty.')
+    // AccessToken 갱신 함수
+    const refreshAccessToken = async () => {
+        try {
+            const refreshToken = localStorage.getItem('refreshToken');
+            const response = await axios.post('/member/refresh', { refreshToken });
+            const { accessToken, refreshToken: newRefreshToken } = response.data.data;
+            localStorage.setItem('accessToken', accessToken);
+            localStorage.setItem('refreshToken', newRefreshToken);
+            setAccessToken(accessToken); // 새로운 accessToken으로 상태 업데이트
+            return accessToken;
+        } catch (error) {
+            console.error('Refresh token error:', error);
+            return null;
         }
+    };
 
-        const response = await axios.get(
-          `/bookmarks/recommends?page=${pageNumber}&size=${pageSize}`
-        )
-        const responseData = response.data.data
-        const dataWithIsReported = responseData.content.map((item) => ({
-          ...item,
-          isReported: item.isReported, // 백엔드에서 "isReported" 키로 제공되므로 그대로 사용
-        }))
-        setCardsData(dataWithIsReported)
-        setTotalPages(responseData.totalPages)
-      } catch (error) {
-        console.error('Error fetching data:', error)
-      }
-    }
-    fetchData()
-  }, [pageNumber]) // 페이지 번호가 변경될 때마다 호출
+    // 데이터 가져오기 함수
+    const fetchData = async () => {
+        try {
+            const headers = {
+                Authorization: `Bearer ${accessToken}`,
+            };
 
-  const handleSearch = async (keyword) => {
-    try {
-      const response = await axios.get(`/bookmarks/recommends/search?keyWord=${keyword}&page=1`);
-      const responseData = response.data.data;
-      const dataWithIsReported = responseData.content.map((item) => ({
-        ...item,
-        isReported: item.isReported, // 백엔드에서 "isReported" 키로 제공되므로 그대로 사용
-      }));
-      setCardsData(dataWithIsReported);
-      setTotalPages(responseData.totalPages);
-    } catch (error) {
-      console.error('Error fetching search data:', error);
-    }
-  };
+            // 내가 좋아요한 북마크 가져오기
+            const responseMyLike = await axios.get(`/bookmarks/1/mylike?page=1`, { headers });
+            if (responseMyLike.data.data) {
+                const ids = responseMyLike.data.data.myLikeBookMarkPage.content.map(
+                    (item) => item.id
+                );
+                setMyLikeArray(ids);
+            }
 
-  const handleModal = (isOpen, likeCount) => {
-    isOpen ? openModal() : closeModal()
-    setLikeCount(likeCount)
-  }
+            // 추천 북마크 가져오기
+            const response = await axios.get(
+                `/bookmarks/recommends?page=${pageNumber}&size=${pageSize}`,
+                { headers }
+            );
+            const responseData = response.data.data;
+            const dataWithIsReported = responseData.content.map((item) => ({
+                ...item,
+                isReported: item.isReported,
+            }));
+            setCardsData(dataWithIsReported);
+            setTotalPages(responseData.totalPages);
+        } catch (error) {
+            if (error.response && error.response.status === 401) {
+                const newAccessToken = await refreshAccessToken();
+                if (newAccessToken) {
+                    // 새로운 accessToken으로 다시 요청 보내기
+                    fetchData();
+                } else {
+                    // 새로운 accessToken을 받아오지 못한 경우, 예: 로그인 페이지로 이동
+                    console.log('error');
+                }
+            } else {
+                console.error('Fetching data failed:', error);
+            }
+        }
+    };
 
-  const openModal = () => {
-    setIsModalOpen(true)
-  }
+    useEffect(() => {
+        fetchData();
+    }, [pageNumber, accessToken]); // 페이지 번호 또는 accessToken이 변경될 때마다 호출
 
-  const closeModal = () => {
-    setIsModalOpen(false)
-  }
+    // 검색 처리 함수
+    const handleSearch = async (keyword) => {
+        try {
+            const response = await axios.get(`/bookmarks/recommends/search?keyWord=${keyword}&page=1`);
+            const responseData = response.data.data;
+            const dataWithIsReported = responseData.content.map((item) => ({
+                ...item,
+                isReported: item.isReported,
+            }));
+            setCardsData(dataWithIsReported);
+            setTotalPages(responseData.totalPages);
+        } catch (error) {
+            console.error('Error fetching search data:', error);
+        }
+    };
 
-  const handlePageChange = (page) => {
-    setPageNumber(page)
-  }
+    // 북마크 모달 열고 닫는 함수
+    const handleModal = (isOpen, likeCount) => {
+        isOpen ? openModal() : closeModal();
+        setLikeCount(likeCount);
+    };
 
-  return (
-    <div className="flex flex-col">
-      <Header />
-      <Menubar />
-      <div className="my-40">
-        <div className="container py-5">
-          <div className="top-container">
-            <h3 className="title-big font-SUITE">추천 북마크</h3>
-            <SearchBox onSearch={handleSearch} />
-          </div>
-          <CardList
-            cardsData={cardsData}
-            onClick={handleModal}
-            myLike={myLikeArray}
-          />
-          <Pagination
-            totalPages={totalPages}
-            currentPage={pageNumber}
-            onPageChange={handlePageChange}
-          />
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+
+    return (
+        <div className="flex flex-col">
+            <Header />
+            <Menubar />
+            <div className="my-40">
+                <div className="container py-5">
+                    <div className="top-container">
+                        <h3 className="title-big font-SUITE">추천 북마크</h3>
+                        <SearchBox onSearch={handleSearch} />
+                    </div>
+                    <CardList
+                        cardsData={cardsData}
+                        onClick={handleModal}
+                        myLike={myLikeArray}
+                        accessToken={accessToken} 
+                    />
+                    <Pagination
+                        limit={pageSize}
+                        totalPages={totalPages}
+                        pageNumber={pageNumber}
+                        setPageNumber={setPageNumber}
+                    />
+                </div>
+                <BookmarkModal
+                    isOpen={isModalOpen}
+                    onClose={closeModal}
+                    likeCount={likeCount}
+                />
+            </div>
         </div>
-        <BookmarkModal
-          isOpen={isModalOpen}
-          onClose={closeModal}
-          likeCount={likeCount}
-        />
-      </div>
-    </div>
-  )
+    );
 }

@@ -1,55 +1,55 @@
-import React, { useState, useEffect, useRef } from 'react'
-import adimg from '../img/logo.webp'
-import { Link, useNavigate } from 'react-router-dom'
-import { GiHamburgerMenu } from 'react-icons/gi'
-import { AiOutlineClose } from 'react-icons/ai'
-import './Header.css'
+import React, { useState, useEffect, useRef } from "react";
+import adimg from "../img/logo.webp";
+import { Link, useNavigate } from "react-router-dom";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { AiOutlineClose } from "react-icons/ai";
+import "./Header.css";
 
 const Header = () => {
-  const [isOpen, setMenu] = useState(false)
-  const navigate = useNavigate()
-  const menuRef = useRef(null)
+  const [isOpen, setMenu] = useState(false);
+  const navigate = useNavigate();
+  const menuRef = useRef(null);
 
-  const isLoggedIn = !!localStorage.getItem('accessToken')
+  const isLoggedIn = !!localStorage.getItem("accessToken");
 
   const toggleMenu = () => {
-    setMenu((prevIsOpen) => !prevIsOpen)
-  }
+    setMenu((prevIsOpen) => !prevIsOpen);
+  };
 
   const closeMenu = () => {
-    setMenu(false)
-  }
+    setMenu(false);
+  };
 
   const handleOutsideClick = (event) => {
     if (menuRef.current && !menuRef.current.contains(event.target)) {
-      setMenu(false)
+      setMenu(false);
     }
-  }
+  };
 
   useEffect(() => {
-    document.addEventListener('click', handleOutsideClick)
+    document.addEventListener("click", handleOutsideClick);
 
     return () => {
-      document.removeEventListener('click', handleOutsideClick)
-    }
-  }, [])
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, []);
 
   const handleLinkClick = () => {
-    setMenu(false)
-  }
+    setMenu(false);
+  };
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <header className="bg-black text-white flex justify-between items-center h-24 border-b border-gray-200 fixed top-0 left-0 right-0 z-20">
       <Link to="/" className="flex items-center" onClick={scrollToTop}>
-        <img src={adimg} alt="로고" className="header-logo h-22 pl-4" />
+        <img src={adimg} alt="로고" className="header-logo h-30 pl-4" />
       </Link>
       <nav className="hidden md:flex flex-grow justify-center">
         <Link
           className={`header-text font-SUITE ${
-            isLoggedIn ? 'text-black' : 'text-white'
+            isLoggedIn ? "text-black" : "text-white"
           }`}
           to="/"
           onClick={scrollToTop}
@@ -66,16 +66,16 @@ const Header = () => {
         <ul
           className={
             isOpen
-              ? `no-margin-padding w-96 h-screen absolute top-0 right-0 duration-500 transform translate-x-0 transition-transform ease-out ${
-                  isLoggedIn ? 'bg-orange-500' : 'bg-green-500'
+              ? `no-margin-padding w-96 h-screen absolute top-0 right-0 mt-20 duration-500 transform translate-x-0 transition-transform ease-out ${
+                  isLoggedIn ? "bg-orange-500" : "bg-green-500"
                 } text-black`
-              : `no-margin-padding w-96 h-screen absolute top-0 right-full duration-500 ease-out transform translate-x-full transition-transform ${
-                  isLoggedIn ? 'bg-orange-500' : 'bg-green-500'
+              : `no-margin-padding w-96 h-screen absolute top-0 right-0 duration-500 ease-out transform translate-x-full transition-transform ${
+                  isLoggedIn ? "bg-orange-500" : "bg-green-500"
                 } text-black hidden`
           }
         >
           <div className="mt-32 font-bold">
-            {' '}
+            {" "}
             {isLoggedIn ? (
               <>
                 <li className="text-black cursor-pointer hover:text-white text-2xl my-6 mx-6">
@@ -98,6 +98,12 @@ const Header = () => {
                     내가 쓴 북마크들
                   </Link>
                 </li>
+                <li className="text-black cursor-pointer hover:text-white text-2xl my-6 mx-6">
+                  <Link to="/ModifyinfoA" onClick={handleLinkClick}>
+                    {/* ModifyinfoB는 피그마에서 삭제된 페이지(ModifyinfoB에서 비밀번호 확인을 하고 "다음"을 누른 후 ModifyinfoA에서 비밀번호를 변경하는 형식이었음!) */}
+                    회원정보 수정
+                  </Link>
+                </li>
               </>
             ) : (
               <>
@@ -117,7 +123,7 @@ const Header = () => {
                   </Link>
                 </li>
                 <li className="text-black cursor-pointer hover:text-white text-2xl my-6 mx-6">
-                  <Link to="/Signup" onClick={handleLinkClick}>
+                  <Link to="/Agreement" onClick={handleLinkClick}>
                     회원가입
                   </Link>
                 </li>
@@ -139,7 +145,7 @@ const Header = () => {
         </ul>
       </div>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

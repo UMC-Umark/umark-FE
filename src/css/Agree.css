@@ -22,85 +22,53 @@
 }
 
 /* 모바일 화면에서의 스타일 */
-
-
-@media (min-width:576px) and (max-width:767px) {
-    
-    .custom-nextbutton1 {
-        height:3rem;
-        width:4rem;
-        font-size:1.5rem;
-        white-space: nowrap;
-        width:90%;
-        padding: 2px 0; /* 내부 패딩을 추가하여 버튼의 세로 중앙으로 텍스트를 위치시킴 */
-    }
-    .custom-signuptitle {
-        font-size:3rem;
-        text-align:center;
-        display:block;
-        
-    }
-    .custom-arrow {
-        padding-left:50px;
-        padding-right:50px;
-    }
- } 
-
-
-@media (min-width:768px) and (max-width:991px) {
-
-    .custom-signuptitle{
-        font-size:3rem;
-        text-align:center;
-        display:block;
-    }
-
-    .custom-arrow {
-        padding-left:50px;
-        padding-right:50px;
-    }
-
-    p {
-        text-align: left;
-        font-size:2rem;
-        padding-left:30px;
-    }
-
-    .custom-ho {
-        width:80%;
-    }
-    .custom-text {
-        font-size:1.2rem;
-        padding-left:0.2rem;
-    }
-    .custom-check {
-        margin-left:3rem;
-        display: flex;
-        flex-direction: row; /* 수평 방향으로 정렬 */
-        align-items: flex-start; /* 왼쪽 정렬 */
-        margin-bottom:0.7rem;
-    }
-
-    button {
-        width:1.5rem;
-        height:4rem;
-    }
-    .custom-nextbutton1 {
-        height:3rem;
-        width:4rem;
-        font-size:1.5rem;
-        white-space: nowrap;
-        width:90%;
-        padding: 2px 0; /* 내부 패딩을 추가하여 버튼의 세로 중앙으로 텍스트를 위치시킴 */
-    }
-    .custom-agreeform {
-        width:85%;
-    }
-    .custom-agreee {
-        font-size: 1.5rem;
-    }
+@media (max-width: 767px) {
+  .custom-signuptitle {
+    font-size: 2rem; /* 제목 폰트 크기 조정 */
+    margin-left: 0px;
+    /* text-align: center; */
 }
-	
-@media (min-width: 992px) and (max-width: 1199px) {  } 
+  
+    .custom-agreeform {
+      width: 90%; 
+      margin: 1rem auto; 
+      padding: 1rem; 
+      border-radius: 20px; 
+    }
+  
+    .custom-check {
+      display: block;
+      margin-bottom: 1rem;
+    }
+  
+    .custom-text {
+      font-size: 1rem; 
+      margin-left: 2rem; 
+    }
+  
+    .custom-nextbutton1 {
+      width: 90%; 
+      margin: 1rem auto; 
+      font-size: 1.5rem; 
+      padding: 0.5rem 0; 
+    }
+  
+    .custom-ho {
+      width: 100%;
+    }
+  
+    
+    .custom-agreee {
+      font-size: 1rem; 
+    }
+  
 
-@media (min-width: 1200px) {  }
+    .custom-details {
+      font-size: 0.875rem; 
+      width: 90%; 
+      margin: 1rem auto; 
+      padding: 0.5rem; 
+    }
+  }
+  
+  

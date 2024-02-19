@@ -80,20 +80,20 @@ export default function Agreement() {
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-black text-white">
       <div className="w-full flex justify-between items-center font-SUITE">
-        <Link className="custom-arrow" to="/Login">
+        <Link className="custom-arrow" to="/login">
           <img src={arrow} alt="arrow" />
         </Link>
-        <h1 className="custom-signuptitle text-center inline-block w-1/2">
-          sign up
-        </h1>
+        <div className="custom-logintitle">
+          Sign up
+        </div>
         <div className="mb-12" />
       </div>
       <hr />
       <div className="mb-12" />
       <div className="custom-agreeform border border-1 border-white rounded-3xl w-2/3 m-auto">
         <br />
-        <div className="flex items-center justify-center">
-          <img src={logo} width="100px" height="100px" alt="umark" />
+        <div className="flex items-center justify-center pt-8 pb-4">
+          <img src={logo} width="120px" height="120px" alt="umark" />
         </div>
         <div className="inline rounded-lg border-white">
           <br />
@@ -115,8 +115,8 @@ export default function Agreement() {
                 className="w-5 h-5"
               />
 
-              <label htmlFor="agree_check_used" className="custom-text ml-3">
-                [필수] umark 계정 약관
+              <label htmlFor="agree_check_used" className="custom-text pb-4">
+              &nbsp;&nbsp;[필수] umark 계정 약관
               </label>
               <button
                 className="custom-detailbutton ml-3 text-gray-300"
@@ -127,7 +127,7 @@ export default function Agreement() {
                 {isCheck1 ? "본문 닫기" : "본문 보기"}
               </button>
               {isCheck1 && (
-                <p className="custom-details p-8 border border-1 w-1/2 flex justify-center ml-60 border-gray-300">
+                <p className="custom-details p-8 border border-1 w-1/2 flex justify-center ml-60  border-gray-300 mb-4 ">
                   umark 약관 1항:~
                 </p>
               )}
@@ -163,8 +163,8 @@ export default function Agreement() {
                 onChange={handleAgreementChange}
                 className="w-5 h-5"
               />
-              <label htmlFor="agree_check_info" className="custom-text ml-2">
-                [필수] 개인정보 수집 및 이용 동의
+              <label htmlFor="agree_check_info" className="custom-text ml-2 ">
+              &nbsp;&nbsp;[필수] 개인정보 수집 및 이용 동의
               </label>
               <button
                 className="custom-detailbutton ml-3 text-gray-300"
@@ -175,7 +175,7 @@ export default function Agreement() {
                 {isCheck2 ? "본문 닫기" : "본문 보기"}
               </button>
               {isCheck2 && (
-                <p className="custom-details p-8 border border-1 w-1/2 flex justify-center ml-60 border-gray-300">
+                <p className="custom-details p-8 border border-1 w-1/2 flex justify-center ml-60 border-gray-300 mt-3">
                   개인정보약관 1항:~
                 </p>
               )}
@@ -196,9 +196,9 @@ export default function Agreement() {
               />
               <label
                 htmlFor="agree_check_all"
-                className="custom-text text-2xl ml-2"
+                className="custom-text text-2xl ml-2 mt-3"
               >
-                모두 동의하기
+                &nbsp;&nbsp;모두 동의하기
               </label>
             </div>
             <div className="mb-20" />

@@ -14,6 +14,7 @@ export default function Findpassword() {
   const [validEmailMessage, setValidEmailMessage] = useState("");
   const [verifyError, setVerifyError] = useState("");
   const [nameError, setNameError] = useState("");
+  const [VerifyErrorMessage, setVerifyErrorMessage] = useState("");
 
   const [inputValue, setInputValue] = useState("");
   const location = useLocation();
@@ -37,13 +38,27 @@ export default function Findpassword() {
   const handleVerifyCode = async () => {
     try {
       const requestBody = {
-        email: email,
         univName: univName,
+        email: email,
         code: inputValue,
       };
-      const response = await axios.post("/member/checkemail", requestBody);
+      const response = await axios.post("/member/checkemail", requestBody, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.data.isSuccess) {
+        setVerifyErrorMessage("인증이 완료되었습니다");
+      } else {
+        setVerifyErrorMessage("인증번호가 일치하지 않습니다");
+      }
       console.log(response.data);
     } catch (error) {
+      if (error.response && error.response.status === 400) {
+        setVerifyErrorMessage("인증번호가 일치하지 않습니다");
+      } else if (error.response && error.response.status === 200) {
+        setVerifyErrorMessage("인증이 완료되었습니다");
+      }
       console.error("인증 코드 확인 중 오류:", error);
     }
   };
@@ -87,7 +102,7 @@ export default function Findpassword() {
       <hr />
       <div className="mb-12" />
       <div className="custom-findform1 border border-1 border-white rounded-3xl w-2/3 m-auto">
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center pt-8 pb-2">
           <div className="mb-40" />
           <img src={logo} width="100px" height="100px" alt="umark" />
         </div>
@@ -136,13 +151,16 @@ export default function Findpassword() {
           >
             완료
           </button>
-          {/* 
-          {!isValid && (
-            <div className="text-red-600">인증번호가 일치하지 않습니다</div>
-          )}
-          {isValid && (
-            <div className="text-green-600">인증이 완료되었습니다</div>
-          )} */}
+          <div
+            className={`${
+              VerifyErrorMessage &&
+              VerifyErrorMessage.includes("인증이 완료되었습니다")
+                ? "text-green-600"
+                : "text-red-600"
+            } ml-80`}
+          >
+            {VerifyErrorMessage}
+          </div>
           <div className="mb-12" />
           <Link to={{ pathname: "/ResetPassword", state: { email: email } }}>
             <button

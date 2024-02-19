@@ -69,6 +69,9 @@ export default function Login() {
     const newPassword = e.target.value;
     setPassword(newPassword);
   };
+  const handleFocus = (e) => {
+    e.target.placeholder = "";
+  };
 
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-black text-white">
@@ -76,32 +79,33 @@ export default function Login() {
         <Link className="custom-arrow" to="/">
           <img src={arrow} alt="arrow" />
         </Link>
-        <h1 className="custom-logintitle text-center inline-block w-1/2">
-          login
-        </h1>
+        <div className="custom-logintitle">login</div>
         <br />
         <br />
       </div>
       <hr />
       <div className="mb-10" />
       <main className="flex-1 flex flex-col items-center justify-center border-white">
-        <div className="flex items-center justify-center">
-          <div className="mb-20" />
-          <img src={logo} width="100px" height="100px" alt="umark" />
+        <div className="flex items-center justify-center mt-5">
+          <div className="mb-20 " />
+          <img src={logo} width="160px" height="160px" alt="umark" />
         </div>
         <br />
-        <p className="custom-info1"> 로그인 정보를 입력해 주세요</p>
+        <p className="custom-info1 pt-4"> 로그인 정보를 입력해 주세요</p>
         <div className="custom-form1 text-center inline-block rounded-lg border-white">
-          <div className="mb-8" />
+          <div className="mb-12" />
           <div className="relative">
             <span className="custom-loginlabel font-bold absolute left-50 top-50 text-black mt-4 ml-5">
               이메일
             </span>
             <input
               name="email"
+              type="email"
               value={email}
               onChange={handleEmailChange}
+              onFocus={handleFocus}
               className="custom-logininput bg-white text-black px-60 py-4 rounded-full text-left focus:outline-none border border-1"
+              placeholder="이메일"
             />
             <br />
             <br />
@@ -113,14 +117,18 @@ export default function Login() {
               type="password"
               value={password}
               onChange={handlePasswordChange}
+              onFocus={handleFocus}
               className="custom-logininput bg-white text-black px-60 py-4 rounded-full focus:outline-none border border-1"
+              placeholder="비밀번호"
             />
           </div>
-          <div className="mb-4 ml-80 text-red-500">{errorMessage}</div>
+          <div className="custom-error-message mb-4 ml-80 text-red-500">
+            {errorMessage}
+          </div>
           <button
             type="button"
             onClick={handleLogin}
-            className="custom-loginbutton1 bg-green-400 text-black px-60 py-3 rounded-full font-bold"
+            className="custom-loginbutton1 bg-green-400 text-black px-80 py-3 rounded-full font-bold"
           >
             로그인
           </button>

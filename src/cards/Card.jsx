@@ -1,23 +1,32 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // useNavigate 추가
+import { useNavigate } from 'react-router-dom';
+import { reportedData } from './CardReported'; // CardReported.jsx 파일에서 reportedData를 import
 
 import bookMark from '../img/bookMark.png';
 import bookMarkFill from '../img/bookMarkFill.png';
 import './Card.css';
 
-export default function Card({ id, title, createdAt, hashTagContent, content, url, onClick, isReported, myLike }) {
+export default function Card({ id, title, createdAt, hashTagContent, content, url, onClick, isReported, myLike, accessToken }) {
     const [liked, setLiked] = useState(false);
-    const [hovered, setHovered] = useState(false); // hovered 상태 추가
-    const navigate = useNavigate(); // useNavigate 사용
+    const [hovered, setHovered] = useState(false);
+    const navigate = useNavigate();
 
-    
     const date = new Date(createdAt);
     const formattedTime = `${date.getFullYear()}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getDate().toString().padStart(2, '0')} ${date.getHours()}:${date.getMinutes()}`;
 
+    // reportedData 배열에서 데이터를 가져와서 변수에 할당
+    const { reportedTitle, reportedContent } = reportedData[0];
+
     const handleLike = async () => {
+        if (!accessToken) {
+            // 로그인이 되어 있지 않으면 아무런 동작도 하지 않음
+            return;
+        }
         try {
-            const response = await axios.post(`/bookmarks/${id}/likes?memberId=1`);
+            const response = await axios.post(`/bookmarks/${id}/likes?memberId=1`, null, {
+                headers: { Authorization: `Bearer ${accessToken}` }
+            });
             console.log('bookmarkID:', {id}, response.data.data);
             setLiked(!liked);
             onClick(!liked, response.data.data.likeCount);
@@ -27,10 +36,12 @@ export default function Card({ id, title, createdAt, hashTagContent, content, ur
     }
 
     useEffect(() => {
-        if (myLike.includes(id)) {
-            setLiked(!liked);
-        }
-    }, []);
+        if (myLike.includes(id) && accessToken) {
+            setLiked(true); // 로그인 상태에서만 북마크가 된 경우에만 liked를 true로 설정
+        } else {
+            setLiked(false); // 로그인 상태가 아니거나 북마크가 되지 않은 경우에는 false로 설정
+    }
+    }, [myLike, accessToken]);
 
     const reportBookmark = () => {
         navigate('/reporting', { state: { bookmarkId: id } });
@@ -40,14 +51,14 @@ export default function Card({ id, title, createdAt, hashTagContent, content, ur
         <div className="card">
             <div className="card-header">
                 <div className="header-wrap">
-                    <h4>{isReported ? "부적절한 게시물입니다." : title}</h4> 
+                    <h4>{isReported ? reportedTitle : title}</h4> 
                     {isReported ? null : (
                         <div>
                             <img 
                                 className="card-img-top" 
-                                src={hovered || liked ? bookMarkFill : bookMark} // 마우스 hover 또는 좋아요 상태에 따라 이미지를 변경
-                                onMouseEnter={() => setHovered(true)} // 마우스가 이미지에 올라갔을 때 hovered 상태를 true로 변경
-                                onMouseLeave={() => setHovered(false)} // 마우스가 이미지에서 벗어났을 때 hovered 상태를 false로 변경
+                                src={hovered || liked ? bookMarkFill : bookMark}
+                                onMouseEnter={() => setHovered(true)}
+                                onMouseLeave={() => setHovered(false)}
                                 onClick={handleLike}
                                 alt="bookMarkIcon"
                             />
@@ -70,7 +81,7 @@ export default function Card({ id, title, createdAt, hashTagContent, content, ur
                 </div>
             </div>
             <div className="card-body">
-                <p className="text-para">{isReported ? "신고 누적으로 블라인드 처리된 게시물입니다." : content}</p>
+                <p className="text-para">{isReported ? reportedContent : content}</p>
             </div>
             <div className="card-footer">
                 {isReported ? (
@@ -82,7 +93,7 @@ export default function Card({ id, title, createdAt, hashTagContent, content, ur
                             <a href={url}>링크 바로가기</a>
                         </li>
                         <li>
-                        <button onClick={reportBookmark}>신고하기</button>
+                            <button onClick={reportBookmark}>신고하기</button>
                         </li>
                     </ul>
                 )}

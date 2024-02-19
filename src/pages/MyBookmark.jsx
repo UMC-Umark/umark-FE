@@ -120,13 +120,10 @@ export default function MyBookmark() {
       }
 
       try {
-        const response = await axios.get(`/bookmarks/mylike?page=1`, {
+        const response = await axios.get(`/bookmarks/1/mylike?page=1`, {
           headers,
         })
-        // API 응답에서 likedCount 추출
-        const likedCount = response.data.data.likedCount
-        // 상태 업데이트
-        setLikedCount(likedCount)
+        setLikedCount(response.data.data.likedCount)
         console.log(response.data)
       } catch (error) {
         console.error('Fetching likedCount failed:', error)
@@ -139,9 +136,7 @@ export default function MyBookmark() {
             const response = await axios.get(`/bookmarks/mylike?page=1`, {
               headers,
             })
-            // 재시도에서도 likedCount 추출 및 상태 업데이트
-            const likedCount = response.data.data.likedCount
-            setLikedCount(likedCount)
+            setLikedCount(response.data.data.likedCount)
             console.log(response.data)
           } else {
             console.log('error')
