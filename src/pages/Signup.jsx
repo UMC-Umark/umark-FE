@@ -140,16 +140,14 @@ export default function Signup() {
         <Link className="custom-arrow" to="/login">
           <img src={arrow} alt="arrow" />
         </Link>
-        <div className="custom-logintitle">
-          Sign up
-        </div>
+        <div className="custom-logintitle">sign up</div>
         <div className="mb-12" />
       </div>
       <hr />
       <div className="mb-12" />
       <div className="custom-signupform1 border border-1 border-white rounded-3xl w-2/3 m-auto">
         <br />
-         <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center">
           <img src={logo} width="100px" height="100px" alt="umark" />
         </div>
         <div className="mb-5" />
@@ -236,7 +234,9 @@ export default function Signup() {
           />
           <br />
           {passwordConfirm !== "" && isValid ? (
-            <div className="ml-80 text-green-600 paasswordcorrect">비밀번호가 일치합니다</div>
+            <div className="ml-80 text-green-600 paasswordcorrect">
+              비밀번호가 일치합니다
+            </div>
           ) : (
             <div className="ml-80 text-red-600">{passwordConfirmError}</div>
           )}
