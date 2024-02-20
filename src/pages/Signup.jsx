@@ -140,7 +140,7 @@ export default function Signup() {
         <Link className="custom-arrow" to="/login">
           <img src={arrow} alt="arrow" />
         </Link>
-        <div className="custom-logintitle">Sign up</div>
+        <div className="custom-logintitle">sign up</div>
         <div className="mb-12" />
       </div>
       <hr />

@@ -69,7 +69,7 @@ export default function Card({ id, title, createdAt, hashTagContent, content, ur
                             <time className="text-gray-400">
                                 {formattedTime}
                             </time>
-                            <h6 className="flex items-center gap-x-4">
+                            <h6 className="tags-wrap flex items-center gap-x-4">
                                 {hashTagContent.map((tag, index) => (
                                     <div key={index} className="tags hashTagContent relative rounded-lg px-2.5 py-1">
                                         {tag}

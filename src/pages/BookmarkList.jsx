@@ -1,9 +1,22 @@
 import { FaTrashAlt } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
-
-function BookmarkList({ bookmarks, onEdit }) {
+import axios from 'axios'
+function BookmarkList({ bookmarks, onEdit, onDelete }) {
   const safeBookmarks = Array.isArray(bookmarks) ? bookmarks : []
-
+  const handleDelete = async (bookMarkId) => {
+    try {
+      const response = await axios.delete(`/bookmarks/delete`, {
+        data: { bookMarkId: bookMarkId },
+      })
+      if (response.data.isSuccess) {
+        // 삭제 성공시 처리 로직
+        console.log('Bookmark deleted successfully', response.data)
+        onDelete() // 부모 컴포넌트에서 상태를 업데이트하는 함수를 호출할 수 있습니다. 이 함수는 삭제 후의 상태 업데이트를 담당합니다.
+      }
+    } catch (error) {
+      console.error('Error deleting bookmark:', error)
+    }
+  }
   return (
     <div className="flex flex-wrap justify-start">
       {safeBookmarks.map((bookmark, index) => {
@@ -24,6 +37,7 @@ function BookmarkList({ bookmarks, onEdit }) {
             style={{ width: 'calc(25% - 1rem)' }} // 여기서 너비를 계산식으로 조정
           >
             <FaTrashAlt
+              onClick={() => handleDelete(bookmark.id)}
               className="cursor-pointer absolute top-2 right-2 text-gray fill-gray-400"
               size={24}
             />
