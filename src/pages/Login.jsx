@@ -36,6 +36,7 @@ export default function Login() {
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
         localStorage.setItem("memberId", memberId.toString());
+
         setLoginCheck(true);
         navigate("/allbookmarks");
       }
