@@ -9,35 +9,54 @@ function BookmarkList({ bookmarks, onEdit, onDelete }) {
     setLocalBookmarks(bookmarks)
   }, [bookmarks])
 
-  const handleDelete = async (bookMarkId) => {
+  const refreshAccessToken = async () => {
     try {
-      const accessToken = localStorage.getItem('accessToken')
-      const config = {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
+      const refreshToken = localStorage.getItem('refreshToken')
+      const response = await axios.post('/member/reissue', { refreshToken })
+      const { accessToken, refreshToken: newRefreshToken } = response.data
+      localStorage.setItem('accessToken', accessToken)
+      localStorage.setItem('refreshToken', newRefreshToken)
+      return accessToken
+    } catch (error) {
+      console.error('Refresh token error:', error)
+      return null
+    }
+  }
+
+  const handleDelete = async (bookMarkId) => {
+    let accessToken = localStorage.getItem('accessToken')
+    const config = {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+
+    try {
       const response = await axios.delete(
         `/bookmarks/delete/${bookMarkId}`,
         config
       )
-
-      if (response.data.isSuccess) {
-        console.log('Bookmark deleted successfully', response.data)
-        // 삭제 성공 후 로컬 상태 업데이트
-        const updatedBookmarks = localBookmarks.filter(
-          (bookmark) => bookmark.id !== bookMarkId
-        )
-        setLocalBookmarks(updatedBookmarks)
-        onDelete()
-      }
+      console.log('Bookmark deleted successfully', response.data)
+      setLocalBookmarks(
+        localBookmarks.filter((bookmark) => bookmark.id !== bookMarkId)
+      )
+      onDelete()
     } catch (error) {
-      console.error('Error deleting bookmark:', error)
+      if (error.response && error.response.status === 401) {
+        const newAccessToken = await refreshAccessToken()
+        if (newAccessToken) {
+          accessToken = newAccessToken
+          localStorage.setItem('accessToken', accessToken)
+          return handleDelete(bookMarkId) // 재귀적으로 다시 시도
+        }
+      } else {
+        console.error('Error deleting bookmark:', error)
+      }
     }
   }
 
   return (
-    <div className="flex flex-wrap justify-start">
+    <div className="xl:flex flex-wrap justify-start">
       {localBookmarks.map((bookmark, index) => {
         const date = new Date(bookmark.createdAt)
         const formattedTime = `${date.getFullYear()}/${(date.getMonth() + 1)
@@ -52,10 +71,9 @@ function BookmarkList({ bookmarks, onEdit, onDelete }) {
         return (
           <div
             key={index}
-            className="px-2 w-1/4 mb-4" // x축 패딩을 각 박스에 적용하여 실제 너비 조정
+            className="px-2 mb-4 xl:w-1/4  sm:w-full" // x축 패딩을 각 박스에 적용하여 실제 너비 조정
           >
             <div className="border-2 border-black bg-gray-100 shadow-md h-full relative mx-2">
-              {' '}
               {/* 여기에 mx-2를 추가하여 박스 사이의 간격을 조정 */}
               <FaTrashAlt
                 onClick={() => handleDelete(bookmark.id)}
