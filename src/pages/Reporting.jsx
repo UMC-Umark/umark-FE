@@ -302,10 +302,10 @@ const ReportingPage = () => {
       return;
     }
 
-    if (!bookmarkId) {
-      console.error('Bookmark ID is not available.');
-      return;
-    }
+    // if (!bookmarkId) {
+    //   console.error('Bookmark ID is not available.');
+    //   return;
+    // }
 
     const token = accessToken;
     if (!token) {
@@ -361,14 +361,14 @@ const ReportingPage = () => {
         <button onClick={() => navigate(-1)} className="text-black">
           <img src={back} alt="아이콘" className="mx-auto my-3 h-8 back-icon" />
         </button>
-        <h1 className="text-center font-bold text-lg">신고하기</h1>
+        <h1 className="text-center font-bold text-xl">신고하기</h1>
         <div style={{ width: "24px" }}></div>
       </nav>
 
       <div className="flex-grow flex flex-col items-center px-4 py-2">
         <form onSubmit={handleSubmit} className="w-full max-w-md text-center">
-          <fieldset className="mb-4">
-            <legend className="text-lg mt-4 mb-8 font-bold">
+          <fieldset className="mb-4 mt-6">
+            <legend className="text-lg mt-8 mb-8 font-bold">
               해당 게시물을 신고하는 이유를 알려주세요
             </legend>
             <RadioOptions

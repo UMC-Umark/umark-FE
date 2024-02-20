@@ -10,6 +10,7 @@ function ModifyBookmark() {
   const [url, setURL] = useState('')
   const [content, setContent] = useState('')
   const [tags, setTags] = useState('')
+  const [showTagError, setShowTagError] = useState(false)
 
   const memberId = localStorage.getItem('memberId')
 
@@ -33,8 +34,8 @@ function ModifyBookmark() {
   const refreshAccessToken = async () => {
     try {
       const refreshToken = localStorage.getItem('refreshToken')
-      const response = await axios.post('/member/refresh', { refreshToken })
-      const { accessToken, refreshToken: newRefreshToken } = response.data.data
+      const response = await axios.post('/member/reissue', { refreshToken })
+      const { accessToken, refreshToken: newRefreshToken } = response.data
       localStorage.setItem('accessToken', accessToken)
       localStorage.setItem('refreshToken', newRefreshToken)
       return accessToken
@@ -49,7 +50,13 @@ function ModifyBookmark() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     let accessToken = localStorage.getItem('accessToken')
-
+    const hasInvalidTag = tags.split(' ').some((tag) => !tag.startsWith('#'))
+    if (hasInvalidTag) {
+      setShowTagError(true) // 유효하지 않은 해시태그가 있으면 경고 메시지 표시
+      return // 추가 처리 중단
+    } else {
+      setShowTagError(false) // 경고 메시지 숨김
+    }
     const config = {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -206,6 +213,13 @@ function ModifyBookmark() {
               />
             </div>
           </form>
+          <div className="w-96 mx-auto">
+            {showTagError && (
+              <p className="text-red-500 text-md mt-2 font-SUITE">
+                모든 해시태그는 "#"으로 시작해야 합니다.
+              </p>
+            )}
+          </div>
           <div className="flex justify-center gap-4 mt-4">
             <button
               type="button"

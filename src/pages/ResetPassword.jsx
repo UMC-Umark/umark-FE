@@ -12,21 +12,31 @@ export default function ResetPassword() {
   const [newPasswordConfirm, setNewPasswordConfirm] = useState("");
   const navigate = useNavigate();
   const emailSignup = localStorage.getItem("email"); // 로컬 스토리지에서 이메일 값 가져오기
+
   // 비밀번호 찾기-비밀번호 변경
   const handleResetPassword = async () => {
     try {
       const requestBody = {
-        emailSignup: emailSignup, //setEmail(response.data.email),
+        //emailSignup: emailSignup, //setEmail(response.data.email),
         newPassword: newPassword,
       };
 
       const response = await axios.patch(
         "/member/changepasswordbyemail",
-        requestBody
+        requestBody,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
-      console.log(response.data);
-      console.log({ emailSignup });
-      navigate("/Login");
+      console.log(response);
+      if (response.data.isSuccess) {
+        localStorage.setItem("password", newPassword);
+        navigate("/Login");
+        console.log(response.data);
+        console.log({ emailSignup });
+      }
     } catch (error) {
       console.error("비밀번호 재설정 중 오류:", error);
     }
@@ -62,7 +72,7 @@ export default function ResetPassword() {
             placeholder="8자리 이상, 특수문자 포함"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
-            className="custom-findinput2 bg-black text-white px-60 py-4 rounded-full text-left focus:outline-none border border-1 border-white placeholder-gray-300"
+            className="custom-findinput2 bg-black text-white px-60 py-3 rounded-full text-left focus:outline-none border border-1 border-white placeholder-gray-300"
           />
           <div className="mb-6" />
           <span className="custom-findlabel2 absolute ml-4 left-50 top-70 text-white mt-3 text-2xl">
@@ -73,7 +83,7 @@ export default function ResetPassword() {
             type="password"
             value={newPasswordConfirm}
             onChange={(e) => setNewPasswordConfirm(e.target.value)}
-            className="custom-findinput1 bg-black text-white px-60 py-4 rounded-full focus:outline-none border border-1 border-white placeholder-gray-300"
+            className="custom-findinput1 bg-black text-white px-60 py-3 rounded-full focus:outline-none border border-1 border-white placeholder-gray-300"
           />
           <div className="mb-12" />
           <button
