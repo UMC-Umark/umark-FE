@@ -221,6 +221,7 @@ export default function MyBookmark() {
           bookmarks={bookmarks}
           onEdit={handleEdit}
           onDelete={handleDeleteSuccess}
+          isMyLikedBookmark={currentTab === 'liked'}
         />
       </div>
     </div>

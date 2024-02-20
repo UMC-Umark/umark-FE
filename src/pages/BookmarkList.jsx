@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
-function BookmarkList({ bookmarks, onEdit, onDelete, isMyWrittenBookmark }) {
+function BookmarkList({ bookmarks, onEdit, onDelete, isMyLikedBookmark }) {
   const [localBookmarks, setLocalBookmarks] = useState(bookmarks)
   useEffect(() => {
     setLocalBookmarks(bookmarks)
@@ -75,13 +75,13 @@ function BookmarkList({ bookmarks, onEdit, onDelete, isMyWrittenBookmark }) {
           >
             <div className="border-2 border-black bg-gray-100 shadow-md h-full relative mx-2">
               {/* 여기에 mx-2를 추가하여 박스 사이의 간격을 조정 */}
-
-              <FaTrashAlt
-                onClick={() => handleDelete(bookmark.id)}
-                className="cursor-pointer absolute top-2 right-2 text-gray-700 hover:text-gray-900"
-                size={24}
-              />
-
+              {!isMyLikedBookmark && (
+                <FaTrashAlt
+                  onClick={() => handleDelete(bookmark.id)}
+                  className="cursor-pointer absolute top-2 right-2 text-gray-700 hover:text-gray-900"
+                  size={24}
+                />
+              )}
               <div className="flex flex-col mb-1 h-4/5 ml-4">
                 <p className="pt-4 item-center text-3xl font-bold m-2 font-SUITE break-words">
                   {bookmark.title}
@@ -101,19 +101,23 @@ function BookmarkList({ bookmarks, onEdit, onDelete, isMyWrittenBookmark }) {
                       ))
                     : ''}
                 </div>
-              </div>
-              <hr className="border-b-2 border-black my-2" />
-              <div className="flex items-center justify-center">
-                {' '}
-                <div className="flex items-center justify-center">
-                  <button
-                    onClick={() => onEdit(bookmark.id)}
-                    className="w-full text-2xl font-bold text-center px-8 mb-4 font-SUITE"
-                  >
-                    수정하기
-                  </button>
-                </div>
-              </div>
+              </div>{' '}
+              {!isMyLikedBookmark && (
+                <>
+                  <hr className="border-b-2 border-black my-2" />
+                  <div className="flex items-center justify-center">
+                    {' '}
+                    <div className="flex items-center justify-center">
+                      <button
+                        onClick={() => onEdit(bookmark.id)}
+                        className="w-full text-2xl font-bold text-center px-8 mb-4 font-SUITE"
+                      >
+                        수정하기
+                      </button>
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         )
