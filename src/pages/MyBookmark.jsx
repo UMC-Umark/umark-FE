@@ -195,51 +195,46 @@ export default function MyBookmark() {
     <div className="flex flex-col">
       <Header />
       <Menubar />
-      <div className="mx-12 sm:mx-20 my-60">
+      <div className="xl:mx-20 mt-60 sm:mx-8">
         {/* my-10 -> my-60 으로 수정 */}{' '}
-        <h1 className="custom-title text-3xl font-bold mb-12 font-SUITE">
+        <h1 className="custom-title text-3xl font-bold mb-12 font-SUITE xl:text-left sm:text-center sm:mx-12 xl:mx-0">
           내가 쓴 북마크들
         </h1>
-        <div className="flex items-center mb-12">
-          <div className="w-32 h-32 bg-mint rounded-full flex items-center justify-center text-black mr-4">
+        <div className="flex items-center mb-12 md:px-0 md:mx-0">
+          <button
+            onClick={() => setCurrentTab('written')}
+            className="w-32 h-32 bg-mint rounded-full flex items-center justify-center text-black mr-4 hover:underline focus:outline-none"
+          >
             <div className="text-center">
               <p className="text-black text-lg font-bold no-underline p-0">
-                <button
-                  onClick={() => setCurrentTab('written')}
-                  className="rounded-full underline-on-hover font-SUITE"
-                >
-                  내가 쓴 북마크
-                </button>
+                내가 쓴 북마크
               </p>
               <p className="text-4xl font-bold font-SUITE">{writtenCount}</p>
             </div>
-          </div>
-          <div className="w-32 h-32 bg-orange rounded-full flex items-center justify-center ml-2 text-black font-SUITE">
+          </button>
+          <button
+            onClick={() => setCurrentTab('liked')}
+            className="w-32 h-32 bg-orange rounded-full flex items-center justify-center ml-2 text-black font-SUITE hover:underline focus:outline-none"
+          >
             <div className="text-center">
               <p className="text-black text-lg font-bold no-underline p-0">
-                <button
-                  onClick={() => setCurrentTab('liked')}
-                  className="rounded-full underline-on-hover"
-                >
-                  추천한 북마크
-                </button>
+                추천한 북마크
               </p>
               <p className="text-4xl font-bold">{likedCount}</p>
             </div>
-          </div>
+          </button>
         </div>
-        <h2 className="text-3xl font-bold mb-4 pt-4 font-SUITE">
-          your bookmark
-        </h2>
-        <hr className="border-b-4 border-black mb-8" />
-        <div className="pt-4 item-center text-2xl font-bold flex-wrap">
-          <BookmarkList
-            bookmarks={bookmarks}
-            onEdit={handleEdit}
-            onDelete={handleDeleteSuccess}
-          />
-        </div>
-        <div className="border-b-2 border-black mt-2"></div>
+      </div>
+      <h2 className="text-3xl font-bold mb-4 pt-4 font-SUITE xl:mx-20 sm:mx-12">
+        your bookmark
+      </h2>
+      <hr className="border-b-4 border-black mb-8 xl:mx-20 sm:mx-12" />
+      <div className="pt-4 item-center text-2xl font-bold flex-wrap xl:mx-20 sm:mx-12">
+        <BookmarkList
+          bookmarks={bookmarks}
+          onEdit={handleEdit}
+          onDelete={handleDeleteSuccess}
+        />
       </div>
     </div>
   )
