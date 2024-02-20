@@ -12,6 +12,7 @@
     display:inline-block;
     font-size:1.6rem;
     text-align: center;
+    background-color:#16DE91;
 }
 
 .custom-logininput::placeholder {

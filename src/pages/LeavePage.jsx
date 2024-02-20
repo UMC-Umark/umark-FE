@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import "../components/Header.css";
@@ -70,9 +70,19 @@ export default function Findpassword() {
         passwordConfirm,
         withdrawReason,
       };
-      const response = await axios.patch(`/member/${memberId}`, requestBody);
-      console.log(response.data);
-      navigate("/");
+      const response = await axios.patch(`/member/${memberId}`, requestBody, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.data.isSuccess) {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        localStorage.removeItem("memberId");
+        navigate("/");
+      } else {
+        setWithdrawError("회원 탈퇴에 실패했습니다.");
+      }
     } catch (error) {
       console.error("탈퇴 중 오류:", error);
     }
@@ -117,13 +127,13 @@ export default function Findpassword() {
             <p className="text-red-500">{passwordConfirmError}</p>
           )}
           <div className="mb-10" />
+          {withdrawError && <p className="text-red-500">{withdrawError}</p>}
           <button
             onClick={handleWithdraw}
             className="text-xl font-bold border-2 border-black text-black rounded-full w-full px-60 py-2"
           >
             탈퇴하기
           </button>
-          {withdrawError && <p className="text-red-500">{withdrawError}</p>}
         </div>
       </div>
     </div>
