@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import './SearchBox.css';
 
-const SearchBox = ({ navPlace, onSearch }) => {
+const SearchBox = ({ onSearch }) => {
     const [searchInput, setSearchInput] = useState("");
     const navigate = useNavigate();
 
@@ -12,7 +12,7 @@ const SearchBox = ({ navPlace, onSearch }) => {
         if (searchInput.trim() !== "") {
             onSearch(searchInput.trim());
             console.log(`Search result: You just typed ${searchInput}`);
-            navigate(`${navPlace}/search?keyWord=${searchInput.trim()}`);
+            navigate(`/allbookmarks/search?keyWord=${searchInput.trim()}`);
         } else {
             console.log("Search result: No input");
         }

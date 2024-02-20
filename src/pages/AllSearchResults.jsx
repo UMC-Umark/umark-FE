@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Header from '../components/Header';
 import Menubar from '../components/Menubar';
-import SearchBox from '../components/SearchBox';
+import SearchBox from '../components/AllSearchBox';
 import CardList from '../cards/CardList';
 import BookmarkModal from '../components/BookmarkModal';
 import Pagination from '../components/Pagination';
@@ -22,8 +22,6 @@ const AllSearchResults = () => {
     const [totalPages, setTotalPages] = useState(0);
     const [myLikeArray, setMyLikeArray] = useState([]);
     const [accessToken, setAccessToken] = useState(localStorage.getItem('accessToken'));
-
-    const navPlace = `/allbookmarks`;
 
     const refreshAccessToken = async () => {
         try {
@@ -59,6 +57,7 @@ const AllSearchResults = () => {
                 { headers }
             );
             const responseData = response.data.data;
+            console.log(responseData);
             const dataWithIsReported = responseData.content.map((item) => ({
                 ...item,
                 isReported: item.isReported,
@@ -112,9 +111,7 @@ const AllSearchResults = () => {
                 <div className="container py-5">
                     <div className="top-container">
                         <h3 className="title-big font-SUITE">모든 검색 결과</h3>
-                        <SearchBox 
-                            navPlace={navPlace}
-                            onSearch={handleSearch} />
+                        <SearchBox onSearch={handleSearch} />
                     </div>
                     <CardList
                         cardsData={cardsData}

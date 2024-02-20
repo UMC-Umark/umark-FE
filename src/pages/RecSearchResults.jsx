@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Header from '../components/Header';
 import Menubar from '../components/Menubar';
-import SearchBox from '../components/SearchBox';
+import SearchBox from '../components/RecSearchBox';
 import CardList from '../cards/CardList';
 import BookmarkModal from '../components/BookmarkModal';
 import Pagination from '../components/Pagination';
@@ -22,8 +22,6 @@ const RecSearchResults = () => {
     const [totalPages, setTotalPages] = useState(0);
     const [myLikeArray, setMyLikeArray] = useState([]);
     const [accessToken, setAccessToken] = useState(localStorage.getItem('accessToken'));
-
-    const navPlace = `/recommend`;
 
     const refreshAccessToken = async () => {
         try {
@@ -55,10 +53,11 @@ const RecSearchResults = () => {
             }
 
             const response = await axios.get(
-                `/bookmarks/recommends/search?keyWord=${keyword}&page=1`,
+                `/bookmarks/recommend/search?keyWord=${searchKeyword}&page=1`,
                 { headers }
             );
             const responseData = response.data.data;
+            console.log(`추천: `, responseData)
             const dataWithIsReported = responseData.content.map((item) => ({
                 ...item,
                 isReported: item.isReported,
@@ -112,9 +111,7 @@ const RecSearchResults = () => {
                 <div className="container py-5">
                     <div className="top-container">
                         <h3 className="title-big font-SUITE">추천 검색 결과</h3>
-                        <SearchBox 
-                            navPlace={navPlace}
-                            onSearch={handleSearch} />
+                        <SearchBox onSearch={handleSearch} />
                     </div>
                     <CardList
                         cardsData={cardsData}
