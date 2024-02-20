@@ -16,17 +16,25 @@ export default function ResetPassword() {
   const handleResetPassword = async () => {
     try {
       const requestBody = {
-        emailSignup: emailSignup, //setEmail(response.data.email),
+        //emailSignup: emailSignup, //setEmail(response.data.email),
         newPassword: newPassword,
       };
 
       const response = await axios.patch(
         "/member/changepasswordbyemail",
-        requestBody
+        requestBody,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
-      console.log(response.data);
-      console.log({ emailSignup });
-      navigate("/Login");
+      if (response.data.isSuccess) {
+        localStorage.setItem("newPassword", newPassword);
+        navigate("/Login");
+        console.log(response.data);
+        console.log({ emailSignup });
+      }
     } catch (error) {
       console.error("비밀번호 재설정 중 오류:", error);
     }
