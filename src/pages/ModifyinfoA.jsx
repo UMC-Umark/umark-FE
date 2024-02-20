@@ -6,38 +6,43 @@ import "../components/Header.css";
 import axios from "axios";
 
 export default function ModifyinfoA() {
-  const [univName, setUnivName] = useState("");
-  const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState("");
+  //const [emailError, setEmailError] = useState("");
   const [isValid, setIsValid] = useState(false);
-  const [validEmailMessage, setValidEmailMessage] = useState("");
+  //const [validEmailMessage, setValidEmailMessage] = useState("");
   const [verifyError, setVerifyError] = useState("");
-  const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newPasswordConfirm, setNewPasswordConfirm] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [passwordConfirmError, setPasswordConfirmError] = useState("");
-
-  const [inputValue, setInputValue] = useState("");
-
+  const [univName, setUnivName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  //const [inputValue, setInputValue] = useState("");
   const navigate = useNavigate();
+
   useEffect(() => {
-    // 컴포넌트가 마운트될 때 로컬 스토리지에서 값을 가져와 상태를 업데이트합니다.
-    const storedUnivName = localStorage.getItem("univName");
-    const storedEmail = localStorage.getItem("email");
-    setUnivName(storedUnivName || "");
-    setEmail(storedEmail || "");
-  }, []); // 빈 배열을 전달하여 한 번만 실행되도록 설정합니다.
+    const univNameFromStorage = localStorage.getItem("univName");
+    const emailFromStorage = localStorage.getItem("email");
+    setUnivName(univNameFromStorage);
+    setEmail(emailFromStorage);
+  }, []);
+
   const handleModifyInfo = async () => {
     try {
+      if (newPassword !== newPasswordConfirm) {
+        alert("비밀번호가 일치하지 않습니다.");
+        return;
+      }
+      //if(password..) 회원가입 시 입력했던 비밀번호를 사용자가 잘못 작성하였을 때
+      if (password !== localStorage.getItem("password")) {
+        alert("현재 비밀번호가 다릅니다.");
+        return;
+      }
       const memberId = localStorage.getItem("memberId"); // 로그인한 회원의 ID
       const requestBody = {
-        newPassword: password,
+        email: email,
+        newPassword: newPassword,
       };
-      const refreshToken = localStorage.getItem("refreshToken");
-      const { accessToken, refreshToken: newRefreshToken } = response.data.data;
-      localStorage.setItem("accessToken", accessToken);
-      localStorage.setItem("refreshToken", newRefreshToken);
       const response = await axios.patch(
         `/member/changepassword/${memberId}`,
         requestBody,
@@ -47,39 +52,23 @@ export default function ModifyinfoA() {
           },
         }
       );
-
-      console.log("response.data");
-      navigate("/allbookmarks");
+      if (response.data.isSuccess) {
+        alert("비밀번호가 성공적으로 변경되었습니다.");
+        navigate("/allbookmarks");
+      } else {
+        alert("비밀번호 변경에 실패하였습니다.");
+      }
     } catch (error) {
       console.error("비밀번호 변경 중 오류:", error);
+      alert("비밀번호 변경에 실패하였습니다.");
     }
-  };
-
-  const handleInputChange = (e) => {
-    const newValue = e.target.value.replace(/[^0-9]/g, ""); // 숫자 이외의 문자 제거
-    setInputValue(newValue);
-  };
-  const handleEmailChange = (e) => {
-    const newEmail = e.target.value;
-    setEmail(newEmail);
-    validateEmail(newEmail);
-  };
-  const validateEmail = (input) => {
-    const emailRegex = /^[a-zA-Z0-9._-]+@[^@]+\.ac\.kr$/;
-    const isValid = emailRegex.test(input);
-    if (!isValid) {
-      setEmailError("올바른 이메일 형식이 아닙니다.");
-    } else {
-      setEmailError("");
-      //setValidEmailMessage('올바른 이메일 형식입니다.');
-    }
-    setIsValid(isValid);
   };
   const handlePasswordChange = (e) => {
     const newPassword = e.target.value;
     setPassword(newPassword);
     validatePassword(newPassword);
   };
+
   const handlePasswordConfirmChange = (e) => {
     const newPasswordConfirm = e.target.value;
     setNewPasswordConfirm(newPasswordConfirm);
@@ -97,10 +86,7 @@ export default function ModifyinfoA() {
       setPasswordError("");
     }
     setIsValid(
-      isValid &&
-        emailError === "" &&
-        passwordConfirmError === "" &&
-        newPasswordConfirm === input
+      isValid && passwordConfirmError === "" && newPasswordConfirm === input
     );
   };
   const validatePasswordConfirm = (input) => {
@@ -110,9 +96,7 @@ export default function ModifyinfoA() {
     } else {
       setPasswordConfirmError("");
     }
-    setIsValid(
-      isValid && emailError === "" && passwordError === "" && password === input
-    );
+    setIsValid(isValid && passwordError === "" && password === input);
   };
 
   return (
@@ -134,7 +118,7 @@ export default function ModifyinfoA() {
           <input
             name="univName"
             value={univName}
-            onChange={(e) => setUnivName(e.target.value)}
+            readOnly
             className="custom-input3 bg-gray-100 text-gray-500 px-60 py-2 focus:outline-none border-2 border-black"
           />
           <br />
@@ -146,7 +130,7 @@ export default function ModifyinfoA() {
           <input
             name="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            readOnly
             className="custom-input1 bg-gray-100 text-gray-500 px-60 py-2 focus:outline-none border-2 border-black"
           />
           <div className="mb-12" />
@@ -184,7 +168,7 @@ export default function ModifyinfoA() {
             name="passwordConfirm"
             type="password"
             value={newPasswordConfirm}
-            onChange={handlePasswordConfirmChange}
+            onChange={(e) => setNewPasswordConfirm(e.target.value)}
             className="custom-input1 bg-white text-gray-500 px-60 py-2 focus:outline-none border-2 border-black"
           />
           {newPasswordConfirm !== "" && isValid && (

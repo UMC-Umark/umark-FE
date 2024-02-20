@@ -67,11 +67,11 @@ export default function Findpassword() {
       const memberId = localStorage.getItem("memberId"); // 로그인한 회원의 ID
 
       const requestBody = {
-        passwordConfirm,
-        withdrawReason,
+        passwordConfirm: passwordConfirm,
       };
       const response = await axios.patch(`/member/${memberId}`, requestBody, {
         headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`, // Bearer 스키마와 함께 토큰 전달
           "Content-Type": "application/json",
         },
       });
@@ -85,22 +85,28 @@ export default function Findpassword() {
       console.error("탈퇴 중 오류:", error);
     }
   };
+
+  /*
   const handleDeleteProfile = (e) => {
     e.preventDefault();
+    // 회원 탈퇴 시 비밀번호를 확인하도록 로직 추가
+    if (passwordConfirm === "") {
+      setPasswordConfirmError("비밀번호를 입력해주세요");
+      return;
+    }
     const memberId = localStorage.getItem("memberId"); // 로그인한 회원의 ID
     const requestBody = {
-      passwordConfirm,
-      withdrawReason,
+      passwordConfirm: passwordConfirm,
     };
     if (window.confirm("확인을 누르면 회원 정보가 삭제됩니다.")) {
       axios
         .patch(`/member/${memberId}`, requestBody, {
           headers: {
-            Authorization: "Bearer " + localStorage.getItem("accessToken"),
+            Authorization: localStorage.getItem("accessToken"),
             "Content-Type": "application/json",
           },
         })
-        .then(() => {
+        .then((response) => {
           localStorage.clear();
           alert("그동안 이용해주셔서 감사합니다.");
           navigate("/");
@@ -110,6 +116,8 @@ export default function Findpassword() {
       return;
     }
   };
+  */
+
   return (
     <div className="overflow-hidden flex flex-col h-screen bg-white text-black">
       <Header />
@@ -151,7 +159,7 @@ export default function Findpassword() {
           <div className="mb-10" />
           {withdrawError && <p className="text-red-500">{withdrawError}</p>}
           <button
-            onClick={handleDeleteProfile}
+            onClick={handleWithdraw}
             className="text-xl font-bold border-2 border-black text-black rounded-full w-full px-60 py-2"
           >
             탈퇴하기
