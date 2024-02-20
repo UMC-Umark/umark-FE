@@ -11,8 +11,7 @@ export default function ResetPassword() {
   const [newPassword, setNewPassword] = useState("");
   const [newPasswordConfirm, setNewPasswordConfirm] = useState("");
   const navigate = useNavigate();
-  const location = useLocation();
-  const emailSignup = location.state?.email;
+  const emailSignup = localStorage.getItem("email"); // 로컬 스토리지에서 이메일 값 가져오기
   // 비밀번호 찾기-비밀번호 변경
   const handleResetPassword = async () => {
     try {

@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import "../components/Header.css";
@@ -55,6 +55,15 @@ export default function Findpassword() {
     setWithdrawReason(e.target.value);
   };
 
+  useEffect(() => {
+    // 이펙트를 사용하여 페이지가 로드될 때 로컬 스토리지에서 회원 ID를 가져옴
+    const memberId = localStorage.getItem("memberId");
+    if (!memberId) {
+      // 회원 ID가 없으면 로그인 페이지로 리다이렉트
+      navigate("/login");
+    }
+  }, [navigate]);
+
   // 회원 탈퇴
   const handleWithdraw = async () => {
     try {
@@ -70,9 +79,19 @@ export default function Findpassword() {
         passwordConfirm,
         withdrawReason,
       };
-      const response = await axios.patch(`/member/${memberId}`, requestBody);
-      console.log(response.data);
-      navigate("/");
+      const response = await axios.patch(`/member/${memberId}`, requestBody, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.data.isSuccess) {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        localStorage.removeItem("memberId");
+        navigate("/");
+      } else {
+        setWithdrawError("회원 탈퇴에 실패했습니다.");
+      }
     } catch (error) {
       console.error("탈퇴 중 오류:", error);
     }
