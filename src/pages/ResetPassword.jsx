@@ -11,8 +11,7 @@ export default function ResetPassword() {
   const [newPassword, setNewPassword] = useState("");
   const [newPasswordConfirm, setNewPasswordConfirm] = useState("");
   const navigate = useNavigate();
-  const location = useLocation();
-  const emailSignup = location.state?.email;
+  const emailSignup = localStorage.getItem("email"); // 로컬 스토리지에서 이메일 값 가져오기
   // 비밀번호 찾기-비밀번호 변경
   const handleResetPassword = async () => {
     try {
@@ -80,7 +79,7 @@ export default function ResetPassword() {
           <button
             type="button"
             onClick={handleResetPassword}
-            className="custom-tologin bg-green-400 text-black px-60 py-3 rounded-full font-bold"
+            className="custom-tologin text-black px-60 py-3 rounded-full font-bold"
           >
             로그인 하러가기
           </button>
