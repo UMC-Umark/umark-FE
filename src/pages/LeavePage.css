@@ -1,0 +1,95 @@
+/* 모바일 버전 스타일 */
+@media only screen and (max-width: 768px) {
+    .flex-col {
+      flex-direction: column;
+    }
+  
+    .pt-24 {
+      padding-top: 6rem; /* 변경된 값 */
+    }
+  
+    .px-4 {
+      padding-left: 1rem; /* 변경된 값 */
+      padding-right: 1rem; /* 변경된 값 */
+    }
+  
+    .px-60 {
+      padding-left: 1rem; /* 변경된 값 */
+      padding-right: 1rem; /* 변경된 값 */
+    }
+  
+    .py-6 {
+      padding-top: 1.5rem; /* 변경된 값 */
+      padding-bottom: 1.5rem; /* 변경된 값 */
+    }
+  
+    .w-full {
+      width: 100%; /* 변경된 값 */
+    }
+  
+    .text-xl {
+      font-size: 1.25rem; /* 변경된 값 */
+    }
+  
+    .text-4xl {
+      font-size: 2rem; /* 변경된 값 */
+    }
+  
+    .text-lg {
+      font-size: 1.125rem; /* 변경된 값 */
+    }
+  
+    .border-2 {
+      border-width: 1px; /* 변경된 값 */
+    }
+  
+    .border-black {
+      border-color: black; /* 변경된 값 */
+    }
+  
+    .text-red-500 {
+      color: red; /* 변경된 값 */
+    }
+  
+    .rounded-full {
+      border-radius: 9999px; /* 변경된 값 */
+    }
+  
+    .text-xl {
+      font-size: 1.25rem; /* 변경된 값 */
+    }
+  
+    .overflow-hidden {
+      overflow: hidden; /* 변경된 값 */
+    }
+  
+    .flex {
+      display: flex; /* 변경된 값 */
+    }
+  
+    .items-center {
+      align-items: center; /* 변경된 값 */
+    }
+  
+    .mx-auto {
+      margin-left: auto; /* 변경된 값 */
+      margin-right: auto; /* 변경된 값 */
+    }
+  
+    .pt-24 {
+      padding-top: 6rem; /* 변경된 값 */
+    }
+  
+    .pb-8 {
+      padding-bottom: 2rem; /* 변경된 값 */
+    }
+  
+    .mb-8 {
+      margin-bottom: 2rem; /* 변경된 값 */
+    }
+  
+    .mb-10 {
+      margin-bottom: 2.5rem; /* 변경된 값 */
+    }
+  }
+  

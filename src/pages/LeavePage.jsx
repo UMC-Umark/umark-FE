@@ -1,22 +1,22 @@
-import React from 'react'
-import { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import Header from '../components/Header'
-import '../components/Header.css'
-import axios from 'axios'
+import React from "react";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Header from "../components/Header";
+import "../components/Header.css";
+import axios from "axios";
 
 export default function Findpassword() {
-  const [isValid, setIsValid] = useState(false)
-  const [validEmailMessage, setValidEmailMessage] = useState('')
-  const [verifyError, setVerifyError] = useState('')
-  const [password, setPassword] = useState('')
-  const [passwordConfirm, setPasswordConfirm] = useState('')
-  const [passwordError, setPasswordError] = useState('')
-  const [passwordConfirmError, setPasswordConfirmError] = useState('')
-  const [withdrawReason, setWithdrawReason] = useState('')
-  const [withdrawError, setWithdrawError] = useState('')
+  const [isValid, setIsValid] = useState(false);
+  const [validEmailMessage, setValidEmailMessage] = useState("");
+  const [verifyError, setVerifyError] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [passwordConfirmError, setPasswordConfirmError] = useState("");
+  const [withdrawReason, setWithdrawReason] = useState("");
+  const [withdrawError, setWithdrawError] = useState("");
 
-  const refreshAccessToken = async () => {
+    const refreshAccessToken = async () => {
     try {
       const refreshToken = localStorage.getItem('refreshToken')
       const response = await axios.post('/member/reissue', { refreshToken })
@@ -32,73 +32,73 @@ export default function Findpassword() {
     }
   }
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const validatePassword = (input) => {
     const passwordRegex =
-      /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/
-    const isValid = passwordRegex.test(input)
+      /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
+    const isValid = passwordRegex.test(input);
     if (!isValid) {
-      setPasswordError('영문, 숫자, 특수문자를 조합하여 8자 이상이어야 합니다.')
+      setPasswordError(
+        "영문, 숫자, 특수문자를 조합하여 8자 이상이어야 합니다."
+      );
     } else {
-      setPasswordError('')
+      setPasswordError("");
     }
     setIsValid(
-      isValid && passwordConfirmError === '' && passwordConfirm === input
-    )
-  }
+      isValid && passwordConfirmError === "" && passwordConfirm === input
+    );
+  };
   const validatePasswordConfirm = (input) => {
-    const isValid = input === password
+    const isValid = input === password;
     if (!isValid) {
-      setPasswordConfirmError('비밀번호가 일치하지 않습니다.')
+      setPasswordConfirmError("비밀번호가 일치하지 않습니다.");
     } else {
-      setPasswordConfirmError('')
+      setPasswordConfirmError("");
     }
-    setIsValid(isValid && passwordError === '' && password === input)
-  }
+    setIsValid(isValid && passwordError === "" && password === input);
+  };
 
   const handlePasswordChange = (e) => {
-    const newPassword = e.target.value
-    setPassword(newPassword)
-    validatePassword(newPassword)
-  }
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+    validatePassword(newPassword);
+  };
   const handlePasswordConfirmChange = (e) => {
-    setPasswordConfirm(e.target.value)
-  }
+    setPasswordConfirm(e.target.value);
+  };
   const handleWithdrawReasonChange = (e) => {
-    setWithdrawReason(e.target.value)
-  }
+    setWithdrawReason(e.target.value);
+  };
 
   // 회원 탈퇴
   const handleWithdraw = async () => {
     let accessToken = localStorage.getItem('accessToken')
-    const headers = {
+      const headers = {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${accessToken}`,
-    }
-
-    const memberId = localStorage.getItem('memberId') // 로그인한 회원의 ID
-    const requestBody = {
-      passwordConfirm: passwordConfirm,
-    }
+      }
+      
+      const memberId = localStorage.getItem("memberId"); // 로그인한 회원의 ID
+      const requestBody = {
+        passwordConfirm: passwordConfirm,
+      };
 
     try {
       // 유효성 검사 로직 추가
-      if (passwordConfirm === '') {
-        setPasswordConfirmError('비밀번호를 입력해주세요')
-        return
+      if (passwordConfirm === "") {
+        setPasswordConfirmError("비밀번호를 입력해주세요");
+        return;
       }
-
-      const response = await axios.patch(`/member/${memberId}`, requestBody, {
-        headers,
-      })
-      console.log(response)
+      
+      const response = await axios.patch(`/member/${memberId}`, requestBody, { headers });
+      console.log(response);
 
       if (response.data.isSuccess) {
-        localStorage.clear()
-        navigate('/login')
+        localStorage.clear();
+        navigate("/login");
       } else {
-        setWithdrawError('회원 탈퇴에 실패했습니다.')
+        setWithdrawError("회원 탈퇴에 실패했습니다.");
       }
     } catch (error) {
       if (error.response && error.response.status === 401) {
@@ -109,18 +109,14 @@ export default function Findpassword() {
           accessToken = newAccessToken // 새로운 accessToken으로 업데이트
           localStorage.setItem('accessToken', accessToken) // 로컬 스토리지 업데이트
           try {
-            const response = await axios.patch(
-              `/member/${memberId}`,
-              requestBody,
-              { headers }
-            )
-            console.log(response.data)
+            const response = await axios.patch(`/member/${memberId}`, requestBody, { headers });
+            console.log(response.data);
 
             if (response.data.isSuccess) {
-              localStorage.clear()
-              navigate('/login')
+              localStorage.clear();
+              navigate("/login");
             } else {
-              setWithdrawError('회원 탈퇴에 실패했습니다.')
+              setWithdrawError("회원 탈퇴에 실패했습니다.");
             }
           } catch (retryError) {
             console.error('Retry failed:', retryError) // 재시도 요청 실패 처리
@@ -181,5 +177,5 @@ export default function Findpassword() {
         </div>
       </div>
     </div>
-  )
+  );
 }

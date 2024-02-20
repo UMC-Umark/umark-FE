@@ -54,11 +54,13 @@ function Home() {
                   </button>
                 ) : (
                   <Link
-                    className="bg-transparent text-mint text-lg border-b border-mint p-2 cursor-pointer transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
-                    to="/Login"
-                  >
-                    로그인 하러가기
-                  </Link>
+
+  to="/Login"
+  className="inline-block bg-transparent text-green-500 text-lg border-b border-green-500 py-2 px-4 cursor-pointer transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
+>
+  로그인 하러가기
+</Link>
+
                 )}
               </div>
             </div>

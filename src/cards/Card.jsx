@@ -65,7 +65,9 @@ export default function Card({ id, title, createdAt, hashTagContent, content, ur
                             />
                         </div>
                     )}
-                    {isReported ? null : (
+                    {isReported ? <time className="text-gray-400">
+                                {formattedTime}
+                            </time> : (
                         <div className="flex flex-col">
                             <time className="text-gray-400">
                                 {formattedTime}
