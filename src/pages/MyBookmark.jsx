@@ -4,7 +4,8 @@ import '../pages/MyBookmark.css'
 import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import BookmarkList from './BookmarkList'
-import { useNavigate } from 'react-router-dom' // useNavigate 추가
+import { useNavigate } from 'react-router-dom'
+
 export default function MyBookmark() {
   const [bookmarks, setBookmarks] = useState([])
 
@@ -17,7 +18,7 @@ export default function MyBookmark() {
   const refreshAccessToken = async () => {
     try {
       const refreshToken = localStorage.getItem('refreshToken')
-      const response = await axios.post('/member/refresh', { refreshToken })
+      const response = await axios.post('/member/reissue', { refreshToken })
       const { accessToken, refreshToken: newRefreshToken } = response.data.data
       localStorage.setItem('accessToken', accessToken)
       localStorage.setItem('refreshToken', newRefreshToken)
@@ -39,6 +40,7 @@ export default function MyBookmark() {
         const response = await axios.get(`/bookmarks/mywrite?page=1`, {
           headers,
         })
+
         setBookmarks(response.data.data.myWrittenBookMarkPage.content)
       } catch (error) {
         if (error.response && error.response.status === 401) {
@@ -110,21 +112,6 @@ export default function MyBookmark() {
     fetchData()
   }, [])
   const navigate = useNavigate() // useNavigate 초기화
-  // 컴포넌트가 마운트될 때 API 호출
-  useEffect(() => {
-    axios
-      .get(`/bookmarks/mywrite?page=1`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
-      .then((response) => {
-        setBookmarks(response.data.data.myWrittenBookMarkPage.content)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }, [])
 
   // 수정 페이지로 이동하는 함수
   const handleEdit = (bookmarkId) => {
