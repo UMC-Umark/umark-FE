@@ -3,18 +3,18 @@ import Menubar from '../components/Menubar'
 import Header from '../components/Header'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+
 function Bookmark() {
   const [title, setTitle] = useState('')
   const [url, setURL] = useState('')
   const [content, setContent] = useState('')
   const [tags, setTags] = useState('')
-  const [tagError, setTagError] = useState('')
   const navigate = useNavigate()
   const refreshAccessToken = async () => {
     try {
       const refreshToken = localStorage.getItem('refreshToken')
       const response = await axios.post('/member/reissue', { refreshToken })
-      const { accessToken, refreshToken: newRefreshToken } = response.data
+      const { accessToken, refreshToken: newRefreshToken } = response.data.data
       localStorage.setItem('accessToken', accessToken)
       localStorage.setItem('refreshToken', newRefreshToken)
       return accessToken
@@ -29,17 +29,7 @@ function Bookmark() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     let accessToken = localStorage.getItem('accessToken') // 초기 accessToken
-    if (!tags.trim()) {
-      setTagError('꼭 1개 이상의 태그를 작성해주세요.') // 태그가 빈칸인 경우
-      return
-    }
-    const hasInvalidTag = tags.split(' ').some((tag) => !tag.startsWith('#'))
-    if (hasInvalidTag) {
-      setTagError('모든 해시태그는 "#"으로 시작해야 합니다.') // 유효하지 않은 해시태그가 있는 경우
-      return
-    } else {
-      setTagError('') // 에러 메시지 초기화
-    }
+
     const headers = {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${accessToken}`,
@@ -99,20 +89,19 @@ function Bookmark() {
     setURL('')
     setContent('')
     setTags('')
-    setTagError(false)
   }
 
   return (
     <div>
       <Header />
       <Menubar />
-      <div className="mt-60 sm:mx-40">
+      <div className="mt-60">
         {' '}
         {/* mt-20 -> mt-60 으로 수정 */}
         <div className="items-center justify-center flex-col h-4/6">
           <form
             onSubmit={handleSubmit}
-            className="w-96 bg-gray-100 shadow-md mx-auto border-black border-2 sm: w-"
+            className="w-96 bg-gray-100 shadow-lg mx-auto border-black border-2"
           >
             <div className="flex items-stretch">
               <label
@@ -182,13 +171,8 @@ function Bookmark() {
                 className="w-4/5 mt-1 p-2 bg-gray-100 focus:outline-none font-SUITE"
                 placeholder="#카테고리 #종류 #기타"
               />
-            </div>{' '}
+            </div>
           </form>
-          <div className="w-96 mx-auto">
-            {tagError && (
-              <p className="text-red-500 text-md mt-2 font-SUITE">{tagError}</p>
-            )}
-          </div>
           <div className="flex justify-center gap-4 mt-4">
             <button
               type="button"

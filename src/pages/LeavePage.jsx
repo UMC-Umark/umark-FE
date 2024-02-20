@@ -1,115 +1,133 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import Header from "../components/Header";
-import "../components/Header.css";
-import axios from "axios";
+// 수정 코드
+import React from 'react'
+import { useState, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import Header from '../components/Header'
+import '../components/Header.css'
+import axios from 'axios'
 
 export default function Findpassword() {
-  const [isValid, setIsValid] = useState(false);
-  const [validEmailMessage, setValidEmailMessage] = useState("");
-  const [verifyError, setVerifyError] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  const [passwordConfirmError, setPasswordConfirmError] = useState("");
-  const [withdrawReason, setWithdrawReason] = useState("");
-  const [withdrawError, setWithdrawError] = useState("");
+  const [isValid, setIsValid] = useState(false)
+  const [validEmailMessage, setValidEmailMessage] = useState('')
+  const [verifyError, setVerifyError] = useState('')
+  const [password, setPassword] = useState('')
+  const [passwordConfirm, setPasswordConfirm] = useState('')
+  const [passwordError, setPasswordError] = useState('')
+  const [passwordConfirmError, setPasswordConfirmError] = useState('')
+  const [withdrawReason, setWithdrawReason] = useState('')
+  const [withdrawError, setWithdrawError] = useState('')
 
-  const navigate = useNavigate();
+  const refreshAccessToken = async () => {
+    try {
+      const refreshToken = localStorage.getItem('refreshToken')
+      const response = await axios.post('/member/reissue', { refreshToken })
+      const { accessToken, refreshToken: newRefreshToken } = response.data
+      localStorage.setItem('accessToken', accessToken)
+      localStorage.setItem('refreshToken', newRefreshToken)
+      return accessToken
+    } catch (error) {
+      console.error('Refresh token error:', error)
+      // Refresh Token이 유효하지 않을 경우 로그인 페이지로 이동할 수 있습니다.
+      // navigate('/login');
+      return null
+    }
+  }
+
+  const navigate = useNavigate()
 
   const validatePassword = (input) => {
     const passwordRegex =
-      /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
-    const isValid = passwordRegex.test(input);
+      /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/
+    const isValid = passwordRegex.test(input)
     if (!isValid) {
-      setPasswordError(
-        "영문, 숫자, 특수문자를 조합하여 8자 이상이어야 합니다."
-      );
+      setPasswordError('영문, 숫자, 특수문자를 조합하여 8자 이상이어야 합니다.')
     } else {
-      setPasswordError("");
+      setPasswordError('')
     }
     setIsValid(
-      isValid && passwordConfirmError === "" && passwordConfirm === input
-    );
-  };
+      isValid && passwordConfirmError === '' && passwordConfirm === input
+    )
+  }
   const validatePasswordConfirm = (input) => {
-    const isValid = input === password;
+    const isValid = input === password
     if (!isValid) {
-      setPasswordConfirmError("비밀번호가 일치하지 않습니다.");
+      setPasswordConfirmError('비밀번호가 일치하지 않습니다.')
     } else {
-      setPasswordConfirmError("");
+      setPasswordConfirmError('')
     }
-    setIsValid(isValid && passwordError === "" && password === input);
-  };
+    setIsValid(isValid && passwordError === '' && password === input)
+  }
 
   const handlePasswordChange = (e) => {
-    const newPassword = e.target.value;
-    setPassword(newPassword);
-    validatePassword(newPassword);
-  };
+    const newPassword = e.target.value
+    setPassword(newPassword)
+    validatePassword(newPassword)
+  }
   const handlePasswordConfirmChange = (e) => {
-    setPasswordConfirm(e.target.value);
-  };
+    setPasswordConfirm(e.target.value)
+  }
   const handleWithdrawReasonChange = (e) => {
-    setWithdrawReason(e.target.value);
-  };
+    setWithdrawReason(e.target.value)
+  }
 
   // 회원 탈퇴
   const handleWithdraw = async () => {
+    let accessToken = localStorage.getItem('accessToken')
+    const memberId = localStorage.getItem('memberId') // 로그인한 회원의 ID
+    if (!memberId) {
+      console.error('Member ID is missing')
+      return
+    }
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    }
+
+    const requestBody = {
+      passwordConfirm: passwordConfirm,
+    }
+
     try {
-      // 유효성 검사 로직 추가
-      if (passwordConfirm === "") {
-        setPasswordConfirmError("비밀번호를 입력해주세요");
-        return;
-      }
-
-      const memberId = localStorage.getItem("memberId"); // 로그인한 회원의 ID
-
-      const requestBody = {
-        passwordConfirm,
-        withdrawReason,
-      };
       const response = await axios.patch(`/member/${memberId}`, requestBody, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+        headers,
+      })
+      console.log(response)
+
       if (response.data.isSuccess) {
-        localStorage.clear();
-        navigate("/");
+        navigate('/')
       } else {
-        setWithdrawError("회원 탈퇴에 실패했습니다.");
+        setWithdrawError('회원 탈퇴에 실패했습니다.')
       }
     } catch (error) {
-      console.error("탈퇴 중 오류:", error);
+      if (error.response && error.response.status === 401) {
+        const newAccessToken = await refreshAccessToken()
+        if (newAccessToken) {
+          try {
+            const newHeaders = {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${newAccessToken}`,
+            }
+            const retryResponse = await axios.patch(
+              `/member/${memberId}`,
+              requestBody,
+              { headers: newHeaders }
+            )
+            console.log(retryResponse)
+            navigate('/')
+          } catch (retryError) {
+            console.error('Retry failed:', retryError)
+            setWithdrawError('회원 탈퇴 재시도에 실패했습니다.')
+          }
+        } else {
+          setWithdrawError('인증 토큰 갱신 실패')
+        }
+      } else {
+        console.error('Request failed:', error)
+        setWithdrawError('회원 탈퇴에 실패했습니다.')
+      }
     }
-  };
-  const handleDeleteProfile = (e) => {
-    e.preventDefault();
-    const memberId = localStorage.getItem("memberId"); // 로그인한 회원의 ID
-    const requestBody = {
-      passwordConfirm,
-      withdrawReason,
-    };
-    if (window.confirm("확인을 누르면 회원 정보가 삭제됩니다.")) {
-      axios
-        .patch(`/member/${memberId}`, requestBody, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("accessToken"),
-            "Content-Type": "application/json",
-          },
-        })
-        .then(() => {
-          localStorage.clear();
-          alert("그동안 이용해주셔서 감사합니다.");
-          navigate("/");
-        })
-        .catch((err) => alert(err.response.data.message));
-    } else {
-      return;
-    }
-  };
+  }
+
   return (
     <div className="overflow-hidden flex flex-col h-screen bg-white text-black">
       <Header />
@@ -151,7 +169,7 @@ export default function Findpassword() {
           <div className="mb-10" />
           {withdrawError && <p className="text-red-500">{withdrawError}</p>}
           <button
-            onClick={handleDeleteProfile}
+            onClick={handleWithdraw}
             className="text-xl font-bold border-2 border-black text-black rounded-full w-full px-60 py-2"
           >
             탈퇴하기
@@ -159,5 +177,5 @@ export default function Findpassword() {
         </div>
       </div>
     </div>
-  );
+  )
 }
