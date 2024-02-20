@@ -9,7 +9,9 @@ function Bookmark() {
   const [url, setURL] = useState('')
   const [content, setContent] = useState('')
   const [tags, setTags] = useState('')
+  const [showTagError, setShowTagError] = useState(false)
   const navigate = useNavigate()
+
   const refreshAccessToken = async () => {
     try {
       const refreshToken = localStorage.getItem('refreshToken')
@@ -44,7 +46,7 @@ function Bookmark() {
           content,
           hashTags: tags.split(' ').map((tag) => ({ content: tag })),
         },
-        { headers }
+        headers
       )
 
       navigate('/mybookmark') // 성공 시 취소 로직 호출

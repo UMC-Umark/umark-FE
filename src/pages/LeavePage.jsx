@@ -1,4 +1,3 @@
-// 수정 코드
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
@@ -73,57 +72,62 @@ export default function Findpassword() {
   // 회원 탈퇴
   const handleWithdraw = async () => {
     let accessToken = localStorage.getItem('accessToken')
-    const memberId = localStorage.getItem('memberId') // 로그인한 회원의 ID
-    if (!memberId) {
-      console.error('Member ID is missing')
-      return
-    }
     const headers = {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${accessToken}`,
     }
 
+    const memberId = localStorage.getItem('memberId') // 로그인한 회원의 ID
     const requestBody = {
       passwordConfirm: passwordConfirm,
     }
 
     try {
+      // 유효성 검사 로직 추가
+      if (passwordConfirm === '') {
+        setPasswordConfirmError('비밀번호를 입력해주세요')
+        return
+      }
+
       const response = await axios.patch(`/member/${memberId}`, requestBody, {
         headers,
       })
       console.log(response)
 
       if (response.data.isSuccess) {
-        navigate('/')
+        localStorage.clear()
+        navigate('/login')
       } else {
         setWithdrawError('회원 탈퇴에 실패했습니다.')
       }
     } catch (error) {
       if (error.response && error.response.status === 401) {
-        const newAccessToken = await refreshAccessToken()
+        // Access Token이 만료된 경우
+        const newAccessToken = await refreshAccessToken() // 새로운 Access Token을 얻습니다.
         if (newAccessToken) {
+          // 새로운 Access Token으로 요청을 재시도합니다.
+          accessToken = newAccessToken // 새로운 accessToken으로 업데이트
+          localStorage.setItem('accessToken', accessToken) // 로컬 스토리지 업데이트
           try {
-            const newHeaders = {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${newAccessToken}`,
-            }
-            const retryResponse = await axios.patch(
+            const response = await axios.patch(
               `/member/${memberId}`,
               requestBody,
-              { headers: newHeaders }
+              { headers }
             )
-            console.log(retryResponse)
-            navigate('/')
+            console.log(response.data)
+
+            if (response.data.isSuccess) {
+              localStorage.clear()
+              navigate('/login')
+            } else {
+              setWithdrawError('회원 탈퇴에 실패했습니다.')
+            }
           } catch (retryError) {
-            console.error('Retry failed:', retryError)
-            setWithdrawError('회원 탈퇴 재시도에 실패했습니다.')
+            console.error('Retry failed:', retryError) // 재시도 요청 실패 처리
           }
-        } else {
-          setWithdrawError('인증 토큰 갱신 실패')
         }
       } else {
-        console.error('Request failed:', error)
-        setWithdrawError('회원 탈퇴에 실패했습니다.')
+        console.error('Request failed:', error) // 다른 종류의 오류 처리
       }
     }
   }

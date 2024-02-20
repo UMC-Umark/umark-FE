@@ -43,7 +43,7 @@
 .custom-radio::before {
   content: '';
   position: absolute;
-  top: 3px; 
+  top: 2px; 
   left: 2px; 
   width: 16px; 
   height: 16px; 
@@ -51,8 +51,17 @@
   background: #fff;
   transition: background 0.2s;
 }
-
-
+@media (min-width: 760px) {
+  .custom-radio::before  {
+    top: 2px; 
+    left: 2px; 
+    width: 18px; 
+    height: 18px; 
+  }
+}
+.submitbutton {
+  background-color: #FF6133;
+}
 .custom-radio:checked {
   border-color: #FF6133;
 }
@@ -64,4 +73,36 @@
 
 .custom-radio:focus {
   box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.textarea-container {
+  min-height: 160px; /* Adjust the height based on your textarea */
+  transition: visibility 0.3s, opacity 0.3s ease;
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+.submit-button-container {
+  position: fixed; /* Make the button fixed at the bottom */
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 20px; /* Adjust the padding as needed */
+  box-sizing: border-box;
+}
+
+.submit-button {
+  width: 21%;
+  padding-top: 10px;
+  background: #FF6133;
+}
+@media (max-width: 640px) {
+  .submit-button {
+    width: 80%; /* Adjust the width based on the padding of the container */
+  }
 }
