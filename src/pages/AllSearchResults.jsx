@@ -57,6 +57,7 @@ const AllSearchResults = () => {
                 { headers }
             );
             const responseData = response.data.data;
+            console.log(responseData);
             const dataWithIsReported = responseData.content.map((item) => ({
                 ...item,
                 isReported: item.isReported,
