@@ -9,15 +9,18 @@ function Home() {
     document.getElementById('intro').scrollIntoView({ behavior: 'smooth' })
   }
   const isLoggedIn = !!localStorage.getItem('accessToken')
+
   const handleLogout = () => {
-    // 로컬 스토리지에서 토큰 삭제
-    localStorage.removeItem('accessToken')
-    localStorage.removeItem('refreshToken')
-    localStorage.removeItem('memberId')
-    //알림
-    alert('로그아웃 하시겠습니까?')
-    // 사용자를 홈으로 리디렉트
-    window.location.href = '/'
+    // 로컬 스토리지에서
+    const isConfirmed = window.confirm('로그아웃 하시겠습니까?')
+    if (isConfirmed) {
+      localStorage.removeItem('accessToken')
+      localStorage.removeItem('refreshToken')
+      localStorage.removeItem('memberId')
+
+      // 사용자를 홈으로 리디렉트
+      window.location.href = '/'
+    }
   }
   return (
     <div>

@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 import Menubar from '../components/Menubar'
 import Header from '../components/Header'
 import axios from 'axios'
-
+import { useNavigate } from 'react-router-dom'
 function Bookmark() {
   const [title, setTitle] = useState('')
   const [url, setURL] = useState('')
   const [content, setContent] = useState('')
   const [tags, setTags] = useState('')
   const [showTagError, setShowTagError] = useState(false)
+  const navigate = useNavigate()
   const refreshAccessToken = async () => {
     try {
       const refreshToken = localStorage.getItem('refreshToken')
@@ -52,7 +53,7 @@ function Bookmark() {
         { headers }
       )
 
-      handleCancel() // 성공 시 취소 로직 호출
+      navigate('/mybookmark') // 성공 시 취소 로직 호출
     } catch (error) {
       if (error.response && error.response.status === 401) {
         // Access Token이 만료된 경우
@@ -78,7 +79,7 @@ function Bookmark() {
               }
             )
 
-            handleCancel() // 성공 시 취소 로직 호출
+            navigate('/mybookmark') // 성공 시 취소 로직 호출
           } catch (retryError) {
             console.error('Retry failed:', retryError) // 재시도 요청 실패 처리
           }

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import Menubar from '../components/Menubar'
 import Header from '../components/Header'
-
+import { useNavigate } from 'react-router-dom'
 function ModifyBookmark() {
   const { bookmarkId } = useParams()
   const [title, setTitle] = useState('')
@@ -11,8 +11,7 @@ function ModifyBookmark() {
   const [content, setContent] = useState('')
   const [tags, setTags] = useState('')
   const [showTagError, setShowTagError] = useState(false)
-
-  const memberId = localStorage.getItem('memberId')
+  const navigate = useNavigate()
 
   useEffect(() => {
     axios
@@ -64,13 +63,7 @@ function ModifyBookmark() {
       },
     }
 
-    const hashTags = tags
-      .split(' ')
-      .filter((tag) => tag.trim() !== '')
-      .map((tag) => {
-        return { content: tag.replace(/^#/, '') } // 해시(#) 기호 제거
-      })
-
+    const hashTags = tags.split(' ').map((tag) => ({ content: tag }))
     try {
       const response = await axios.put(
         `/bookmarks/${bookmarkId}`,
@@ -84,7 +77,7 @@ function ModifyBookmark() {
       )
 
       console.log(response.data)
-      handleCancel()
+      navigate('/mybookmark')
       // 성공적으로 요청을 처리한 후의 로직
     } catch (error) {
       if (error.response && error.response.status === 401) {
@@ -110,7 +103,7 @@ function ModifyBookmark() {
               newConfig
             )
             console.log(retryResponse.data)
-            handleCancel()
+            navigate('/mybookmark')
             // 재시도 요청에 성공한 후의 로직
           } catch (retryError) {
             console.error('Retry failed:', retryError)
@@ -156,7 +149,7 @@ function ModifyBookmark() {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 className="w-4/5 p-2 bg-gray-100 focus:outline-none font-SUITE"
-                maxLength="20"
+                maxLength={20}
                 placeholder="20자까지 작성할 수 있어"
               />
             </div>
@@ -166,7 +159,7 @@ function ModifyBookmark() {
                 htmlFor="url"
                 className="ml-4 flex items-center text-black font-bold w-1/5 pr-4 border-r border-black font-SUITE"
               >
-                부제
+                URL
               </label>
               <input
                 type="text"
@@ -175,7 +168,7 @@ function ModifyBookmark() {
                 onChange={(e) => setURL(e.target.value)}
                 className="w-4/5 mt-1 p-2 bg-gray-100 focus:outline-none font-SUITE"
                 maxLength="20"
-                placeholder="20자까지 작성할 수 있어"
+                placeholder="참고 URL을 작성해줘"
               />
             </div>
             <hr className="border-b border-black" />
@@ -191,7 +184,7 @@ function ModifyBookmark() {
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
                 className="w-4/5 h-80 mt-1 p-2 bg-gray-100 focus:outline-none font-SUITE"
-                maxLength="250"
+                maxLength={250}
                 placeholder="250자까지 작성할 수 있어"
               />
             </div>
