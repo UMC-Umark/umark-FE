@@ -78,6 +78,8 @@ export default function Signup() {
       };
 
       const response = await axios.post("/member/signup", requestBody);
+      localStorage.setItem("univName", univName); // 학교명 저장
+      localStorage.setItem("email", email); // 이메일 저장
       console.log(response.data);
       navigate("/Login");
       //navigate("/Login", { state: { email: email } });

@@ -16,6 +16,10 @@ export default function Login() {
   // 로그인
   const handleLogin = async () => {
     try {
+      if (!email || !password) {
+        setErrorMessage("이메일 또는 비밀번호를 입력해 주세요");
+        return;
+      }
       const requestBody = {
         email: email,
         password: password,
@@ -32,6 +36,7 @@ export default function Login() {
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
         localStorage.setItem("memberId", memberId.toString());
+
         setLoginCheck(true);
         navigate("/allbookmarks");
       }
@@ -128,7 +133,7 @@ export default function Login() {
           <button
             type="button"
             onClick={handleLogin}
-            className="custom-loginbutton1 bg-green-400 text-black px-80 py-3 rounded-full font-bold"
+            className="custom-loginbutton1 text-black px-80 py-3 rounded-full font-bold"
           >
             로그인
           </button>
