@@ -212,10 +212,6 @@ export default function MyBookmark() {
           </button>
         </div>
       </div>
-      <h2 className="text-3xl font-bold mb-4 pt-4 font-SUITE xl:mx-20 sm:mx-12">
-        your bookmark
-      </h2>
-      <hr className="border-b-4 border-black mb-8 xl:mx-20 sm:mx-12" />
       <div className="pt-4 item-center text-2xl font-bold flex-wrap xl:mx-20 sm:mx-12">
         <BookmarkList
           bookmarks={bookmarks}
