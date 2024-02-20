@@ -30,6 +30,9 @@ export default function Findpassword() {
 
       const response = await axios.post("/member/sendemail", requestBody);
       console.log(response.data);
+      // 이메일을 로컬 스토리지에 저장
+localStorage.setItem("email", email);
+
     } catch (error) {
       console.error("메일 인증 전송 중 오류:", error);
     }
