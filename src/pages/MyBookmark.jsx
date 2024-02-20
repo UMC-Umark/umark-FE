@@ -182,32 +182,32 @@ export default function MyBookmark() {
     <div className="flex flex-col">
       <Header />
       <Menubar />
-      <div className="xl:mx-20 mt-60 sm:mx-8">
+      <div className="xl:mx-20 mt-52 ml-8 sm:mx-8">
         {/* my-10 -> my-60 으로 수정 */}{' '}
         <h1 className="custom-title text-3xl font-bold mb-12 font-SUITE xl:text-left sm:text-center sm:mx-12 xl:mx-0">
           내가 쓴 북마크들
         </h1>
-        <div className="flex items-center mb-12 md:px-0 md:mx-0">
+        <div className="flex items-center mb-8 md:px-0 md:mx-0">
           <button
             onClick={() => setCurrentTab('written')}
-            className="w-32 h-32 bg-mint rounded-full flex items-center justify-center text-black mr-4 hover:underline focus:outline-none"
+            className="w-40 h-40 bg-mint rounded-full flex items-center justify-center text-black mr-4 hover:underline focus:outline-none"
           >
             <div className="text-center">
-              <p className="text-black text-lg font-bold no-underline p-0">
+              <p className="text-black text-xl font-bold no-underline p-0">
                 내가 쓴 북마크
               </p>
-              <p className="text-4xl font-bold font-SUITE">{writtenCount}</p>
+              <p className="text-5xl pt-1 font-bold font-SUITE">{writtenCount}</p>
             </div>
           </button>
           <button
             onClick={() => setCurrentTab('liked')}
-            className="w-32 h-32 bg-orange rounded-full flex items-center justify-center ml-2 text-black font-SUITE hover:underline focus:outline-none"
+            className="w-40 h-40 bg-orange rounded-full flex items-center justify-center ml-2 text-black font-SUITE hover:underline focus:outline-none"
           >
             <div className="text-center">
-              <p className="text-black text-lg font-bold no-underline p-0">
+              <p className="text-black text-xl font-bold no-underline p-0">
                 추천한 북마크
               </p>
-              <p className="text-4xl font-bold">{likedCount}</p>
+              <p className="text-5xl pt-1 font-bold">{likedCount}</p>
             </div>
           </button>
         </div>

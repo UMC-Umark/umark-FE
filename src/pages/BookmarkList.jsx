@@ -59,11 +59,11 @@ function BookmarkList({ bookmarks, onEdit, onDelete, isMyLikedBookmark }) {
     <div className="flex flex-col">
       {' '}
       {!isMyLikedBookmark ? (
-        <h2 className="text-3xl ml-6 font-bold mb-4 pt-4 font-SUITE xl:mx-20 sm:mx-12">
+        <h2 className="text-3xl ml-6 font-bold mb-4  font-SUITE xl:mx-20 sm:mx-12">
           your bookmark
         </h2>
       ) : (
-        <h2 className="text-3xl font-bold mb-4 pt-4 font-SUITE xl:mx-20 sm:mx-12">
+        <h2 className="text-3xl font-bold mb-4 font-SUITE xl:mx-20 sm:mx-12">
           our bookmark
         </h2>
       )}
@@ -122,7 +122,7 @@ function BookmarkList({ bookmarks, onEdit, onDelete, isMyLikedBookmark }) {
                       <div className="flex items-center justify-center">
                         <button
                           onClick={() => onEdit(bookmark.id)}
-                          className="w-full text-2xl font-bold text-center px-8 mb-4 font-SUITE"
+                          className="w-full text-2xl font-bold text-center px-8 mb-3 mt-1 font-SUITE"
                         >
                           수정하기
                         </button>

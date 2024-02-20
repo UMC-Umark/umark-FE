@@ -55,8 +55,8 @@ function Home() {
                 
                 ) : (
                   <Link
-  className="bg-transparent text-green-500 text-lg border-b border-green-500 p-2 cursor-pointer transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
   to="/Login"
+  className="inline-block bg-transparent text-green-500 text-lg border-b border-green-500 py-2 px-4 cursor-pointer transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
 >
   로그인 하러가기
 </Link>
