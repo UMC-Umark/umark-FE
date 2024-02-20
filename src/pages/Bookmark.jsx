@@ -26,67 +26,58 @@ function Bookmark() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    // ... (axios 요청 로직)
-    const hashTags = tags.split(' ').map((tag) => ({ content: tag }))
-    const accessToken = localStorage.getItem('accessToken')
+    let accessToken = localStorage.getItem('accessToken') // 초기 accessToken
+
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    }
+
     try {
-      const response = await axios.post(
+      await axios.post(
         '/bookmarks/add',
         {
-          title: title,
-          url: url,
-          content: content,
-          hashTags: hashTags,
+          title,
+          url,
+          content,
+          hashTags: tags.split(' ').map((tag) => ({ content: tag })),
         },
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
+        { headers }
       )
-      console.log(response.data)
-      if (response.data.isSuccess) {
-        console.log(response.data)
-        handleCancel() // 성공 시 취소 로직 호출
-      } else {
-        console.error(
-          `${response.data.code} : ${response.data.message} - ${JSON.stringify(
-            response.data.data
-          )}`
-        )
-      }
+
+      handleCancel() // 성공 시 취소 로직 호출
     } catch (error) {
       if (error.response && error.response.status === 401) {
-        // 만약 Access Token이 만료되었다면
-        accessToken = refreshAccessToken() // 새로운 Access Token을 얻습니다.
-        if (accessToken) {
+        // Access Token이 만료된 경우
+        const newAccessToken = await refreshAccessToken() // 새로운 Access Token을 얻습니다.
+        if (newAccessToken) {
           // 새로운 Access Token으로 요청을 재시도합니다.
+          accessToken = newAccessToken // 새로운 accessToken으로 업데이트
+          localStorage.setItem('accessToken', accessToken) // 로컬 스토리지 업데이트
           try {
-            const retryResponse = await axios.post(
+            await axios.post(
               '/bookmarks/add',
               {
-                title: title,
-                url: url,
-                content: content,
-                hashTags: hashTags,
-                // 요청 본문
+                title,
+                url,
+                content,
+                hashTags: tags.split(' ').map((tag) => ({ content: tag })),
               },
               {
                 headers: {
+                  'Content-Type': 'application/json',
                   Authorization: `Bearer ${accessToken}`,
                 },
               }
             )
-            console.log(retryResponse.data)
+
             handleCancel() // 성공 시 취소 로직 호출
           } catch (retryError) {
-            // 재시도 요청 실패 처리
-            console.error('Retry failed:', retryError)
+            console.error('Retry failed:', retryError) // 재시도 요청 실패 처리
           }
         }
       } else {
-        // 다른 종류의 오류 처리
-        console.error('Request failed:', error)
+        console.error('Request failed:', error) // 다른 종류의 오류 처리
       }
     }
   }
@@ -113,7 +104,7 @@ function Bookmark() {
             <div className="flex items-stretch">
               <label
                 htmlFor="title"
-                className="ml-4 flex items-center text-black font-bold w-1/5 pr-4 border-r border-black"
+                className="ml-4 flex items-center text-black font-bold w-1/5 pr-4 border-r border-black font-SUITE"
               >
                 제목
               </label>
@@ -123,8 +114,8 @@ function Bookmark() {
                 name="title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="w-4/5 p-2 bg-gray-100 focus:outline-none"
-                maxLength="20"
+                className="w-4/5 p-2 bg-gray-100 focus:outline-none font-SUITE"
+                maxLength={20}
                 placeholder="20자까지 작성할 수 있어"
               />
             </div>
@@ -132,7 +123,7 @@ function Bookmark() {
             <div className="flex items-stretch">
               <label
                 htmlFor="url"
-                className="ml-4 flex items-center text-black font-bold w-1/5 pr-4 border-r border-black"
+                className="ml-4 flex items-center text-black font-bold w-1/5 pr-4 border-r border-black font-SUITE"
               >
                 URL
               </label>
@@ -141,16 +132,15 @@ function Bookmark() {
                 id="url"
                 value={url}
                 onChange={(e) => setURL(e.target.value)}
-                className="w-4/5 mt-1 p-2 bg-gray-100 focus:outline-none"
-                maxLength="20"
-                placeholder="20자까지 작성할 수 있어"
+                className="w-4/5 mt-1 p-2 bg-gray-100 focus:outline-none font-SUITE"
+                placeholder="참고 URL을 작성해줘"
               />
             </div>
             <hr className="border-b border-black" />
             <div className="flex items-stretch">
               <label
                 htmlFor="content"
-                className="ml-4 flex items-center text-black font-bold w-1/5 pr-4 border-r border-black"
+                className="ml-4 flex items-center text-black font-bold w-1/5 pr-4 border-r border-black font-SUITE"
               >
                 내용
               </label>
@@ -158,8 +148,8 @@ function Bookmark() {
                 id="content"
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
-                className="w-4/5 h-80 mt-1 p-2 bg-gray-100 focus:outline-none"
-                maxLength="250"
+                className="w-4/5 h-80 mt-1 p-2 bg-gray-100 focus:outline-none font-SUITE"
+                maxLength={250}
                 placeholder="250자까지 작성할 수 있어"
               />
             </div>
@@ -167,7 +157,7 @@ function Bookmark() {
             <div className="flex items-stretch">
               <label
                 htmlFor="tags"
-                className="ml-4 flex items-center text-black font-bold w-1/5 pr-4 border-r border-black"
+                className="ml-4 flex items-center text-black font-bold w-1/5 pr-4 border-r border-black font-SUITE"
               >
                 태그
               </label>
@@ -176,7 +166,7 @@ function Bookmark() {
                 id="tags"
                 value={tags}
                 onChange={(e) => setTags(e.target.value)}
-                className="w-4/5 mt-1 p-2 bg-gray-100 focus:outline-none"
+                className="w-4/5 mt-1 p-2 bg-gray-100 focus:outline-none font-SUITE"
                 placeholder="#카테고리 #종류 #기타"
               />
             </div>
@@ -185,14 +175,14 @@ function Bookmark() {
             <button
               type="button"
               onClick={handleCancel}
-              className="py-2 px-4 h-12 w-36 font-bold rounded-full border border-black bg-white text-black hover:bg-gray-300 focus:outline-none w-auto"
+              className="py-2 px-4 h-12 w-36 font-bold rounded-full border border-black bg-white text-black hover:bg-gray-300 focus:outline-none w-auto font-SUITE"
             >
               작성 취소
             </button>
             <button
               type="submit"
               onClick={handleSubmit}
-              className="py-2 px-4 h-12 w-36 font-bold rounded-full border border-black bg-orange-500 text-white hover:bg-orange-600 focus:outline-none w-auto"
+              className="py-2 px-4 h-12 w-36 font-bold rounded-full border border-black bg-orange-500 text-white hover:bg-orange-600 focus:outline-none w-auto font-SUITE"
             >
               북마크 업로드
             </button>
