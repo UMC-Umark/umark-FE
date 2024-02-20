@@ -1,24 +1,25 @@
-import React from "react";
-import { useState } from "react";
-import logo from "../img/logo.webp";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import arrow from "../img/arrow.png";
-import "../css/Password.css";
-import axios from "axios";
+// FindPassword.jsx
+import React from 'react'
+import { useState } from 'react'
+import logo from '../img/logo.webp'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
+import arrow from '../img/arrow.png'
+import '../css/Password.css'
+import axios from 'axios'
 
 export default function Findpassword() {
-  const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [univName, setUnivName] = useState("");
-  const [isValid, setIsValid] = useState(false);
-  const [validEmailMessage, setValidEmailMessage] = useState("");
-  const [verifyError, setVerifyError] = useState("");
-  const [nameError, setNameError] = useState("");
-  const [VerifyErrorMessage, setVerifyErrorMessage] = useState("");
-  const [isVerificationCompleted, setIsVerificationCompleted] = useState(false);
+  const [email, setEmail] = useState('')
+  const [emailError, setEmailError] = useState('')
+  const [univName, setUnivName] = useState('')
+  const [isValid, setIsValid] = useState(false)
+  const [validEmailMessage, setValidEmailMessage] = useState('')
+  const [verifyError, setVerifyError] = useState('')
+  const [nameError, setNameError] = useState('')
+  const [VerifyErrorMessage, setVerifyErrorMessage] = useState('')
+  const [isVerificationCompleted, setIsVerificationCompleted] = useState(false)
 
-  const [inputValue, setInputValue] = useState("");
-  const location = useLocation();
+  const [inputValue, setInputValue] = useState('')
+  const location = useLocation()
 
   // 인증 메일 전송
   const handleSendVerification = async () => {
@@ -26,14 +27,14 @@ export default function Findpassword() {
       const requestBody = {
         email: email,
         univName: univName,
-      };
+      }
 
-      const response = await axios.post("/member/sendemail", requestBody);
-      console.log(response.data);
+      const response = await axios.post('/member/sendemail', requestBody)
+      console.log(response.data)
     } catch (error) {
-      console.error("메일 인증 전송 중 오류:", error);
+      console.error('메일 인증 전송 중 오류:', error)
     }
-  };
+  }
 
   // 인증 코드 체크
   const handleVerifyCode = async () => {
@@ -42,56 +43,56 @@ export default function Findpassword() {
         univName: univName,
         email: email,
         code: inputValue,
-      };
-      const response = await axios.post("/member/checkemail", requestBody, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (response.data.isSuccess) {
-        setVerifyErrorMessage("인증이 완료되었습니다");
-      } else {
-        setVerifyErrorMessage("인증번호가 일치하지 않습니다");
       }
-      console.log(response.data);
-      setIsVerificationCompleted(true);
+      const response = await axios.post('/member/checkemail', requestBody, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      if (response.data.isSuccess) {
+        setVerifyErrorMessage('인증이 완료되었습니다')
+      } else {
+        setVerifyErrorMessage('인증번호가 일치하지 않습니다')
+      }
+      console.log(response.data)
+      setIsVerificationCompleted(true)
     } catch (error) {
       if (error.response && error.response.status === 400) {
-        setVerifyErrorMessage("인증번호가 일치하지 않습니다");
+        setVerifyErrorMessage('인증번호가 일치하지 않습니다')
       } else if (error.response && error.response.status === 200) {
-        setVerifyErrorMessage("인증이 완료되었습니다");
+        setVerifyErrorMessage('인증이 완료되었습니다')
       }
-      console.error("인증 코드 확인 중 오류:", error);
+      console.error('인증 코드 확인 중 오류:', error)
     }
-  };
+  }
 
-  const isVerificationButtonEnabled = !isVerificationCompleted;
+  const isVerificationButtonEnabled = !isVerificationCompleted
 
   const handleInputUniv = (e) => {
-    const newUniv = e.target.value;
-    setUnivName(newUniv);
-  };
+    const newUniv = e.target.value
+    setUnivName(newUniv)
+  }
 
   const handleEmailChange = (e) => {
-    const newEmail = e.target.value;
-    setEmail(newEmail);
-    validateEmail(newEmail);
-  };
+    const newEmail = e.target.value
+    setEmail(newEmail)
+    validateEmail(newEmail)
+  }
   const handleInputChange = (e) => {
-    const newValue = e.target.value.replace(/[^0-9]/g, ""); // 숫자 이외의 문자 제거
-    setInputValue(newValue);
-  };
+    const newValue = e.target.value.replace(/[^0-9]/g, '') // 숫자 이외의 문자 제거
+    setInputValue(newValue)
+  }
 
   const validateEmail = (input) => {
-    const emailRegex = /^[a-zA-Z0-9._-]+@[^@]+\.ac\.kr$/;
-    const isValid = emailRegex.test(input);
+    const emailRegex = /^[a-zA-Z0-9._-]+@[^@]+\.ac\.kr$/
+    const isValid = emailRegex.test(input)
     if (!isValid) {
-      setEmailError("올바른 이메일 형식이 아닙니다.");
+      setEmailError('올바른 이메일 형식이 아닙니다.')
     } else {
-      setEmailError("");
+      setEmailError('')
     }
-    setIsValid(isValid);
-  };
+    setIsValid(isValid)
+  }
 
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-black text-white">
@@ -106,8 +107,8 @@ export default function Findpassword() {
       </div>
       <hr />
       <div className="mb-12" />
-      <div className="custom-findform1 border border-1 border-white rounded-3xl w-2/3 m-auto">
-        <div className="flex items-center justify-center pt-8 pb-2">
+      <div className="custom-findform1 border border-1 border-white rounded-3xl w-2/3 h-3.5/4 m-auto">
+        <div className="custom-top flex items-center justify-center pt-8 pb-2">
           <div className="mb-40" />
           <img src={logo} width="100px" height="100px" alt="umark" />
         </div>
@@ -149,28 +150,28 @@ export default function Findpassword() {
             type="text"
             value={inputValue}
             onChange={handleInputChange}
-            className="custom-input2 bg-black text-white w-1/5 mr-4 px-26 py-3 rounded-full text-center focus:outline-none border border-1 border-white placeholder-gray-300"
+            className="custom-input2 bg-black text-white w-1/5 mr-4 px-20 py-3 rounded-full text-center focus:outline-none border border-1 border-white placeholder-gray-300"
           />
           <button
             onClick={handleVerifyCode}
             className={`custom-endbutton1 bg-black text-white w-1/7 px-10 py-3 rounded-full focus:outline-none border border-1 border-white ${
-              isVerificationButtonEnabled ? "" : "cursor-not-allowed"
+              isVerificationButtonEnabled ? '' : 'cursor-not-allowed'
             }`}
           >
             완료
           </button>
           <div
-  className={`verifybutton ml-0 mr-80 mt-2 ${
-    VerifyErrorMessage &&
-    VerifyErrorMessage.includes("인증이 완료되었습니다")
-      ? "text-green-600"
-      : "text-red-600"
-  } `}
->
-  {VerifyErrorMessage}
-</div>
-          <div className="mb-12" />
-          <Link to={{ pathname: "/ResetPassword", state: { email: email } }}>
+            className={`verifybutton ml-0 mr-0 mt-2 mb-2 ${
+              VerifyErrorMessage &&
+              VerifyErrorMessage.includes('인증이 완료되었습니다')
+                ? 'text-green-600'
+                : 'text-red-600'
+            } `}
+          >
+            {VerifyErrorMessage}
+          </div>
+          <div className="custom-bottom mb-12" />
+          <Link to={{ pathname: '/ResetPassword', state: { email: email } }}>
             <button
               type="button"
               disabled={!isValid}
@@ -184,5 +185,5 @@ export default function Findpassword() {
       </div>
       <br />
     </div>
-  );
+  )
 }

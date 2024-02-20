@@ -1,11 +1,11 @@
-import React from "react";
-import "../css/Modal.css";
+import React from 'react'
+import '../css/Modal.css'
 
 export default function DetailModal2({ closeDetailModal2 }) {
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-80">
-      <div className="modal-container max-w-5xl w-full h-3/4 overflow-y-auto">
-        <div className="mt-10" />
+      <div className="modal-container max-w-5xl w-full h-full overflow-y-auto">
+        <div className="mt-60" />
         <h1 className="custom-agree text-center flex">개인정보처리방침</h1>
         <div className="flex justify-center">
           <button
@@ -105,5 +105,5 @@ export default function DetailModal2({ closeDetailModal2 }) {
         </div>
       </div>
     </div>
-  );
+  )
 }
