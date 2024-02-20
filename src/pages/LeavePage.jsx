@@ -55,15 +55,6 @@ export default function Findpassword() {
     setWithdrawReason(e.target.value);
   };
 
-  useEffect(() => {
-    // 이펙트를 사용하여 페이지가 로드될 때 로컬 스토리지에서 회원 ID를 가져옴
-    const memberId = localStorage.getItem("memberId");
-    if (!memberId) {
-      // 회원 ID가 없으면 로그인 페이지로 리다이렉트
-      navigate("/login");
-    }
-  }, [navigate]);
-
   // 회원 탈퇴
   const handleWithdraw = async () => {
     try {
@@ -136,13 +127,13 @@ export default function Findpassword() {
             <p className="text-red-500">{passwordConfirmError}</p>
           )}
           <div className="mb-10" />
+          {withdrawError && <p className="text-red-500">{withdrawError}</p>}
           <button
             onClick={handleWithdraw}
             className="text-xl font-bold border-2 border-black text-black rounded-full w-full px-60 py-2"
           >
             탈퇴하기
           </button>
-          {withdrawError && <p className="text-red-500">{withdrawError}</p>}
         </div>
       </div>
     </div>

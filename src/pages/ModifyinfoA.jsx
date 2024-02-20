@@ -21,14 +21,21 @@ export default function ModifyinfoA() {
   const navigate = useNavigate();
   const handleModifyInfo = async () => {
     try {
-      const memberId = 1; // 실제 사용자 ID로 교체
+      const univName = localStorage.getItem("univName");
+      const email = localStorage.getItem("email");
+      const memberId = localStorage.getItem("memberId"); // 로그인한 회원의 ID
       const requestBody = {
         newPassword: password,
       };
 
       const response = await axios.patch(
         `/member/changepassword/${memberId}`,
-        requestBody
+        requestBody,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
 
       console.log("response.data");
