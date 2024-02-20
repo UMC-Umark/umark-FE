@@ -30,9 +30,15 @@ function Intro() {
             <p className="text-base mb-5">여러분의 기록보관함이 되어줄 거에요.</p>
             <p className="text-base mb-4"></p>
             <div className="w-full flex justify-center"> 
-            <p className="text-2xl mb-4 mt-6 underline cursor-pointer" onClick={handleStartClick}>
-              지금 시작하기
-            </p>
+            <p
+  className="text-2xl mb-4 mt-6 underline cursor-pointer transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
+  onClick={handleStartClick}
+  style={{ transitionProperty: 'transform', transitionDuration: '500ms' }}
+>
+  지금 시작하기
+</p>
+
+
           </div>
         </div>
       </div>

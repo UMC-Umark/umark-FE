@@ -30,9 +30,6 @@ export default function Findpassword() {
 
       const response = await axios.post("/member/sendemail", requestBody);
       console.log(response.data);
-      // 이메일을 로컬 스토리지에 저장
-localStorage.setItem("email", email);
-
     } catch (error) {
       console.error("메일 인증 전송 중 오류:", error);
     }
@@ -117,27 +114,27 @@ localStorage.setItem("email", email);
         <p className="custom-findinfo text-center">이메일을 인증해 주세요</p>
         <div className="mb-5" />
         <div className="custom-findform2 text-center inline-block relative">
-          <span className="custom-findlabel1 absolute ml-4 left-50 top-70 text-white mt-3">
+          <span className="custom-findlabel1 absolute ml-6 left-50 top-70 text-white mt-3">
             학교명
           </span>
           <input
             name="univName"
             value={univName}
             onChange={handleInputUniv}
-            placeholder="정확한 학교명을 적어주세요"
-            className="custom-findinput1 bg-black text-white px-60 py-3 rounded-full text-left focus:outline-none border border-1 border-white placeholder-white"
+            placeholder="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;정확한 학교명을 적어주세요"
+            className="custom-findinput1 bg-black text-white px-60 py-3 rounded-full text-center focus:outline-none border border-1 border-white placeholder-white"
           />
           <br />
           <br />
-          <span className="custom-findlabel1 absolute ml-4 left-50 top-70 text-white mt-3">
+          <span className="custom-findlabel1 absolute ml-6 left-50 top-70 text-white mt-3">
             이메일
           </span>
           <input
             name="email"
-            placeholder="@university.ac.kr"
+            placeholder="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@university.ac.kr"
             value={email}
             onChange={handleEmailChange}
-            className="custom-findinput1 bg-black text-white px-60 py-3 rounded-full text-left focus:outline-none border border-1 border-white placeholder-white"
+            className="custom-findinput1 bg-black text-white px-60 py-3 rounded-full text-center focus:outline-none border border-1 border-white placeholder-white"
           />
           <br />
           <br />
@@ -152,7 +149,7 @@ localStorage.setItem("email", email);
             type="text"
             value={inputValue}
             onChange={handleInputChange}
-            className="custom-input2 bg-black text-white w-1/5 mr-4 px-20 py-3 rounded-full text-left focus:outline-none border border-1 border-white placeholder-gray-300"
+            className="custom-input2 bg-black text-white w-1/5 mr-4 px-26 py-3 rounded-full text-center focus:outline-none border border-1 border-white placeholder-gray-300"
           />
           <button
             onClick={handleVerifyCode}
@@ -163,15 +160,15 @@ localStorage.setItem("email", email);
             완료
           </button>
           <div
-            className={`verifybutton ${
-              VerifyErrorMessage &&
-              VerifyErrorMessage.includes("인증이 완료되었습니다")
-                ? "text-green-600"
-                : "text-red-600"
-            } `}
-          >
-            {VerifyErrorMessage}
-          </div>
+  className={`verifybutton ml-0 mr-80 mt-2 ${
+    VerifyErrorMessage &&
+    VerifyErrorMessage.includes("인증이 완료되었습니다")
+      ? "text-green-600"
+      : "text-red-600"
+  } `}
+>
+  {VerifyErrorMessage}
+</div>
           <div className="mb-12" />
           <Link to={{ pathname: "/ResetPassword", state: { email: email } }}>
             <button
@@ -182,7 +179,7 @@ localStorage.setItem("email", email);
               다음
             </button>
           </Link>
-          <div className="mb-7" />
+          <div className="bottomsizebox mb-28" />
         </div>
       </div>
       <br />
