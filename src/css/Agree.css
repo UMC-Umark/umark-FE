@@ -32,18 +32,16 @@
     .custom-agreeform {
       width: 90%; 
       margin: 1rem auto; 
-      padding: 1rem; 
+
       border-radius: 20px; 
     }
   
     .custom-check {
       display: block;
-      margin-bottom: 1rem;
     }
   
     .custom-text {
       font-size: 1rem; 
-      margin-left: 2rem; 
     }
   
     .custom-nextbutton1 {
@@ -54,7 +52,7 @@
     }
   
     .custom-ho {
-      width: 100%;
+      width: 95%;
     }
   
     

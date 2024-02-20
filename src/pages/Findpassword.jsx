@@ -121,6 +121,7 @@ export default function Findpassword() {
             name="univName"
             value={univName}
             onChange={handleInputUniv}
+            placeholder="정확한 학교명을 적어주세요"
             className="custom-findinput1 bg-black text-white px-60 py-3 rounded-full text-left focus:outline-none border border-1 border-white placeholder-white"
           />
           <br />
@@ -153,18 +154,18 @@ export default function Findpassword() {
           <button
             onClick={handleVerifyCode}
             className={`custom-endbutton1 bg-black text-white w-1/7 px-10 py-3 rounded-full focus:outline-none border border-1 border-white ${
-              isVerificationButtonEnabled ? "" : "opacity-50 cursor-not-allowed"
+              isVerificationButtonEnabled ? "" : "cursor-not-allowed"
             }`}
           >
             완료
           </button>
           <div
-            className={`${
+            className={`verifybutton ${
               VerifyErrorMessage &&
               VerifyErrorMessage.includes("인증이 완료되었습니다")
                 ? "text-green-600"
                 : "text-red-600"
-            } ml-80`}
+            } `}
           >
             {VerifyErrorMessage}
           </div>
