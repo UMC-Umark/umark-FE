@@ -79,7 +79,7 @@ export default function ResetPassword() {
           <button
             type="button"
             onClick={handleResetPassword}
-            className="custom-tologin bg-green-400 text-black px-60 py-3 rounded-full font-bold"
+            className="custom-tologin text-black px-60 py-3 rounded-full font-bold"
           >
             로그인 하러가기
           </button>

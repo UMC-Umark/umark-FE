@@ -132,7 +132,7 @@ export default function Login() {
           <button
             type="button"
             onClick={handleLogin}
-            className="custom-loginbutton1 bg-green-400 text-black px-80 py-3 rounded-full font-bold"
+            className="custom-loginbutton1 text-black px-80 py-3 rounded-full font-bold"
           >
             로그인
           </button>
