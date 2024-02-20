@@ -18,6 +18,7 @@ export default function Signup() {
   const [isValid, setIsValid] = useState(false);
   const [validEmailMessage, setValidEmailMessage] = useState("");
   const [VerifyErrorMessage, setVerifyErrorMessage] = useState("");
+  const [isVerificationCompleted, setIsVerificationCompleted] = useState(false);
 
   const [inputValue, setInputValue] = useState("");
   const navigate = useNavigate();
@@ -57,6 +58,7 @@ export default function Signup() {
         setVerifyErrorMessage("인증번호가 일치하지 않습니다");
       }
       console.log(response.data);
+      setIsVerificationCompleted(true);
     } catch (error) {
       if (error.response && error.response.status === 400) {
         setVerifyErrorMessage("인증번호가 일치하지 않습니다");
@@ -66,6 +68,8 @@ export default function Signup() {
       console.error("인증 코드 확인 중 오류:", error);
     }
   };
+
+  const isVerificationButtonEnabled = !isVerificationCompleted;
 
   // 회원가입
   const handleSignUp = async () => {
@@ -195,17 +199,19 @@ export default function Signup() {
           />
           <button
             onClick={handleVerifyCode}
-            className="custom-endbutton1 bg-black text-white w-1/7 px-10 py-4 rounded-full focus:outline-none border border-1 border-white"
+            className={`custom-endbutton1 bg-black text-white w-1/7 px-10 py-3 rounded-full focus:outline-none border border-1 border-white ${
+              isVerificationButtonEnabled ? "" : "cursor-not-allowed"
+            }`}
           >
             완료
           </button>
           <div
-            className={`${
+            className={`verifybutton ${
               VerifyErrorMessage &&
               VerifyErrorMessage.includes("인증이 완료되었습니다")
                 ? "text-green-600"
                 : "text-red-600"
-            } ml-80`}
+            } `}
           >
             {VerifyErrorMessage}
           </div>
