@@ -21,6 +21,7 @@ export default function Card({ id, title, createdAt, hashTagContent, content, ur
     const handleLike = async () => {
         if (!accessToken) {
             // 로그인이 되어 있지 않으면 아무런 동작도 하지 않음
+            alert('로그인이 필요합니다. 로그인해주세요.');
             return;
         }
         try {
