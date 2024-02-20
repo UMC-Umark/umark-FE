@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Header from '../components/Header';
 import Menubar from '../components/Menubar';
-import SearchBox from '../components/SearchBox';
+import SearchBox from '../components/AllSearchBox';
 import CardList from '../cards/CardList';
 import BookmarkModal from '../components/BookmarkModal';
 import Pagination from '../components/Pagination';
@@ -22,7 +22,6 @@ const AllBookmarks = () => {
     const [accessToken, setAccessToken] = useState(localStorage.getItem('accessToken'));
 
     const navigate = useNavigate();
-    const navPlace = `/allbookmarks`;
 
     const refreshAccessToken = async () => {
         try {
@@ -111,9 +110,7 @@ const AllBookmarks = () => {
                 <div className="container py-5">
                     <div className="top-container">
                         <h3 className="title-big font-SUITE">모든 북마크</h3>
-                        <SearchBox
-                            navPlace={navPlace} 
-                            onSearch={handleSearch} />
+                        <SearchBox onSearch={handleSearch} />
                     </div>
                     <CardList
                         cardsData={cardsData}
