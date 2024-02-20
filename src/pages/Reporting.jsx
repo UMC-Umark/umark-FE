@@ -74,10 +74,6 @@ const ReportingPage = () => {
       return;
     }
 
-    // if (!bookmarkId) {
-    //   console.error('Bookmark ID is not available.');
-    //   return;
-    // }
 
     const token = accessToken;
     if (!token) {
@@ -111,7 +107,7 @@ const ReportingPage = () => {
         if (newToken) {
           // 재시도하기 전에 토큰을 업데이트하고 재시도
           setAccessToken(newToken);
-          await handleSubmit(event); // Retry the submit with the new token
+          await handleSubmit(event); 
         }
       } else {
         alert('신고 제출 중 오류가 발생했습니다. 다시 시도해주세요.');
@@ -127,8 +123,9 @@ const ReportingPage = () => {
 
 
   
-  return (
+ return (
     <div className="flex flex-col h-screen bg-white text-black">
+      {/* Navigation bar */}
       <nav className="flex items-center justify-between p-6 border-b border-gray-200 h-20">
         <button onClick={() => navigate(-1)} className="text-black">
           <img src={back} alt="아이콘" className="mx-auto my-3 h-8 back-icon" />
@@ -137,11 +134,12 @@ const ReportingPage = () => {
         <div style={{ width: "24px" }}></div>
       </nav>
 
-      <div className="flex-grow flex flex-col items-center px-4 py-2">
+      {/* Main content */}
+      <div className="flex-grow flex flex-col items-center px-8 py-2">
         <form onSubmit={handleSubmit} className="w-full max-w-md text-center">
-          <fieldset className="mb-4 mt-6">
+          <fieldset className="mb-80 mt-6">
             <legend className="text-lg mt-8 mb-8 font-bold">
-              해당 게시물을 신고하는 이유를 알려주세요
+              해당 게시글을 신고하는 이유를 알려주세요
             </legend>
             <RadioOptions
               options={reportOptions}
@@ -149,6 +147,7 @@ const ReportingPage = () => {
               setSelectedOption={setSelectedOption}
               onOtherSelected={setIsOtherSelected}
             />
+            {/* Conditional rendering for the textarea */}
             {isOtherSelected && (
               <textarea
                 rows="4"
@@ -159,15 +158,18 @@ const ReportingPage = () => {
               />
             )}
           </fieldset>
-          <button
-            type="submit"
-            className="mt-4 w-full bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded"
-          >
-            제출하기
-          </button>
+          <div className="submit-button-container">
+            <button
+              type="submit"
+              className="submit-button mt-4 w-full  hover:bg-red-700 text-white py-2 px-4 rounded"
+            >
+              제출하기
+            </button>
+          </div>
         </form>
       </div>
 
+      {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-85 flex justify-center items-center">
           <div className="text-white bg-transparent p-4 rounded-lg text-center">
