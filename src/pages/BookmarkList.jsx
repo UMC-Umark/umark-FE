@@ -68,6 +68,7 @@ function BookmarkList({ bookmarks, onEdit, onDelete, isMyLikedBookmark }) {
         </h2>
       )}
       <hr className="border-b-4  border-black mb-8 xl:mx-20 sm:mx-12" />
+
       <div className="xl:flex flex-wrap justify-start">
         {localBookmarks.map((bookmark, index) => {
           const date = new Date(bookmark.createdAt)

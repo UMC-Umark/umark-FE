@@ -38,28 +38,29 @@ function Home() {
           <div className="flex2">
             <div className="custom-link-container">
               <div>
-              <button
-  className="bg-transparent text-white text-lg border-b border-white p-2 mr-8 cursor-pointer transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
-  onClick={scrollToIntro}
->
-  사용방법 보러가기
-</button>
+                <button
+                  className="bg-transparent text-white text-lg border-b border-white p-2 mr-8 cursor-pointer transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
+                  onClick={scrollToIntro}
+                >
+                  사용방법 보러가기
+                </button>
 
                 {isLoggedIn ? (
                   <button
-                  className="bg-transparent text-green-500 text-lg border-b border-green-500 p-2 cursor-pointer transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
-                  onClick={handleLogout}
-                >
-                  로그아웃 하러가기
-                </button>
-                
+                    className="bg-transparent text-mint text-lg border-b border-mint p-2 cursor-pointer transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
+                    onClick={handleLogout}
+                  >
+                    로그아웃 하러가기
+                  </button>
                 ) : (
                   <Link
+
   to="/Login"
   className="inline-block bg-transparent text-green-500 text-lg border-b border-green-500 py-2 px-4 cursor-pointer transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
 >
   로그인 하러가기
 </Link>
+
                 )}
               </div>
             </div>

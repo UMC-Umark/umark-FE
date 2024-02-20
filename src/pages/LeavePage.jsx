@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import "../components/Header.css";
 import axios from "axios";
-import "../pages/LeavePage.css"
 
 export default function Findpassword() {
   const [isValid, setIsValid] = useState(false);
@@ -16,6 +15,22 @@ export default function Findpassword() {
   const [passwordConfirmError, setPasswordConfirmError] = useState("");
   const [withdrawReason, setWithdrawReason] = useState("");
   const [withdrawError, setWithdrawError] = useState("");
+
+    const refreshAccessToken = async () => {
+    try {
+      const refreshToken = localStorage.getItem('refreshToken')
+      const response = await axios.post('/member/reissue', { refreshToken })
+      const { accessToken, refreshToken: newRefreshToken } = response.data
+      localStorage.setItem('accessToken', accessToken)
+      localStorage.setItem('refreshToken', newRefreshToken)
+      return accessToken
+    } catch (error) {
+      console.error('Refresh token error:', error)
+      // Refresh Token이 유효하지 않을 경우 로그인 페이지로 이동할 수 있습니다.
+      // navigate('/login');
+      return null
+    }
+  }
 
   const navigate = useNavigate();
 
@@ -58,66 +73,60 @@ export default function Findpassword() {
 
   // 회원 탈퇴
   const handleWithdraw = async () => {
+    let accessToken = localStorage.getItem('accessToken')
+      const headers = {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+      }
+      
+      const memberId = localStorage.getItem("memberId"); // 로그인한 회원의 ID
+      const requestBody = {
+        passwordConfirm: passwordConfirm,
+      };
+
     try {
       // 유효성 검사 로직 추가
       if (passwordConfirm === "") {
         setPasswordConfirmError("비밀번호를 입력해주세요");
         return;
       }
+      
+      const response = await axios.patch(`/member/${memberId}`, requestBody, { headers });
+      console.log(response);
 
-      const memberId = localStorage.getItem("memberId"); // 로그인한 회원의 ID
-
-      const requestBody = {
-        passwordConfirm: passwordConfirm,
-      };
-      const response = await axios.patch(`/member/${memberId}`, requestBody, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`, // Bearer 스키마와 함께 토큰 전달
-          "Content-Type": "application/json",
-        },
-      });
       if (response.data.isSuccess) {
         localStorage.clear();
-        navigate("/");
+        navigate("/login");
       } else {
         setWithdrawError("회원 탈퇴에 실패했습니다.");
       }
     } catch (error) {
-      console.error("탈퇴 중 오류:", error);
-    }
-  };
+      if (error.response && error.response.status === 401) {
+        // Access Token이 만료된 경우
+        const newAccessToken = await refreshAccessToken() // 새로운 Access Token을 얻습니다.
+        if (newAccessToken) {
+          // 새로운 Access Token으로 요청을 재시도합니다.
+          accessToken = newAccessToken // 새로운 accessToken으로 업데이트
+          localStorage.setItem('accessToken', accessToken) // 로컬 스토리지 업데이트
+          try {
+            const response = await axios.patch(`/member/${memberId}`, requestBody, { headers });
+            console.log(response.data);
 
-  /*
-  const handleDeleteProfile = (e) => {
-    e.preventDefault();
-    // 회원 탈퇴 시 비밀번호를 확인하도록 로직 추가
-    if (passwordConfirm === "") {
-      setPasswordConfirmError("비밀번호를 입력해주세요");
-      return;
+            if (response.data.isSuccess) {
+              localStorage.clear();
+              navigate("/login");
+            } else {
+              setWithdrawError("회원 탈퇴에 실패했습니다.");
+            }
+          } catch (retryError) {
+            console.error('Retry failed:', retryError) // 재시도 요청 실패 처리
+          }
+        }
+      } else {
+        console.error('Request failed:', error) // 다른 종류의 오류 처리
+      }
     }
-    const memberId = localStorage.getItem("memberId"); // 로그인한 회원의 ID
-    const requestBody = {
-      passwordConfirm: passwordConfirm,
-    };
-    if (window.confirm("확인을 누르면 회원 정보가 삭제됩니다.")) {
-      axios
-        .patch(`/member/${memberId}`, requestBody, {
-          headers: {
-            Authorization: localStorage.getItem("accessToken"),
-            "Content-Type": "application/json",
-          },
-        })
-        .then((response) => {
-          localStorage.clear();
-          alert("그동안 이용해주셔서 감사합니다.");
-          navigate("/");
-        })
-        .catch((err) => alert(err.response.data.message));
-    } else {
-      return;
-    }
-  };
-  */
+  }
 
   return (
     <div className="overflow-hidden flex flex-col h-screen bg-white text-black">
