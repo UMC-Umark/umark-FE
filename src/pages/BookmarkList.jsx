@@ -63,7 +63,7 @@ function BookmarkList({ bookmarks, onEdit, onDelete, isMyLikedBookmark }) {
           your bookmark
         </h2>
       ) : (
-        <h2 className="text-3xl font-bold mb-4 font-SUITE xl:mx-20 sm:mx-12">
+        <h2 className="text-3xl ml-6 font-bold mb-4 font-SUITE xl:mx-20 sm:mx-12">
           our bookmark
         </h2>
       )}
