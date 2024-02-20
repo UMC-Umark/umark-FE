@@ -59,15 +59,15 @@ function BookmarkList({ bookmarks, onEdit, onDelete, isMyLikedBookmark }) {
     <div className="flex flex-col">
       {' '}
       {!isMyLikedBookmark ? (
-        <h2 className="text-3xl font-bold mb-4 pt-4 font-SUITE xl:mx-20 sm:mx-12">
+        <h2 className="text-3xl font-bold mb-4 pt-4 font-SUITE xl:mx-0 sm:mx-12">
           your bookmark
         </h2>
       ) : (
-        <h2 className="text-3xl font-bold mb-4 pt-4 font-SUITE xl:mx-20 sm:mx-12">
+        <h2 className="text-3xl font-bold mb-4 pt-4 font-SUITE xl:mx-0 sm:mx-12">
           our bookmark
         </h2>
       )}
-      <hr className="border-b-4 border-black mb-8 xl:mx-20 sm:mx-12" />
+      <hr className="border-b-4 border-black mb-8 xl:mx-0 sm:mx-12" />
       <div className="xl:flex flex-wrap justify-start">
         {localBookmarks.map((bookmark, index) => {
           const date = new Date(bookmark.createdAt)
