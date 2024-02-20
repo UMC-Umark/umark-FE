@@ -1,5 +1,3 @@
-// AllBookmarks.jsx
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Header from '../components/Header';
@@ -8,10 +6,14 @@ import SearchBox from '../components/SearchBox';
 import CardList from '../cards/CardList';
 import BookmarkModal from '../components/BookmarkModal';
 import Pagination from '../components/Pagination';
-import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import './Recommend.css';
 
-const AllBookmarks = () => {
+const AllSearchResults = () => {
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const initialKeyword = searchParams.get('keyWord');
+    const [keyword, setKeyword] = useState(initialKeyword);
     const [cardsData, setCardsData] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [likeCount, setLikeCount] = useState([]);
@@ -21,7 +23,6 @@ const AllBookmarks = () => {
     const [myLikeArray, setMyLikeArray] = useState([]);
     const [accessToken, setAccessToken] = useState(localStorage.getItem('accessToken'));
 
-    const navigate = useNavigate();
     const navPlace = `/allbookmarks`;
 
     const refreshAccessToken = async () => {
@@ -37,13 +38,9 @@ const AllBookmarks = () => {
             console.error('Refresh token error:', error);
             return null;
         }
-      } else {
-        console.error('Fetching data failed:', error)
-      }
-    }
-  }
+    };
 
-    const fetchData = async () => {
+    const fetchData = async (searchKeyword) => {
         try {
             const headers = {
                 Authorization: `Bearer ${accessToken}`,
@@ -58,7 +55,7 @@ const AllBookmarks = () => {
             }
 
             const response = await axios.get(
-                `/bookmarks?page=${pageNumber}&size=${pageSize}`,
+                `/bookmarks/search?keyWord=${searchKeyword}&page=1`,
                 { headers }
             );
             const responseData = response.data.data;
@@ -83,16 +80,8 @@ const AllBookmarks = () => {
     };
 
     useEffect(() => {
-        fetchData();
-    }, [pageNumber, accessToken]);
-
-    const handleSearch = async (keyword) => {
-        try {
-            navigate(`/allbookmarks/search?keyWord=${keyword}`);
-        } catch (error) {
-            console.error('Error fetching search data:', error);
-        }
-    };
+        fetchData(keyword);
+    }, [keyword, accessToken]);
 
     const handleModal = (isOpen, likeCount) => {
         isOpen ? openModal() : closeModal();
@@ -107,6 +96,14 @@ const AllBookmarks = () => {
         setIsModalOpen(false);
     };
 
+    const handleSearch = async (inputKeyword) => {
+        try {
+            setKeyword(inputKeyword);
+        } catch (error) {
+            console.error('Error fetching search data:', error);
+        }
+    };
+
     return (
         <div className="flex flex-col">
             <Header />
@@ -114,9 +111,9 @@ const AllBookmarks = () => {
             <div className="my-40">
                 <div className="container py-5">
                     <div className="top-container">
-                        <h3 className="title-big font-SUITE">모든 북마크</h3>
-                        <SearchBox
-                            navPlace={navPlace} 
+                        <h3 className="title-big font-SUITE">모든 검색 결과</h3>
+                        <SearchBox 
+                            navPlace={navPlace}
                             onSearch={handleSearch} />
                     </div>
                     <CardList
@@ -142,4 +139,4 @@ const AllBookmarks = () => {
     );
 };
 
-export default AllBookmarks;
+export default AllSearchResults;
