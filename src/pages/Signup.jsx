@@ -34,7 +34,7 @@ export default function Signup() {
       const response = await axios.post('/member/sendemail', requestBody)
       console.log(response.data)
     } catch (error) {
-      console.error('오류:', error)
+      console.error('메일 인증 전송 중 오류:', error)
     }
   }
 
