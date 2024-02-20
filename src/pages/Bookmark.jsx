@@ -8,7 +8,7 @@ function Bookmark() {
   const [url, setURL] = useState('')
   const [content, setContent] = useState('')
   const [tags, setTags] = useState('')
-  const [showTagError, setShowTagError] = useState(false)
+  const [tagError, setTagError] = useState('')
   const navigate = useNavigate()
   const refreshAccessToken = async () => {
     try {
@@ -29,12 +29,16 @@ function Bookmark() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     let accessToken = localStorage.getItem('accessToken') // 초기 accessToken
+    if (!tags.trim()) {
+      setTagError('꼭 1개 이상의 태그를 작성해주세요.') // 태그가 빈칸인 경우
+      return
+    }
     const hasInvalidTag = tags.split(' ').some((tag) => !tag.startsWith('#'))
     if (hasInvalidTag) {
-      setShowTagError(true) // 유효하지 않은 해시태그가 있으면 경고 메시지 표시
-      return // 추가 처리 중단
+      setTagError('모든 해시태그는 "#"으로 시작해야 합니다.') // 유효하지 않은 해시태그가 있는 경우
+      return
     } else {
-      setShowTagError(false) // 경고 메시지 숨김
+      setTagError('') // 에러 메시지 초기화
     }
     const headers = {
       'Content-Type': 'application/json',
@@ -95,7 +99,7 @@ function Bookmark() {
     setURL('')
     setContent('')
     setTags('')
-    setShowTagError(false)
+    setTagError(false)
   }
 
   return (
@@ -181,10 +185,8 @@ function Bookmark() {
             </div>{' '}
           </form>
           <div className="w-96 mx-auto">
-            {showTagError && (
-              <p className="text-red-500 text-md mt-2 font-SUITE">
-                모든 해시태그는 "#"으로 시작해야 합니다.
-              </p>
+            {tagError && (
+              <p className="text-red-500 text-md mt-2 font-SUITE">{tagError}</p>
             )}
           </div>
           <div className="flex justify-center gap-4 mt-4">
