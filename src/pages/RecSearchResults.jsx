@@ -57,7 +57,7 @@ const RecSearchResults = () => {
                 { headers }
             );
             const responseData = response.data.data;
-            console.log(`추천: `, responseData.data.data)
+            console.log(`추천: `, responseData)
             const dataWithIsReported = responseData.content.map((item) => ({
                 ...item,
                 isReported: item.isReported,
