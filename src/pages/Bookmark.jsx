@@ -46,7 +46,7 @@ function Bookmark() {
           content,
           hashTags: tags.split(' ').map((tag) => ({ content: tag })),
         },
-        headers
+        { headers },
       )
 
       navigate('/mybookmark') // 성공 시 취소 로직 호출
