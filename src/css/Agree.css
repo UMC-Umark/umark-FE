@@ -1,0 +1,72 @@
+.custom-signuptitle {
+    font-size:2.8rem;
+    margin-left:-5rem;
+}
+
+.custom-nextbutton1 {
+    display:inline-block;
+    font-size:1.4rem;
+    text-align: center;
+
+}
+
+.custom-ho {
+    width:60%;
+}
+.custom-agreee {
+    font-size: 1.4rem;
+}
+
+.custom-text {
+    font-size: 1.2rem;
+}
+
+/* 모바일 화면에서의 스타일 */
+@media (max-width: 767px) {
+  .custom-signuptitle {
+    font-size: 2rem; /* 제목 폰트 크기 조정 */
+    margin-left: 0px;
+    /* text-align: center; */
+}
+  
+    .custom-agreeform {
+      width: 90%; 
+      margin: 1rem auto; 
+
+      border-radius: 20px; 
+    }
+  
+    .custom-check {
+      display: block;
+    }
+  
+    .custom-text {
+      font-size: 1rem; 
+    }
+  
+    .custom-nextbutton1 {
+      width: 90%; 
+      margin: 1rem auto; 
+      font-size: 1.5rem; 
+      padding: 0.5rem 0; 
+    }
+  
+    .custom-ho {
+      width: 95%;
+    }
+  
+    
+    .custom-agreee {
+      font-size: 1rem; 
+    }
+  
+
+    .custom-details {
+      font-size: 0.875rem; 
+      width: 90%; 
+      margin: 1rem auto; 
+      padding: 0.5rem; 
+    }
+  }
+  
+  

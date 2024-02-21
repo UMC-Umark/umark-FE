@@ -1,0 +1,30 @@
+.pagination button {
+    padding: 8px;
+    margin: 0;
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    color: #909090;
+}
+
+.arrow-button {
+    &:hover {
+        color: black;
+    }
+}
+
+.page-button {
+    border: none;
+    border-radius: 9999px;
+    font-size: 1rem;
+
+    &:hover {
+        background-color: #FF6133;
+        color: white;
+    }
+
+    &[aria-current] {
+        background-color: #FF6133;
+        color: white;
+    }
+}
