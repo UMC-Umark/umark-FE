@@ -9,7 +9,9 @@
     text-align: center;
 
 }
-
+.fixed {
+  overflow-y: scroll; /* 내용이 넘칠 경우 세로 스크롤 허용 */
+}
 .custom-ho {
     width:60%;
 }
