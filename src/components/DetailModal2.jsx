@@ -1,20 +1,18 @@
-import React from 'react'
-import '../css/Modal.css'
+import React, { useState } from "react";
+import "../css/Modal.css";
 
-export default function DetailModal2({ closeDetailModal2 }) {
+export default function DetailModal2() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleToggle = () => {
+    setIsOpen(!isOpen);
+  };
   return (
-    <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-80">
-      <div className="modal-container max-w-5xl w-full h-full overflow-y-auto">
-        <div className="mt-60" />
+    <div className="fixed top-0 left-0 flex items-center justify-center bg-black border border-1 border-white">
+      <div className="modal-container max-w-5xl w-full">
+        <div className="mt-10" />
         <h1 className="custom-agree text-center flex">개인정보처리방침</h1>
-        <div className="flex justify-center">
-          <button
-            className="custom-checkbutton text-gray-300 font-bold px-10 py-2 rounded-lg inline-block"
-            onClick={closeDetailModal2}
-          >
-            닫기
-          </button>
-        </div>
+        <div className="flex justify-center"></div>
         <div className="p-4">
           제1조(목적) : umark(이하 '회사'라고 함)는 회사가 제공하고자 하는
           서비스(이하 '회사 서비스')를 이용하는 유마커(이하 '이용자' 또는
@@ -105,5 +103,5 @@ export default function DetailModal2({ closeDetailModal2 }) {
         </div>
       </div>
     </div>
-  )
+  );
 }
